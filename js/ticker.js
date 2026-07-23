@@ -15,7 +15,6 @@ let activeAlerts = [];
 
 
 
-
 /*
 ====================================
  ICONES SPORTS
@@ -180,7 +179,7 @@ return "";
 
 let html = `
 
-<div class="broadcast-section">
+<div class="broadcast-section ${games.length <= 2 ? "static-section" : ""}">
 
 <div class="section-title">
 
