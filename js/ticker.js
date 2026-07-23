@@ -846,12 +846,14 @@ game.state === "in"
 if(pga){
 const pgaLeader =
 pga[0]?.competitions?.[0]?.competitors?.find(player =>
-player.position?.id === "1"
+    player.status?.position?.displayName === "1"
+    ||
+    player.status?.position?.displayName === "T1"
 );
 console.log("PGA POSITIONS",
 pga[0]?.competitions?.[0]?.competitors?.map(player => ({
     name: player.athlete?.displayName,
-    position: player.position?.displayName
+    position: player.status?.position?.displayName
 })));
  
  liveGames.push({
