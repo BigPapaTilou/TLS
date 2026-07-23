@@ -30,10 +30,6 @@ LIGUE1:
 
 
 
-
-
-
-
 /*
 ====================================
  FETCH SPORT
@@ -54,21 +50,17 @@ return [];
 }
 
 
-
 const response =
 await fetch(
 ESPN_ENDPOINTS[sport]
 );
 
 
-
 const data =
 await response.json();
 
 
-
 return data.events || [];
-
 
 
 }
@@ -77,18 +69,13 @@ catch(error){
 
 
 console.error(
-
 "ESPN ERROR",
-
 sport,
-
 error
-
 );
 
 
 return [];
-
 
 }
 
@@ -135,9 +122,9 @@ await fetchSport(sport);
 
 games.push(
 
-...events.map(
+...events
 
-event=>
+.map(event=>
 
 normalizeEvent(
 event,
@@ -145,6 +132,8 @@ sport
 )
 
 )
+
+.filter(Boolean)
 
 );
 
@@ -181,7 +170,6 @@ try{
 
 
 const response =
-
 await fetch(
 
 "https://site.api.espn.com/apis/site/v2/sports/golf/leaderboard"
@@ -191,7 +179,6 @@ await fetch(
 
 
 const data =
-
 await response.json();
 
 
@@ -246,7 +233,6 @@ const competition =
 event.competitions?.[0];
 
 
-
 if(!competition){
 
 return null;
@@ -276,7 +262,6 @@ c=>c.homeAway==="away"
 
 
 
-
 return {
 
 
@@ -301,7 +286,6 @@ home?.team?.displayName
 
 
 
-
 logo1:
 away?.team?.logo
 ||
@@ -316,8 +300,6 @@ home?.team?.logo
 
 
 
-
-
 score1:
 away?.score
 ||
@@ -329,7 +311,6 @@ score2:
 home?.score
 ||
 "0",
-
 
 
 
@@ -354,7 +335,6 @@ new Date(event.date),
 
 
 
-
 plays:
 competition.plays
 ||
@@ -363,7 +343,6 @@ competition.plays
 
 
 raw:event
-
 
 
 };
@@ -389,25 +368,14 @@ raw:event
 function filterGames(games){
 
 
-
 const now =
 new Date();
-
-
 
 
 
 return games
 
 .filter(game=>{
-
-
-if(!game){
-
-return false;
-
-}
-
 
 
 const hours =
@@ -440,11 +408,10 @@ return true;
 
 
 if(
-game.state==="pre"
+(game.state==="pre" ||
+game.state==="scheduled")
 &&
-hours<=48
-&&
-hours>=-1
+hours<=24
 ){
 
 return true;
@@ -454,8 +421,8 @@ return true;
 
 
 
-return false;
 
+return false;
 
 
 })
@@ -471,10 +438,13 @@ const priority={
 in:0,
 
 
-post:1,
+pre:1,
 
 
-pre:2
+scheduled:1,
+
+
+post:2
 
 
 };
@@ -483,10 +453,7 @@ pre:2
 
 return (
 
-priority[a.state]
-
--
-
+priority[a.state] -
 priority[b.state]
 
 );
