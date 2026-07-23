@@ -261,7 +261,7 @@ justify-content:center;
     animation:none;
 }
 .broadcast-section:not(.static-section){
-    animation:scrollTicker 30s linear infinite;
+    animation:scrollTicker 45s linear infinite;
 }
 
 
