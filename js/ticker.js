@@ -4,6 +4,20 @@ const ticker = document.getElementById("ticker-track");
 
 /*
 ====================================
+ TLS ALERT MEMORY
+====================================
+*/
+
+
+let activeAlerts = [];
+
+
+
+
+
+
+/*
+====================================
  ICONES SPORTS
 ====================================
 */
@@ -12,28 +26,28 @@ const ticker = document.getElementById("ticker-track");
 function getSportIcon(sport){
 
 
-    const icons = {
+const icons = {
 
 
-        NFL:"🏈",
+NFL:"🏈",
 
-        NCAA:"🏈",
+NCAA:"🏈",
 
-        NBA:"🏀",
+NBA:"🏀",
 
-        MLB:"⚾",
+MLB:"⚾",
 
-        PGA:"⛳",
+PGA:"⛳",
 
-        EPL:"⚽",
+EPL:"⚽",
 
-        LIGUE1:"⚽"
-
-
-    };
+LIGUE1:"⚽"
 
 
-    return icons[sport] || "🏆";
+};
+
+
+return icons[sport] || "🏆";
 
 
 }
@@ -43,9 +57,12 @@ function getSportIcon(sport){
 
 
 
+
+
+
 /*
 ====================================
- FORMAT DATE MATCH A VENIR
+ DATE UPCOMING
 ====================================
 */
 
@@ -53,26 +70,24 @@ function getSportIcon(sport){
 function formatUpcoming(date){
 
 
-    return new Date(date)
-    .toLocaleString(
-        "fr-FR",
-        {
+return new Date(date)
+.toLocaleString(
+"fr-FR",
+{
 
+weekday:"short",
 
-            weekday:"short",
+day:"2-digit",
 
-            day:"2-digit",
+month:"short",
 
-            month:"short",
+hour:"2-digit",
 
-            hour:"2-digit",
+minute:"2-digit"
 
-            minute:"2-digit"
+}
 
-
-        }
-
-    );
+);
 
 
 }
@@ -83,9 +98,11 @@ function formatUpcoming(date){
 
 
 
+
+
 /*
 ====================================
- BADGE STATUS
+ STATUS
 ====================================
 */
 
@@ -94,55 +111,52 @@ function createStatus(game){
 
 
 
-    if(game.state === "in"){
+if(game.state==="in"){
 
 
-        return `
+return `
 
-        <span class="badge live">
+<span class="badge live">
 
-        🔴 LIVE
+🔴 LIVE
 
-        </span>
+</span>
 
-        `;
+`;
 
-
-    }
-
-
-
-
-    if(game.state === "post"){
-
-
-        return `
-
-        <span class="badge final">
-
-        FINAL
-
-        </span>
-
-        `;
-
-
-    }
+}
 
 
 
 
-    return `
+if(game.state==="post"){
 
 
-    <span class="badge upcoming">
+return `
 
-    ${formatUpcoming(game.date)}
+<span class="badge final">
 
-    </span>
+FINAL
+
+</span>
+
+`;
+
+}
 
 
-    `;
+
+
+return `
+
+<span class="badge upcoming">
+
+${formatUpcoming(game.date)}
+
+</span>
+
+`;
+
 
 
 }
@@ -157,7 +171,7 @@ function createStatus(game){
 
 /*
 ====================================
- CARTE MATCH
+ GAME CARD
 ====================================
 */
 
@@ -185,9 +199,7 @@ ${game.sport}
 </span>
 
 
-
 ${createStatus(game)}
-
 
 
 </div>
@@ -197,9 +209,7 @@ ${createStatus(game)}
 
 
 
-
 <div class="team-row">
-
 
 
 <div class="team-name">
@@ -235,9 +245,7 @@ ${game.score1}
 
 
 
-
 <div class="team-row">
-
 
 
 <div class="team-name">
@@ -284,11 +292,86 @@ ${game.status || ""}
 
 
 
+
 </div>
 
 
-
 `;
+
+
+
+}
+
+
+
+
+
+
+
+
+
+/*
+====================================
+ ALERT MANAGEMENT
+====================================
+*/
+
+
+function addAlert(alert){
+
+
+
+const id =
+
+alert.type
++
+alert.team;
+
+
+
+
+
+if(
+activeAlerts.includes(id)
+){
+
+return "";
+
+}
+
+
+
+
+
+
+activeAlerts.push(id);
+
+
+
+
+
+
+setTimeout(()=>{
+
+
+activeAlerts =
+
+activeAlerts.filter(
+
+item => item !== id
+
+);
+
+
+},5000);
+
+
+
+
+
+
+
+return createAlertCard(alert);
 
 
 
@@ -327,8 +410,7 @@ await fetchAllSports();
 if(!games.length){
 
 
-ticker.innerHTML = `
-
+ticker.innerHTML=`
 
 <div class="game-card pre">
 
@@ -340,20 +422,16 @@ TLS SPORTS
 </div>
 
 
-
 <div class="detail">
 
-Aucun événement actuellement
+Aucun événement
 
 </div>
 
 
-
 </div>
-
 
 `;
-
 
 return;
 
@@ -366,8 +444,7 @@ return;
 
 
 
-let content = "";
-
+let content="";
 
 
 
@@ -380,10 +457,6 @@ games.forEach(game=>{
 
 
 
-/*
-Détection événement
-*/
-
 const alert =
 detectEvent(game);
 
@@ -391,9 +464,7 @@ detectEvent(game);
 
 
 
-/*
-Ajout Alert Card
-*/
+
 
 if(
 alert
@@ -403,7 +474,8 @@ CONFIG.enableAlerts
 
 
 content +=
-createAlertCard(alert);
+
+addAlert(alert);
 
 
 }
@@ -414,12 +486,8 @@ createAlertCard(alert);
 
 
 
-/*
-Ajout carte normale
-*/
-
-
 content +=
+
 createCard(game);
 
 
@@ -437,11 +505,12 @@ createCard(game);
 
 
 /*
-Duplication pour boucle infinie
+Boucle infinie
 */
 
 
 ticker.innerHTML =
+
 content + content;
 
 
@@ -451,9 +520,8 @@ content + content;
 
 
 ticker.style.animationDuration =
+
 CONFIG.tickerSpeed + "s";
-
-
 
 
 
@@ -461,11 +529,11 @@ CONFIG.tickerSpeed + "s";
 
 console.log(
 
-"TLS ticker",
+"TLS UPDATE",
 
 games.length,
 
-"événements"
+"events"
 
 );
 
@@ -479,21 +547,23 @@ games.length,
 catch(error){
 
 
+
 console.error(
 
-"Erreur TLS ticker",
+"TLS ERROR",
 
 error
 
 );
 
 
-}
-
-
 
 }
 
+
+
+
+}
 
 
 
@@ -505,7 +575,7 @@ error
 
 /*
 ====================================
- INITIALISATION
+ START
 ====================================
 */
 
@@ -516,15 +586,6 @@ updateTicker();
 
 
 
-
-
-
-
-/*
-====================================
- REFRESH AUTOMATIQUE
-====================================
-*/
 
 
 setInterval(
