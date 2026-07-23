@@ -848,14 +848,19 @@ if(pga){
         sport:"PGA",
         state:"in",
 
-        team1:pga[0]?.name || "PGA TOUR",
+        team1:
+        pga[0]?.eventName ||
+        pga[0]?.name ||
+        "PGA TOUR",
+
         team2:
-pga[0]?.athlete?.displayName ||
-pga[0]?.name ||
-"Leader",
+        pga[0]?.athlete?.displayName ||
+        "Leader",
 
         score1:"",
-        score2:"",
+        score2:
+        pga[0]?.score ||
+        "",
 
         logo1:"",
         logo2:"",
