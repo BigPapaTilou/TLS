@@ -729,19 +729,34 @@ console.log(
     );
 
 
-    console.log(
-    "MLB LAST PLAY",
-    game.raw.competitions[0]
+    const playText =
+    game.raw
+    ?.competitions?.[0]
     ?.situation
     ?.lastPlay
     ?.text
-);
+    ?.toLowerCase();
+
+
+    console.log(
+        "MLB LAST PLAY",
+        playText
+    );
+
+
+    if(
+        playText?.includes("home run") ||
+        playText?.includes("homered")
+    ){
+
+        console.log(
+            "🚨 MLB HOME RUN ALERT",
+            playText
+        );
+
+    }
 
 }
-
-}
-
-        }
 
 
         previousScores[game.id] = {
