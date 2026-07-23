@@ -3,30 +3,23 @@ console.log("API JS CHARGE");
 
 const ESPN_ENDPOINTS = {
 
-
 NFL:
 "https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard",
-
 
 NCAA:
 "https://site.api.espn.com/apis/site/v2/sports/football/college-football/scoreboard",
 
-
 NBA:
 "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard",
-
 
 MLB:
 "https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard",
 
-
 EPL:
 "https://site.api.espn.com/apis/site/v2/sports/soccer/eng.1/scoreboard",
 
-
 LIGUE1:
 "https://site.api.espn.com/apis/site/v2/sports/soccer/fra.1/scoreboard"
-
 
 };
 
@@ -34,18 +27,9 @@ LIGUE1:
 
 
 
-/*
-====================================
- FETCH SPORT
-====================================
-*/
-
-
 async function fetchSport(sport){
 
-
 try{
-
 
 if(!ESPN_ENDPOINTS[sport]){
 
@@ -54,11 +38,9 @@ return [];
 }
 
 
-
 const response = await fetch(
 ESPN_ENDPOINTS[sport]
 );
-
 
 
 if(!response.ok){
@@ -74,9 +56,7 @@ return [];
 }
 
 
-
 const data = await response.json();
-
 
 
 return data.events || [];
@@ -84,9 +64,7 @@ return data.events || [];
 
 }
 
-
 catch(error){
-
 
 console.error(
 "ESPN ERROR",
@@ -94,12 +72,10 @@ sport,
 error
 );
 
-
 return [];
 
 }
 
-
 }
 
 
@@ -110,18 +86,9 @@ return [];
 
 
 
-/*
-====================================
- FETCH ALL SPORTS
-====================================
-*/
-
-
 async function fetchAllSports(){
 
-
 let games=[];
-
 
 
 if(
@@ -139,10 +106,7 @@ return [];
 
 
 
-
-
 for(const sport of CONFIG.sports){
-
 
 
 if(sport==="PGA"){
@@ -150,7 +114,6 @@ if(sport==="PGA"){
 continue;
 
 }
-
 
 
 const events =
@@ -176,10 +139,7 @@ sport
 );
 
 
-
 }
-
-
 
 
 
@@ -191,15 +151,23 @@ games.length
 
 
 console.table(
-games.slice(0,10).map(game=>({
 
-sport: game.sport,
-state: game.state,
-date: game.date,
-team1: game.team1,
-team2: game.team2
+games
+
+.filter(game=>game.sport==="MLB")
+
+.slice(0,10)
+
+.map(game=>({
+
+sport:game.sport,
+state:game.state,
+date:game.date,
+team1:game.team1,
+team2:game.team2
 
 }))
+
 );
 
 
@@ -229,15 +197,7 @@ return filtered;
 
 
 
-/*
-====================================
- PGA TOUR
-====================================
-*/
-
-
 async function fetchPGA(){
-
 
 try{
 
@@ -253,12 +213,10 @@ const response = await fetch(
 const data = await response.json();
 
 
-
 return data.events || null;
 
 
 }
-
 
 catch(error){
 
@@ -274,7 +232,6 @@ return null;
 
 }
 
-
 }
 
 
@@ -283,13 +240,6 @@ return null;
 
 
 
-
-
-/*
-====================================
- NORMALIZE EVENT
-====================================
-*/
 
 
 function normalizeEvent(event,sport){
@@ -328,9 +278,7 @@ c=>c.homeAway==="away"
 
 return {
 
-
 id:event.id,
-
 
 sport,
 
@@ -373,12 +321,7 @@ date:
 new Date(event.date),
 
 
-plays:
-competition.plays || [],
-
-
 raw:event
-
 
 };
 
@@ -393,13 +336,6 @@ raw:event
 
 
 
-/*
-====================================
- FILTER
-====================================
-*/
-
-
 function filterGames(games){
 
 
@@ -407,9 +343,7 @@ const now = new Date();
 
 
 
-return games
-
-.filter(game=>{
+return games.filter(game=>{
 
 
 if(
@@ -424,18 +358,16 @@ return false;
 
 
 
-
-
 const hours =
-(game.date.getTime() - now.getTime()) / 3600000;
+
+(game.date.getTime() - now.getTime())
+/3600000;
 
 
 
 
 
-/*
- MATCH EN COURS
-*/
+// LIVE
 
 if(
 game.state==="in"
@@ -449,18 +381,15 @@ return true;
 
 
 
-/*
- MATCH A VENIR
- 48H
-*/
+// MATCH A VENIR
 
 if(
 (game.state==="pre" ||
 game.state==="scheduled")
 &&
-hours <= 48
+hours >= -6
 &&
-hours >= -2
+hours <= 48
 ){
 
 return true;
@@ -471,21 +400,17 @@ return true;
 
 
 
-/*
- MATCH TERMINE RECENT
-*/
+// MATCH TERMINE RECENT
 
 if(
 game.state==="post"
 &&
-Math.abs(hours)<=12
+hours >= -12
 ){
 
 return true;
 
 }
-
-
 
 
 
@@ -495,12 +420,10 @@ return false;
 })
 
 
-
 .sort((a,b)=>{
 
 
 const priority={
-
 
 in:0,
 
@@ -510,9 +433,7 @@ scheduled:1,
 
 post:2
 
-
 };
-
 
 
 return (
