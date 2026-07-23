@@ -364,7 +364,9 @@ return false;
 
 
 const hours =
-(game.date.getTime()-now.getTime())/3600000;
+
+(game.date.getTime()-now.getTime())
+/3600000;
 
 
 
@@ -384,7 +386,7 @@ game.team2
 
 
 
-// LIVE
+// LIVE toujours affiché
 
 if(
 game.state==="in"
@@ -401,15 +403,16 @@ return true;
 // MATCHS A VENIR DANS LES 48H
 
 if(
-(game.state==="pre" ||
-game.state==="scheduled")
-&&
-hours >= -1
-&&
-hours <= 48
+game.state==="pre" ||
+game.state==="scheduled"
 ){
 
-return true;
+return (
+
+hours >= 0 &&
+hours <= 48
+
+);
 
 }
 
@@ -421,11 +424,14 @@ return true;
 
 if(
 game.state==="post"
-&&
-hours >= -12
 ){
 
-return true;
+return (
+
+hours >= -12 &&
+hours <= 0
+
+);
 
 }
 
@@ -436,7 +442,9 @@ return true;
 return false;
 
 
+
 })
+
 
 
 .sort((a,b)=>{
@@ -459,7 +467,9 @@ post:2
 return (
 
 (priority[a.state] ?? 3)
+
 -
+
 (priority[b.state] ?? 3)
 
 );
