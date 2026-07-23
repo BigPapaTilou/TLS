@@ -9,7 +9,7 @@ const ticker = document.getElementById("ticker-track");
 
 
 let activeAlerts = [];
-
+let previousScores = {};
 let activeCardEvents = {};
 
 
@@ -679,7 +679,18 @@ await fetchAllSports();
 
 
 console.log("LIVE RAW DATA", games.find(game => game.state === "in"));
+games.forEach(game => {
 
+    if(game.state === "in"){
+
+        previousScores[game.id] = {
+            score1: game.score1,
+            score2: game.score2
+        };
+
+    }
+
+});
 
 
 
