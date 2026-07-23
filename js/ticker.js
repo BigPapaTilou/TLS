@@ -962,8 +962,7 @@ Aucun événement
 
 
 ticker.innerHTML =
-
-content + content;
+content;
 
 
 
