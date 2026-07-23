@@ -716,22 +716,25 @@ console.log(
 
 
     if(
-        game.sport === "MLB"
-    ){
+    game.sport === "MLB"
+){
 
-        console.log(
-            "MLB SCORE CHANGE",
-            game.team1,
-            oldScore,
-            "→",
-            game.score1,
-            game.score2
-        );
-console.log(
-    "MLB RAW",
-    game.raw
-);
-    }
+    console.log(
+        "MLB SCORE CHANGE",
+        game.team1,
+        oldScore,
+        "→",
+        game.score1,
+        game.score2
+    );
+
+
+    console.log(
+        "MLB COMPETITION",
+        game.raw.competitions[0]
+    );
+
+}
 
 }
 
