@@ -1142,15 +1142,19 @@ function getMLBStatus(game){
 
     const status = game.raw?.status;
 
-const situation =
-game.raw?.competitions?.[0]?.situation;
+    const situation =
+        game.raw?.competitions?.[0]?.situation;
+
 
     if(!status){
+
         return game.status || "LIVE";
+
     }
 
 
     const inning = status.period || "";
+
 
     const inningLabel =
         inning
@@ -1159,12 +1163,33 @@ game.raw?.competitions?.[0]?.situation;
 
 
     const outs =
-    situation?.outs !== undefined
-    ? `${situation.outs} out${situation.outs > 1 ? "s" : ""}`
-    : "";
+        situation?.outs !== undefined
+        ? `${situation.outs} out${situation.outs > 1 ? "s" : ""}`
+        : "";
 
 
-    return `${inningLabel}${outs ? " • " + outs : ""}`;
+    const display =
+        status.displayValue ||
+        status.type?.shortDetail ||
+        "";
+
+
+    let halfLabel = "";
+
+
+    if(display.toLowerCase().includes("top")){
+
+        halfLabel = "▲ Haut";
+
+    }
+    else if(display.toLowerCase().includes("bot")){
+
+        halfLabel = "▼ Bas";
+
+    }
+
+
+    return `${halfLabel ? halfLabel + " " : ""}${inningLabel}${outs ? " • " + outs : ""}`;
 
 }
 
