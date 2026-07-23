@@ -225,11 +225,6 @@ function createCard(game){
 
 return `
 
-<div class="game-card ${game.state}">
-
-
-return `
-
 
 <div class="game-card ${game.state}">
 
