@@ -150,25 +150,37 @@ games.length
 
 
 
+
+
+/*
+====================================
+ DEBUG ESPN
+====================================
+*/
+
+
 console.table(
 
-games
-
-.filter(game=>game.sport==="MLB")
-
-.slice(0,10)
-
-.map(game=>({
+games.map(game=>({
 
 sport:game.sport,
+
 state:game.state,
+
 date:game.date,
+
+hours:
+(game.date.getTime()-new Date().getTime())/3600000,
+
 team1:game.team1,
+
 team2:game.team2
 
 }))
 
 );
+
+
 
 
 
@@ -367,12 +379,6 @@ const hours =
 
 
 
-/*
-====================================
- LIVE
-====================================
-*/
-
 if(
 game.state==="in"
 ){
@@ -384,12 +390,6 @@ return true;
 
 
 
-
-/*
-====================================
- MATCH A VENIR 48H
-====================================
-*/
 
 if(
 (
@@ -410,17 +410,9 @@ return true;
 
 
 
-/*
-====================================
- FINAL RECENT
-====================================
-*/
-
 if(
 game.state==="post"
-){
-
-if(
+&&
 Math.abs(hours)<=12
 ){
 
@@ -428,21 +420,13 @@ return true;
 
 }
 
-}
 
 
 
-
-
-/*
-====================================
- SECURITE ESPN
-====================================
-*/
 
 if(
 hours >= -2 &&
-hours <= 48
+hours <=48
 ){
 
 return true;
