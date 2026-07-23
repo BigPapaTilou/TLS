@@ -188,6 +188,18 @@ console.log(
 games.length
 );
 
+console.table(
+games.slice(0,10).map(game=>({
+
+sport: game.sport,
+state: game.state,
+date: game.date,
+team1: game.team1,
+team2: game.team2
+
+}))
+);
+
 
 
 const filtered =
