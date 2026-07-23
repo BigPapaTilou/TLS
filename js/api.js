@@ -203,6 +203,17 @@ filtered
 );
 
 
+console.log(
+"STATES AFTER FILTER",
+filtered.map(game => ({
+sport: game.sport,
+state: game.state,
+team1: game.team1,
+team2: game.team2
+}))
+);
+
+
 
 return filtered;
 
