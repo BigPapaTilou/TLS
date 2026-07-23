@@ -1,30 +1,21 @@
 *{
 
-    box-sizing:border-box;
+box-sizing:border-box;
 
 }
-
 
 
 body{
 
+margin:0;
 
-    margin:0;
+padding:0;
 
-    padding:0;
+overflow:hidden;
 
-    overflow:hidden;
+background:#050505;
 
-    background:#050505;
-
-    font-family:
-
-    Arial,
-
-    Helvetica,
-
-    sans-serif;
-
+font-family:Arial, Helvetica, sans-serif;
 
 }
 
@@ -32,66 +23,48 @@ body{
 
 
 
-/*
-=========================
- INTRO TLS
-=========================
-*/
+
+
+/* =========================
+INTRO TLS
+========================= */
 
 
 #intro{
 
+position:fixed;
 
-    position:fixed;
+inset:0;
 
-    inset:0;
+background:#050505;
 
+display:flex;
 
-    background:#050505;
+align-items:center;
 
+justify-content:center;
 
-    display:flex;
+z-index:100;
 
-    align-items:center;
-
-    justify-content:center;
-
-
-    z-index:100;
-
-
-    animation:
-
-    introFade 2.2s forwards;
-
+animation:introFade 2.2s forwards;
 
 }
-
 
 
 
 .tls-intro{
 
+font-size:90px;
 
-    font-size:90px;
+font-weight:900;
 
+letter-spacing:12px;
 
-    font-weight:900;
+color:white;
 
-
-    letter-spacing:12px;
-
-
-    color:white;
-
-
-    animation:
-
-    tlsReveal 1.5s ease;
-
+animation:tlsReveal 1.5s ease;
 
 }
-
 
 
 
@@ -100,56 +73,45 @@ body{
 @keyframes tlsReveal{
 
 
-    from{
+from{
 
+opacity:0;
 
-        opacity:0;
-
-        transform:scale(.7);
-
-
-    }
-
-
-    to{
-
-
-        opacity:1;
-
-        transform:scale(1);
-
-
-    }
-
+transform:scale(.7);
 
 }
 
 
+to{
 
+opacity:1;
+
+transform:scale(1);
+
+}
+
+
+}
 
 
 
 @keyframes introFade{
 
 
-    0%,70%{
+0%,70%{
+
+opacity:1;
+
+}
 
 
-        opacity:1;
+100%{
 
+opacity:0;
 
-    }
+visibility:hidden;
 
-
-    100%{
-
-
-        opacity:0;
-
-        visibility:hidden;
-
-
-    }
+}
 
 
 }
@@ -160,41 +122,27 @@ body{
 
 
 
-
-
-/*
-=========================
- TICKER GLOBAL
-=========================
-*/
+/* =========================
+TICKER
+========================= */
 
 
 .ticker-wrapper{
 
 
-    height:120px;
+height:120px;
 
+width:100%;
 
-    width:100%;
+display:flex;
 
+align-items:center;
 
-    display:flex;
+background:#080808;
 
+border-top:1px solid #222;
 
-    align-items:center;
-
-
-    background:#080808;
-
-
-    border-top:
-
-    1px solid #202020;
-
-
-    border-bottom:
-
-    1px solid #202020;
+border-bottom:1px solid #222;
 
 
 }
@@ -203,50 +151,32 @@ body{
 
 
 
-/*
-=========================
- LOGO TLS
-=========================
-*/
-
-
 .tls-logo{
 
 
-    height:100%;
+height:100%;
 
+width:150px;
 
-    width:150px;
+flex-shrink:0;
 
+display:flex;
 
-    flex-shrink:0;
+align-items:center;
 
+justify-content:center;
 
-    display:flex;
+font-size:60px;
 
+font-weight:900;
 
-    align-items:center;
+color:white;
 
+background:#050505;
 
-    justify-content:center;
+position:relative;
 
-
-    font-size:60px;
-
-
-    font-weight:900;
-
-
-    color:white;
-
-
-    background:#060606;
-
-
-    position:relative;
-
-
-    z-index:10;
+z-index:5;
 
 
 }
@@ -258,37 +188,26 @@ body{
 .tls-logo::after{
 
 
-    content:"";
+content:"";
 
+position:absolute;
 
-    position:absolute;
+right:18px;
 
+bottom:22px;
 
-    width:10px;
+width:10px;
 
+height:10px;
 
-    height:10px;
+background:#e10600;
 
+border-radius:50%;
 
-    right:18px;
-
-
-    bottom:22px;
-
-
-    background:#e10600;
-
-
-    border-radius:50%;
-
-
-    animation:
-
-    tlsPulse 3s infinite;
+animation:tlsPulse 3s infinite;
 
 
 }
-
 
 
 
@@ -297,27 +216,18 @@ body{
 @keyframes tlsPulse{
 
 
-    0%{
+0%{
+
+box-shadow:0 0 0 0 rgba(225,6,0,.8);
+
+}
 
 
-        box-shadow:
+100%{
 
-        0 0 0 0 rgba(225,6,0,.8);
+box-shadow:0 0 0 25px rgba(225,6,0,0);
 
-
-    }
-
-
-
-    100%{
-
-
-        box-shadow:
-
-        0 0 0 25px rgba(225,6,0,0);
-
-
-    }
+}
 
 
 }
@@ -328,23 +238,12 @@ body{
 
 
 
-
-
-
-/*
-=========================
- ZONE DEFILEMENT
-=========================
-*/
-
-
 .ticker-window{
 
 
-    overflow:hidden;
+overflow:hidden;
 
-
-    flex:1;
+flex:1;
 
 
 }
@@ -356,21 +255,15 @@ body{
 #ticker-track{
 
 
-    display:flex;
+display:flex;
 
+align-items:center;
 
-    align-items:center;
+gap:18px;
 
+width:max-content;
 
-    gap:18px;
-
-
-    width:max-content;
-
-
-    animation:
-
-    scrollTicker linear infinite;
+animation:scrollTicker linear infinite;
 
 
 }
@@ -382,27 +275,18 @@ body{
 @keyframes scrollTicker{
 
 
-    from{
+from{
+
+transform:translateX(0);
+
+}
 
 
-        transform:
+to{
 
-        translateX(0);
+transform:translateX(-50%);
 
-
-    }
-
-
-
-    to{
-
-
-        transform:
-
-        translateX(-50%);
-
-
-    }
+}
 
 
 }
@@ -414,71 +298,50 @@ body{
 
 
 
-
-/*
-=========================
- CARTES MATCHS
-=========================
-*/
+/* =========================
+MATCH CARDS
+========================= */
 
 
 .game-card{
 
 
-    width:330px;
+width:330px;
 
+height:100px;
 
-    height:100px;
+flex-shrink:0;
 
+background:#141414;
 
-    flex-shrink:0;
+border-radius:14px;
 
+padding:10px 15px;
 
-    background:#141414;
+color:white;
 
+display:flex;
 
-    border-radius:14px;
+flex-direction:column;
 
+justify-content:center;
 
-    padding:10px 15px;
+border-left:5px solid #555;
 
-
-    color:white;
-
-
-    display:flex;
-
-
-    flex-direction:column;
-
-
-    justify-content:center;
-
-
-    border-left:
-
-    5px solid #555;
-
-
-    transition:.25s;
+transition:.25s;
 
 
 }
-
-
 
 
 
 .game-card:hover{
 
 
-    transform:
-
-    scale(1.04);
+transform:scale(1.04);
 
 
 }
-
 
 
 
@@ -487,11 +350,9 @@ body{
 .game-card.in{
 
 
-    border-color:#e10600;
-
+border-color:#e10600;
 
 }
-
 
 
 
@@ -499,11 +360,9 @@ body{
 .game-card.post{
 
 
-    border-color:#666;
-
+border-color:#666;
 
 }
-
 
 
 
@@ -511,8 +370,7 @@ body{
 .game-card.pre{
 
 
-    border-color:#2463ff;
-
+border-color:#2463ff;
 
 }
 
@@ -522,36 +380,29 @@ body{
 
 
 
-
-/*
-=========================
- HEADER CARTE
-=========================
-*/
+/* =========================
+CARD HEADER
+========================= */
 
 
 .card-header{
 
 
-    display:flex;
+display:flex;
 
+align-items:center;
 
-    align-items:center;
+gap:8px;
 
+font-size:12px;
 
-    gap:8px;
+color:#aaa;
 
-
-    font-size:12px;
-
-
-    color:#aaa;
-
-
-    margin-bottom:5px;
+margin-bottom:5px;
 
 
 }
+
 
 
 
@@ -559,24 +410,17 @@ body{
 .badge{
 
 
-    margin-left:auto;
+margin-left:auto;
 
+padding:3px 8px;
 
-    padding:
+border-radius:20px;
 
-    3px 8px;
+font-size:10px;
 
+font-weight:900;
 
-    border-radius:20px;
-
-
-    font-size:10px;
-
-
-    font-weight:900;
-
-
-    color:white;
+color:white;
 
 
 }
@@ -587,12 +431,9 @@ body{
 .badge.live{
 
 
-    background:#e10600;
+background:#e10600;
 
-
-    animation:
-
-    livePulse 2s infinite;
+animation:livePulse 2s infinite;
 
 
 }
@@ -600,11 +441,10 @@ body{
 
 
 
-
 .badge.final{
 
 
-    background:#555;
+background:#555;
 
 
 }
@@ -615,10 +455,11 @@ body{
 .badge.upcoming{
 
 
-    background:#2463ff;
+background:#2463ff;
 
 
 }
+
 
 
 
@@ -627,22 +468,11 @@ body{
 @keyframes livePulse{
 
 
-    0%,100%{
+50%{
 
+opacity:.5;
 
-        opacity:1;
-
-
-    }
-
-
-    50%{
-
-
-        opacity:.6;
-
-
-    }
+}
 
 
 }
@@ -651,33 +481,21 @@ body{
 
 
 
-
-
-
-/*
-=========================
- EQUIPES
-=========================
-*/
 
 
 .team-row{
 
 
-    display:flex;
+display:flex;
 
+align-items:center;
 
-    align-items:center;
+justify-content:space-between;
 
-
-    justify-content:space-between;
-
-
-    height:25px;
+height:25px;
 
 
 }
-
 
 
 
@@ -685,23 +503,18 @@ body{
 .team-name{
 
 
-    display:flex;
+display:flex;
 
+align-items:center;
 
-    align-items:center;
+gap:8px;
 
+font-size:14px;
 
-    gap:8px;
-
-
-    font-size:14px;
-
-
-    font-weight:600;
+font-weight:600;
 
 
 }
-
 
 
 
@@ -709,18 +522,14 @@ body{
 .team-name img{
 
 
-    width:20px;
+width:20px;
 
+height:20px;
 
-    height:20px;
-
-
-    object-fit:contain;
+object-fit:contain;
 
 
 }
-
-
 
 
 
@@ -728,20 +537,16 @@ body{
 .score{
 
 
-    font-size:24px;
+font-size:24px;
 
+font-weight:900;
 
-    font-weight:900;
+min-width:30px;
 
-
-    min-width:30px;
-
-
-    text-align:right;
+text-align:right;
 
 
 }
-
 
 
 
@@ -750,13 +555,11 @@ body{
 .detail{
 
 
-    font-size:11px;
+font-size:11px;
 
+color:#777;
 
-    color:#777;
-
-
-    margin-top:3px;
+margin-top:3px;
 
 
 }
@@ -768,41 +571,165 @@ body{
 
 
 
+/* =========================
+TLS ALERT CARD
+========================= */
 
-/*
-=========================
- MOBILE
-=========================
-*/
+
+.alert-card{
+
+
+width:280px;
+
+height:100px;
+
+flex-shrink:0;
+
+border-radius:14px;
+
+background:
+
+linear-gradient(
+135deg,
+#3b0000,
+#111
+);
+
+
+border:
+
+2px solid #e10600;
+
+
+display:flex;
+
+flex-direction:column;
+
+align-items:center;
+
+justify-content:center;
+
+
+color:white;
+
+
+animation:
+
+alertImpact 1s infinite;
+
+
+box-shadow:
+
+0 0 25px rgba(225,6,0,.35);
+
+
+}
+
+
+
+
+
+.alert-title{
+
+
+font-size:20px;
+
+font-weight:900;
+
+letter-spacing:1px;
+
+
+}
+
+
+
+
+.alert-team{
+
+
+font-size:18px;
+
+font-weight:800;
+
+margin-top:5px;
+
+
+}
+
+
+
+
+.alert-brand{
+
+
+font-size:10px;
+
+color:#aaa;
+
+margin-top:5px;
+
+letter-spacing:2px;
+
+
+}
+
+
+
+
+
+
+
+@keyframes alertImpact{
+
+
+0%,100%{
+
+transform:scale(1);
+
+}
+
+
+50%{
+
+transform:scale(1.05);
+
+}
+
+
+}
+
+
+
+
+
+
+
+/* =========================
+MOBILE
+========================= */
 
 
 @media(max-width:700px){
 
 
-
 .tls-logo{
 
 
-    width:90px;
+width:90px;
 
-
-    font-size:40px;
+font-size:40px;
 
 
 }
-
-
 
 
 .game-card{
 
 
-    width:280px;
+width:280px;
 
 
 }
-
-
 
 
 }
