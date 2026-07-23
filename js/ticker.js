@@ -1098,28 +1098,85 @@ function getLiveStatus(game){
     }
 
 
-    if(game.sport === "MLB"){
+    switch(game.sport){
 
-        return game.status || "LIVE";
+        case "MLB":
+            return getMLBStatus(game);
+
+
+        case "NFL":
+        case "NCAA":
+            return getNFLStatus(game);
+
+
+        case "NBA":
+            return getNBAStatus(game);
+
+
+        case "EPL":
+        case "LIGUE1":
+            return getSoccerStatus(game);
+
+
+        case "PGA":
+            return getPGAStatus(game);
+
+
+        default:
+            return game.status || "";
 
     }
 
-
-    if(game.sport === "NFL"){
-
-        return game.status || "LIVE";
-
-    }
+}
 
 
-    if(game.sport === "NBA"){
-
-        return game.status || "LIVE";
-
-    }
 
 
-    return game.status || "";
+
+
+function getMLBStatus(game){
+
+    return game.status || "LIVE";
+
+}
+
+
+
+
+
+function getNFLStatus(game){
+
+    return game.status || "LIVE";
+
+}
+
+
+
+
+
+function getNBAStatus(game){
+
+    return game.status || "LIVE";
+
+}
+
+
+
+
+
+function getSoccerStatus(game){
+
+    return game.status || "LIVE";
+
+}
+
+
+
+
+
+function getPGAStatus(game){
+
+    return game.status || "LIVE";
 
 }
 
