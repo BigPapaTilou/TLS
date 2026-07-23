@@ -367,7 +367,11 @@ const hours =
 
 
 
-// LIVE
+/*
+====================================
+ LIVE
+====================================
+*/
 
 if(
 game.state==="in"
@@ -381,11 +385,17 @@ return true;
 
 
 
-// MATCH A VENIR
+/*
+====================================
+ MATCH A VENIR 48H
+====================================
+*/
 
 if(
-(game.state==="pre" ||
-game.state==="scheduled")
+(
+game.state==="pre" ||
+game.state==="scheduled"
+)
 &&
 hours >= -6
 &&
@@ -400,12 +410,39 @@ return true;
 
 
 
-// MATCH TERMINE RECENT
+/*
+====================================
+ FINAL RECENT
+====================================
+*/
 
 if(
 game.state==="post"
-&&
-hours >= -12
+){
+
+if(
+Math.abs(hours)<=12
+){
+
+return true;
+
+}
+
+}
+
+
+
+
+
+/*
+====================================
+ SECURITE ESPN
+====================================
+*/
+
+if(
+hours >= -2 &&
+hours <= 48
 ){
 
 return true;
