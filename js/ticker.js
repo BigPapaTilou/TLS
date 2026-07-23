@@ -682,6 +682,12 @@ let games =
 await fetchAllSports();
 
 
+console.log(
+"ALL GAMES BEFORE SPLIT",
+games
+);
+
+
 
 
 
