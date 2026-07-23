@@ -150,8 +150,6 @@ games.length
 
 
 
-
-
 console.table(
 
 games.map(game=>({
@@ -172,8 +170,6 @@ team2:game.team2
 }))
 
 );
-
-
 
 
 
@@ -348,6 +344,40 @@ const now = new Date();
 
 
 
+console.log("FILTER DEBUG START");
+
+
+
+games.forEach(game=>{
+
+
+const hours =
+(game.date.getTime()-now.getTime())/3600000;
+
+
+console.log(
+game.sport,
+"|",
+game.state,
+"|",
+hours.toFixed(2),
+"|",
+game.team1,
+"-",
+game.team2
+);
+
+
+});
+
+
+
+console.log("FILTER DEBUG END");
+
+
+
+
+
 return games.filter(game=>{
 
 
@@ -364,19 +394,13 @@ return false;
 
 
 const hours =
-
-(game.date.getTime() - now.getTime())
-/3600000;
+(game.date.getTime()-now.getTime())/3600000;
 
 
 
 
 
-/*
-====================================
- LIVE
-====================================
-*/
+// LIVE
 
 if(
 game.state==="in"
@@ -390,21 +414,14 @@ return true;
 
 
 
-/*
-====================================
- MATCHS A VENIR 48H
-====================================
-*/
+// PROCHAINS MATCHS 48H
 
 if(
 game.state==="pre" ||
 game.state==="scheduled"
 ){
 
-return (
-hours >= -6 &&
-hours <= 48
-);
+return true;
 
 }
 
@@ -412,20 +429,13 @@ hours <= 48
 
 
 
-/*
-====================================
- MATCHS TERMINES RECENTS
-====================================
-*/
+// MATCHS TERMINES
 
 if(
 game.state==="post"
 ){
 
-return (
-hours <= 0 &&
-hours >= -12
-);
+return true;
 
 }
 
@@ -458,9 +468,7 @@ post:2
 return (
 
 (priority[a.state] ?? 3)
-
 -
-
 (priority[b.state] ?? 3)
 
 );
