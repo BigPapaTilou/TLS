@@ -842,13 +842,13 @@ game.state === "in"
 );
 
 if(pga){
-    
+
     liveGames.push({
 
         sport:"PGA",
         state:"in",
 
-        team1:"PGA TOUR",
+        team1:pga[0]?.name || "PGA TOUR",
         team2:"Leaderboard",
 
         score1:"",
@@ -857,7 +857,9 @@ if(pga){
         logo1:"",
         logo2:"",
 
-        status:"LIVE"
+        status:"LIVE",
+
+        raw:pga
 
     });
 
