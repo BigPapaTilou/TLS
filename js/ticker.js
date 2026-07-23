@@ -267,63 +267,96 @@ onerror="this.src='assets/fallback.svg'"
 >
 
 
+${game.sport === "PGA" ? `
+
+<div class="team-row">
+
+<div class="team-name">
+
+<img
+src="${game.logo1 || 'assets/fallback.svg'}"
+onerror="this.src='assets/fallback.svg'"
+>
+
 ${game.team1}
 
-
 </div>
-
-
 
 <div class="score">
 
-
-${game.score1}
-
-
 </div>
 
-
 </div>
-
-
-
-
-
 
 
 <div class="team-row">
 
-
 <div class="team-name">
 
-
 <img
-
-src="${game.logo2 || 'assets/fallback.svg'}"
-
+src="assets/fallback.svg"
 onerror="this.src='assets/fallback.svg'"
-
 >
 
-
-${game.team2}
-
+Leader
 
 </div>
-
-
 
 <div class="score">
 
+${game.score1 || ""}
+
+</div>
+
+</div>
+
+
+` : `
+
+<div class="team-row">
+
+<div class="team-name">
+
+<img
+src="${game.logo1 || 'assets/fallback.svg'}"
+onerror="this.src='assets/fallback.svg'"
+>
+
+${game.team1}
+
+</div>
+
+<div class="score">
+
+${game.score1}
+
+</div>
+
+</div>
+
+
+<div class="team-row">
+
+<div class="team-name">
+
+<img
+src="${game.logo2 || 'assets/fallback.svg'}"
+onerror="this.src='assets/fallback.svg'"
+>
+
+${game.team2}
+
+</div>
+
+<div class="score">
 
 ${game.score2}
 
+</div>
 
 </div>
 
-
-</div>
-
+`}
 
 
 
