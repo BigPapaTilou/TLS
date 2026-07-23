@@ -727,7 +727,10 @@ console.log(
             game.score1,
             game.score2
         );
-
+console.log(
+    "MLB RAW",
+    game.raw
+);
     }
 
 }
