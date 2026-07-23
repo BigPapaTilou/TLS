@@ -730,9 +730,12 @@ console.log(
 
 
     console.log(
-        "MLB COMPETITION",
-        game.raw.competitions[0]
-    );
+    "MLB LAST PLAY",
+    game.raw.competitions[0]
+    ?.situation
+    ?.lastPlay
+    ?.text
+);
 
 }
 
