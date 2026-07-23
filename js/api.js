@@ -48,8 +48,17 @@ String(today.getMonth()+1).padStart(2,"0")
 String(today.getDate()).padStart(2,"0");
 
 
+const yesterday = new Date();
+yesterday.setDate(yesterday.getDate() - 1);
+
+const tomorrow = new Date();
+tomorrow.setDate(tomorrow.getDate() + 2);
+
+const startDate = yesterday.toISOString().split("T")[0];
+const endDate = tomorrow.toISOString().split("T")[0];
+
 const response = await fetch(
-ESPN_ENDPOINTS[sport] + "?dates=" + date
+`${ESPN_ENDPOINTS[sport]}?dates=${startDate}-${endDate}`
 );
 
 
