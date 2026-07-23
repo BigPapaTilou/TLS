@@ -1133,12 +1133,28 @@ function getLiveStatus(game){
 
 
 
-
 function getMLBStatus(game){
 
-    return game.status || "LIVE";
+    const status = game.raw?.status;
+
+    if(!status){
+        return game.status || "LIVE";
+    }
+
+
+    const inning = status.period || "";
+
+    const inningLabel =
+        inning
+        ? `${inning}e manche`
+        : "LIVE";
+
+
+    return inningLabel;
 
 }
+
+
 
 
 
@@ -1146,9 +1162,30 @@ function getMLBStatus(game){
 
 function getNFLStatus(game){
 
+    const status = game.raw?.status;
+
+    if(!status){
+        return game.status || "LIVE";
+    }
+
+
+    const quarter = status.period || "";
+
+    const clock = status.displayClock || "";
+
+
+    if(quarter && clock){
+
+        return `${quarter}e QT • ${clock}`;
+
+    }
+
+
     return game.status || "LIVE";
 
 }
+
+
 
 
 
@@ -1156,9 +1193,30 @@ function getNFLStatus(game){
 
 function getNBAStatus(game){
 
+    const status = game.raw?.status;
+
+    if(!status){
+        return game.status || "LIVE";
+    }
+
+
+    const quarter = status.period || "";
+
+    const clock = status.displayClock || "";
+
+
+    if(quarter && clock){
+
+        return `${quarter}e QT • ${clock}`;
+
+    }
+
+
     return game.status || "LIVE";
 
 }
+
+
 
 
 
@@ -1166,6 +1224,23 @@ function getNBAStatus(game){
 
 function getSoccerStatus(game){
 
+    const status = game.raw?.status;
+
+    if(!status){
+        return game.status || "LIVE";
+    }
+
+
+    const clock = status.displayClock || "";
+
+
+    if(clock){
+
+        return `${clock}'`;
+
+    }
+
+
     return game.status || "LIVE";
 
 }
@@ -1174,9 +1249,11 @@ function getSoccerStatus(game){
 
 
 
+
+
 function getPGAStatus(game){
 
-    return game.status || "LIVE";
+    return "LEADERBOARD LIVE";
 
 }
 
