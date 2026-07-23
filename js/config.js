@@ -58,7 +58,7 @@ refreshRate:30000,
 */
 
 
-tickerSpeed:45,
+tickerSpeed:30,
 
 
 
