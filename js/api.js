@@ -368,8 +368,7 @@ raw:event
 function filterGames(games){
 
 
-const now =
-new Date();
+const now = new Date();
 
 
 
@@ -378,10 +377,16 @@ return games
 .filter(game=>{
 
 
+if(!game || !game.date){
+
+return false;
+
+}
+
+
+
 const hours =
 (game.date-now)/3600000;
-
-
 
 
 
@@ -391,6 +396,19 @@ return true;
 
 }
 
+
+
+if(
+game.state==="pre"
+&&
+hours<=24
+&&
+hours>=-2
+){
+
+return true;
+
+}
 
 
 
@@ -403,22 +421,6 @@ Math.abs(hours)<=12
 return true;
 
 }
-
-
-
-
-if(
-(game.state==="pre" ||
-game.state==="scheduled")
-&&
-hours<=24
-){
-
-return true;
-
-}
-
-
 
 
 
@@ -437,12 +439,7 @@ const priority={
 
 in:0,
 
-
 pre:1,
-
-
-scheduled:1,
-
 
 post:2
 
