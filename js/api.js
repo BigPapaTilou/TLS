@@ -255,7 +255,7 @@ const response = await fetch(
 
 const data = await response.json();
 
-console.log("PGA RAW", data);    
+console.log("PGA EVENT", pga.events[0]);    
 
 return data.events || null;
 
