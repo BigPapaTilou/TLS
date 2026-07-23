@@ -188,6 +188,8 @@ console.log(
 games.length
 );
 
+
+
 console.table(
 games.slice(0,10).map(game=>({
 
@@ -449,16 +451,16 @@ return true;
 
 /*
  MATCH A VENIR
- 24H
+ 48H
 */
 
 if(
 (game.state==="pre" ||
 game.state==="scheduled")
 &&
-hours >= -1
+hours <= 48
 &&
-hours <= 24
+hours >= -2
 ){
 
 return true;
@@ -476,7 +478,7 @@ return true;
 if(
 game.state==="post"
 &&
-hours >= -12
+Math.abs(hours)<=12
 ){
 
 return true;
