@@ -437,13 +437,11 @@ return true;
 
 
 // 📅 MATCHS À VENIR DANS LES 48H
+// Peu importe la catégorie ESPN
 if(
-(game.state === "pre" ||
-game.state === "scheduled")
-&&
-hours >= -12
-&&
-hours <= 48){
+hours >= -12 &&
+hours <= 48
+){
 
 return true;
 
