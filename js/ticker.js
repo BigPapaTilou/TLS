@@ -1,7 +1,6 @@
 const ticker = document.getElementById("ticker-track");
 
 
-
 /*
 ====================================
  TLS ALERT MEMORY
@@ -408,15 +407,6 @@ return createAlertCard(alert);
 
 
 }
-
-
-
-
-
-
-
-
-
 /*
 ====================================
  BROADCAST SORT
@@ -435,13 +425,11 @@ return events.sort((a,b)=>{
 const priority = {
 
 
-alert:0,
+in:0,
 
-in:1,
+post:1,
 
-post:2,
-
-pre:3
+pre:2
 
 
 };
@@ -477,6 +465,161 @@ priority[b.state]
 
 /*
 ====================================
+ PGA LEADERBOARD CARD
+====================================
+*/
+
+
+function createPGACard(pga){
+
+
+
+if(
+!pga
+||
+!Array.isArray(pga)
+||
+pga.length===0
+){
+
+return "";
+
+}
+
+
+
+
+
+let players = "";
+
+
+
+
+
+pga
+.slice(0,5)
+.forEach((player,index)=>{
+
+
+
+players += `
+
+
+
+<div class="pga-player">
+
+
+
+<span>
+
+${index+1}
+
+</span>
+
+
+
+<strong>
+
+${
+player.athlete?.displayName
+||
+player.name
+||
+"Player"
+
+}
+
+</strong>
+
+
+
+<span>
+
+${
+player.score
+||
+"-"
+
+}
+
+</span>
+
+
+
+</div>
+
+
+
+`;
+
+
+
+});
+
+
+
+
+
+
+
+
+return `
+
+
+
+<div class="pga-card">
+
+
+
+<div class="card-header">
+
+
+<span>
+
+⛳ PGA TOUR
+
+</span>
+
+
+
+<span class="badge live">
+
+LEADERBOARD
+
+</span>
+
+
+
+</div>
+
+
+
+
+
+${players}
+
+
+
+</div>
+
+
+
+`;
+
+
+
+}
+
+
+
+
+
+
+
+
+
+/*
+====================================
  UPDATE TICKER
 ====================================
 */
@@ -497,9 +640,21 @@ await fetchAllSports();
 
 
 
-const pga =
 
-await fetchPGA();
+
+let pga = null;
+
+
+
+
+
+if(
+typeof fetchPGA === "function"
+){
+
+pga = await fetchPGA();
+
+}
 
 
 
@@ -508,6 +663,7 @@ await fetchPGA();
 
 
 let content="";
+
 
 
 
@@ -539,6 +695,8 @@ detectEvent(game);
 
 if(
 alert
+&&
+typeof CONFIG !== "undefined"
 &&
 CONFIG.enableAlerts
 ){
@@ -611,7 +769,11 @@ addAlert(alert);
 */
 
 
-if(pga){
+if(
+pga
+&&
+typeof createPGACard === "function"
+){
 
 
 content +=
@@ -637,7 +799,6 @@ createPGACard(pga);
 
 
 games.forEach(game=>{
-
 
 
 content +=
@@ -691,12 +852,15 @@ Aucun événement
 
 
 
- 
+
+
 
 
 
 /*
-Boucle infinie
+================================
+ BOUCLE INFINIE
+================================
 */
 
 
@@ -709,17 +873,19 @@ content + content;
 
 
 
+
+
 if(
 typeof CONFIG !== "undefined"
 ){
-
 
 ticker.style.animationDuration =
 
 CONFIG.tickerSpeed+"s";
 
-
 }
+
+
 
 
 
@@ -740,6 +906,8 @@ pga ? "PGA OK" : "NO PGA"
 
 
 
+
+
 }
 
 
@@ -755,6 +923,48 @@ console.error(
 error
 
 );
+
+
+
+
+
+/*
+Garde le ticker vivant
+*/
+
+if(ticker.innerHTML===""){
+
+
+ticker.innerHTML = `
+
+
+<div class="game-card pre">
+
+
+<div class="card-header">
+
+TLS SPORTS
+
+
+</div>
+
+
+
+<div class="detail">
+
+Connexion aux données...
+
+</div>
+
+
+
+</div>
+
+
+
+`;
+
+}
 
 
 
@@ -787,6 +997,12 @@ updateTicker();
 
 
 
+if(
+typeof CONFIG !== "undefined"
+){
+
+
+
 setInterval(
 
 updateTicker,
@@ -794,3 +1010,7 @@ updateTicker,
 CONFIG.refreshRate
 
 );
+
+
+
+}
