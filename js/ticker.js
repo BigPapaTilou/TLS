@@ -292,7 +292,18 @@ ${game.score2}
 <div class="detail">
 
 
-${game.status || ""}
+${
+typeof getLiveStatus === "function"
+
+?
+
+getLiveStatus(game)
+
+:
+
+(game.status || "")
+
+}
 
 
 </div>
