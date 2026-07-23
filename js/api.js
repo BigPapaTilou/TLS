@@ -152,13 +152,6 @@ games.length
 
 
 
-/*
-====================================
- DEBUG ESPN
-====================================
-*/
-
-
 console.table(
 
 games.map(game=>({
@@ -379,6 +372,12 @@ const hours =
 
 
 
+/*
+====================================
+ LIVE
+====================================
+*/
+
 if(
 game.state==="in"
 ){
@@ -391,47 +390,46 @@ return true;
 
 
 
+/*
+====================================
+ MATCHS A VENIR 48H
+====================================
+*/
+
 if(
-(
 game.state==="pre" ||
 game.state==="scheduled"
-)
-&&
-hours >= -6
-&&
-hours <= 48
 ){
 
-return true;
+return (
+hours >= -6 &&
+hours <= 48
+);
 
 }
 
 
 
 
+
+/*
+====================================
+ MATCHS TERMINES RECENTS
+====================================
+*/
 
 if(
 game.state==="post"
-&&
-Math.abs(hours)<=12
 ){
 
-return true;
+return (
+hours <= 0 &&
+hours >= -12
+);
 
 }
 
 
-
-
-
-if(
-hours >= -2 &&
-hours <=48
-){
-
-return true;
-
-}
 
 
 
