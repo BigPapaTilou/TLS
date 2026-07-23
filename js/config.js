@@ -1,29 +1,53 @@
+/*
+====================================
+ TLS CONFIG
+====================================
+*/
+
+
 const CONFIG = {
 
-    tickerSpeed: 55,
 
-    refreshRate: 30000,
+/*
+API refresh
+*/
 
-    alertDuration:5000,
-
-
-    showTeamLogos:true,
-
-    showLeagueIcons:true,
-
-    enableAlerts:true,
-
-    tlsPulse:true,
+refreshRate:30000,
 
 
-    sports:[
-        "NFL",
-        "NCAA",
-        "NBA",
-        "MLB",
-        "PGA",
-        "EPL",
-        "LIGUE1"
-    ]
+
+/*
+Vitesse ticker normale
+*/
+
+tickerSpeed:45,
+
+
+
+/*
+Vitesse pendant alerte
+*/
+
+alertSpeed:90,
+
+
+
+/*
+Activation alertes
+
+*/
+
+enableAlerts:true,
+
+
+
+/*
+Durée impact alerte
+
+*/
+
+alertDuration:6000
+
+
 
 };
