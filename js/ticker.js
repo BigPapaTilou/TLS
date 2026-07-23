@@ -163,7 +163,51 @@ ${formatUpcoming(game.date)}
 }
 
 
+/*
+====================================
+ BROADCAST SECTION
+====================================
+*/
 
+function createSection(title, games){
+
+if(!games || games.length === 0){
+
+return "";
+
+}
+
+
+let html = `
+
+<div class="broadcast-section">
+
+<div class="section-title">
+
+${title}
+
+</div>
+
+`;
+
+
+games.forEach(game=>{
+
+html += createCard(game);
+
+});
+
+
+html += `
+
+</div>
+
+`;
+
+
+return html;
+
+}
 
 
 
