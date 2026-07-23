@@ -368,7 +368,36 @@ color:#f5c542;
 letter-spacing:2px;
 
 }
+.broadcast-section{
 
+display:flex;
+
+align-items:center;
+
+gap:18px;
+
+width:max-content;
+
+}
+
+
+.section-title{
+
+height:100px;
+
+display:flex;
+
+align-items:center;
+
+font-weight:900;
+
+font-size:18px;
+
+padding:0 20px;
+
+flex-shrink:0;
+
+}
 
 
 
