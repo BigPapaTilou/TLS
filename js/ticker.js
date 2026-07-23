@@ -689,20 +689,42 @@ games.forEach(game => {
         if(oldScore){
 
             if(
-                oldScore.score1 !== game.score1 ||
-                oldScore.score2 !== game.score2
-            ){
+    oldScore.score1 !== game.score1 ||
+    oldScore.score2 !== game.score2
+){
 
-                console.log(
-                    "SCORE CHANGE",
-                    game.team1,
-                    oldScore,
-                    "→",
-                    game.score1,
-                    game.score2
-                );
+    if(
+        game.sport === "NFL"
+    ){
 
-            }
+        console.log(
+            "NFL SCORE CHANGE",
+            game.team1,
+            oldScore,
+            "→",
+            game.score1,
+            game.score2
+        );
+
+    }
+
+
+    if(
+        game.sport === "MLB"
+    ){
+
+        console.log(
+            "MLB SCORE CHANGE",
+            game.team1,
+            oldScore,
+            "→",
+            game.score1,
+            game.score2
+        );
+
+    }
+
+}
 
         }
 
