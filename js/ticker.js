@@ -760,9 +760,11 @@ console.log(
 
 
         previousScores[game.id] = {
-            score1: game.score1,
-            score2: game.score2
-        };
+    score1: game.score1,
+    score2: game.score2
+};
+
+    }
 
     }
 
