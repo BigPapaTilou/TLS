@@ -856,8 +856,8 @@ if(pga){
         "PGA TOUR",
 
         team2:
-        pga[0]?.athlete?.displayName ||
-        "Leader",
+pga[0]?.competitions?.[0]?.competitors?.[0]?.athlete?.displayName ||
+"Leader",
 
         score1:"",
         score2:
