@@ -849,7 +849,10 @@ if(pga){
         state:"in",
 
         team1:pga[0]?.name || "PGA TOUR",
-        team2:"Leaderboard",
+        team2:
+pga[0]?.athlete?.displayName ||
+pga[0]?.name ||
+"Leader",
 
         score1:"",
         score2:"",
