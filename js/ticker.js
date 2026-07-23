@@ -699,6 +699,8 @@ typeof fetchPGA === "function"
 
 pga = await fetchPGA();
 
+console.log("PGA RAW DATA", pga);
+
 }
 
 
