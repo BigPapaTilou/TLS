@@ -222,11 +222,10 @@ return html;
 
 
 function createCard(game){
-if(game.sport==="PGA"){
 
-return createPGACard(pga);
+return `
 
-}
+<div class="game-card ${game.state}">
 
 
 return `
