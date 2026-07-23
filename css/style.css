@@ -190,6 +190,7 @@ z-index:5;
 
 content:"";
 
+
 position:absolute;
 
 right:18px;
@@ -200,9 +201,12 @@ width:10px;
 
 height:10px;
 
+
 background:#e10600;
 
+
 border-radius:50%;
+
 
 animation:tlsPulse 3s infinite;
 
@@ -806,7 +810,6 @@ left:150%;
 
 
 
-
 /* =========================
 PGA LEADER CHANGE
 ========================= */
@@ -1025,12 +1028,12 @@ BROADCAST STATES
 .breaking{
 
 
+border-color:#ff0000;
+
+
 animation:
 
 breakingPulse 1s infinite;
-
-
-border-color:#ff0000;
 
 
 }
@@ -1047,7 +1050,6 @@ box-shadow:
 
 
 }
-
 
 
 
@@ -1106,7 +1108,6 @@ width:280px;
 
 
 }
-
 
 
 .pga-card{
