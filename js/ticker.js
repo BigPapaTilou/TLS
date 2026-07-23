@@ -864,7 +864,12 @@ return hours > 0 && hours <= 48;
 
 });
 
+console.log(
+"UPCOMING DEBUG",
+upcomingGames
+);
 
+ 
 
 content += createSection(
 "🔴 LIVE",
