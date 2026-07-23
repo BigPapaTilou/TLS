@@ -920,6 +920,14 @@ content += createSection(
 upcomingGames
 );
 
+console.log(
+"UPCOMING HTML",
+createSection(
+"📅 À VENIR",
+upcomingGames
+)
+);
+
 
 
 
