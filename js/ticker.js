@@ -820,8 +820,6 @@ pga
 typeof createPGACard === "function"
 ){
 
-    content += createPGACard(pga);
-
 }
 
 
