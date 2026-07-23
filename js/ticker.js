@@ -1142,6 +1142,9 @@ function getMLBStatus(game){
 
     const status = game.raw?.status;
 
+const situation =
+game.raw?.competitions?.[0]?.situation;
+
     if(!status){
         return game.status || "LIVE";
     }
@@ -1156,9 +1159,9 @@ function getMLBStatus(game){
 
 
     const outs =
-        status.outs !== undefined
-        ? `${status.outs} out${status.outs > 1 ? "s" : ""}`
-        : "";
+    situation?.outs !== undefined
+    ? `${situation.outs} out${situation.outs > 1 ? "s" : ""}`
+    : "";
 
 
     return `${inningLabel}${outs ? " • " + outs : ""}`;
