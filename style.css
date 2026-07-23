@@ -1,24 +1,17 @@
 *{
-
 box-sizing:border-box;
-
 }
 
 
 body{
 
 margin:0;
-
 padding:0;
-
 overflow:hidden;
-
 background:#050505;
-
 font-family:Arial, Helvetica, sans-serif;
 
 }
-
 
 
 
@@ -33,20 +26,15 @@ INTRO TLS
 #intro{
 
 position:fixed;
-
 inset:0;
-
 background:#050505;
-
 display:flex;
-
 align-items:center;
-
 justify-content:center;
-
 z-index:100;
 
 animation:introFade 2.2s forwards;
+animation-fill-mode:forwards;
 
 }
 
@@ -55,11 +43,8 @@ animation:introFade 2.2s forwards;
 .tls-intro{
 
 font-size:90px;
-
 font-weight:900;
-
 letter-spacing:12px;
-
 color:white;
 
 animation:tlsReveal 1.5s ease;
@@ -72,26 +57,22 @@ animation:tlsReveal 1.5s ease;
 
 @keyframes tlsReveal{
 
-
 from{
 
 opacity:0;
-
 transform:scale(.7);
 
 }
 
-
 to{
 
 opacity:1;
-
 transform:scale(1);
 
 }
 
-
 }
+
 
 
 
@@ -108,7 +89,6 @@ opacity:1;
 100%{
 
 opacity:0;
-
 visibility:hidden;
 
 }
@@ -129,21 +109,16 @@ TICKER
 
 .ticker-wrapper{
 
-
 height:120px;
-
 width:100%;
 
 display:flex;
-
 align-items:center;
 
 background:#080808;
 
 border-top:1px solid #222;
-
 border-bottom:1px solid #222;
-
 
 }
 
@@ -153,21 +128,16 @@ border-bottom:1px solid #222;
 
 .tls-logo{
 
-
 height:100%;
-
 width:150px;
 
 flex-shrink:0;
 
 display:flex;
-
 align-items:center;
-
 justify-content:center;
 
 font-size:60px;
-
 font-weight:900;
 
 color:white;
@@ -175,9 +145,7 @@ color:white;
 background:#050505;
 
 position:relative;
-
 z-index:5;
-
 
 }
 
@@ -187,29 +155,21 @@ z-index:5;
 
 .tls-logo::after{
 
-
 content:"";
-
 
 position:absolute;
 
 right:18px;
-
 bottom:22px;
 
 width:10px;
-
 height:10px;
-
 
 background:#e10600;
 
-
 border-radius:50%;
 
-
 animation:tlsPulse 3s infinite;
-
 
 }
 
@@ -241,14 +201,10 @@ box-shadow:0 0 0 25px rgba(225,6,0,0);
 
 
 
-
 .ticker-window{
 
-
 overflow:hidden;
-
 flex:1;
-
 
 }
 
@@ -258,17 +214,17 @@ flex:1;
 
 #ticker-track{
 
-
 display:flex;
 
 align-items:center;
+
+height:100%;
 
 gap:18px;
 
 width:max-content;
 
 animation:scrollTicker linear infinite;
-
 
 }
 
@@ -301,7 +257,6 @@ transform:translateX(-50%);
 
 
 
-
 /* =========================
 MATCH CARDS
 ========================= */
@@ -309,9 +264,7 @@ MATCH CARDS
 
 .game-card{
 
-
 width:330px;
-
 height:100px;
 
 flex-shrink:0;
@@ -334,16 +287,17 @@ border-left:5px solid #555;
 
 transition:.25s;
 
+overflow:hidden;
 
 }
 
 
 
+
+
 .game-card:hover{
 
-
 transform:scale(1.04);
-
 
 }
 
@@ -353,26 +307,19 @@ transform:scale(1.04);
 
 .game-card.in{
 
-
 border-color:#e10600;
 
 }
 
 
-
-
 .game-card.post{
-
 
 border-color:#666;
 
 }
 
 
-
-
 .game-card.pre{
-
 
 border-color:#2463ff;
 
@@ -384,11 +331,7 @@ border-color:#2463ff;
 
 
 
-/* MATCH IMPORTANT */
-
-
 .featured-card{
-
 
 width:360px;
 
@@ -398,7 +341,6 @@ box-shadow:
 
 0 0 20px rgba(245,197,66,.25);
 
-
 }
 
 
@@ -406,7 +348,6 @@ box-shadow:
 
 
 .featured-label{
-
 
 font-size:10px;
 
@@ -422,13 +363,14 @@ letter-spacing:2px;
 
 
 
+
+
 /* =========================
 CARD HEADER
 ========================= */
 
 
 .card-header{
-
 
 display:flex;
 
@@ -442,7 +384,6 @@ color:#aaa;
 
 margin-bottom:5px;
 
-
 }
 
 
@@ -450,7 +391,6 @@ margin-bottom:5px;
 
 
 .badge{
-
 
 margin-left:auto;
 
@@ -464,43 +404,36 @@ font-weight:900;
 
 color:white;
 
-
 }
+
 
 
 
 
 .badge.live{
 
-
 background:#e10600;
 
 animation:livePulse 2s infinite;
 
-
 }
-
 
 
 
 .badge.final{
 
-
 background:#555;
 
-
 }
-
 
 
 
 .badge.upcoming{
 
-
 background:#2463ff;
 
-
 }
+
 
 
 
@@ -516,7 +449,6 @@ opacity:.5;
 
 }
 
-
 }
 
 
@@ -527,7 +459,6 @@ opacity:.5;
 
 .team-row{
 
-
 display:flex;
 
 align-items:center;
@@ -536,14 +467,13 @@ justify-content:space-between;
 
 height:25px;
 
-
 }
 
 
 
 
-.team-name{
 
+.team-name{
 
 display:flex;
 
@@ -555,14 +485,19 @@ font-size:14px;
 
 font-weight:600;
 
+white-space:nowrap;
+
+overflow:hidden;
+
+text-overflow:ellipsis;
 
 }
 
 
 
 
-.team-name img{
 
+.team-name img{
 
 width:20px;
 
@@ -570,14 +505,13 @@ height:20px;
 
 object-fit:contain;
 
-
 }
 
 
 
 
-.score{
 
+.score{
 
 font-size:24px;
 
@@ -587,7 +521,6 @@ min-width:30px;
 
 text-align:right;
 
-
 }
 
 
@@ -596,22 +529,26 @@ text-align:right;
 
 .detail{
 
-
 font-size:11px;
 
 color:#777;
 
 margin-top:3px;
 
-
 }
+
+
+
+
+
+
+
 /* =========================
 TLS ALERT CARD
 ========================= */
 
 
 .alert-card{
-
 
 width:290px;
 
@@ -620,7 +557,6 @@ height:105px;
 flex-shrink:0;
 
 border-radius:14px;
-
 
 background:
 
@@ -631,10 +567,7 @@ linear-gradient(
 );
 
 
-border:
-
-2px solid #e10600;
-
+border:2px solid #e10600;
 
 display:flex;
 
@@ -644,14 +577,11 @@ align-items:center;
 
 justify-content:center;
 
-
 color:white;
-
 
 position:relative;
 
 overflow:hidden;
-
 
 animation:
 
@@ -662,7 +592,6 @@ box-shadow:
 
 0 0 30px rgba(225,6,0,.4);
 
-
 }
 
 
@@ -671,16 +600,13 @@ box-shadow:
 
 .alert-card::before{
 
-
 content:"";
-
 
 position:absolute;
 
 top:0;
 
 left:-100%;
-
 
 width:50%;
 
@@ -690,22 +616,16 @@ height:100%;
 background:
 
 linear-gradient(
-
 90deg,
-
 transparent,
-
 rgba(255,255,255,.25),
-
 transparent
-
 );
 
 
 animation:
 
 alertSweep 2s infinite;
-
 
 }
 
@@ -715,7 +635,6 @@ alertSweep 2s infinite;
 
 .alert-title{
 
-
 font-size:20px;
 
 font-weight:900;
@@ -724,14 +643,13 @@ letter-spacing:1px;
 
 z-index:2;
 
-
 }
 
 
 
 
-.alert-team{
 
+.alert-team{
 
 font-size:18px;
 
@@ -741,14 +659,13 @@ margin-top:5px;
 
 z-index:2;
 
-
 }
 
 
 
 
-.alert-brand{
 
+.alert-brand{
 
 font-size:10px;
 
@@ -759,7 +676,6 @@ margin-top:5px;
 letter-spacing:2px;
 
 z-index:2;
-
 
 }
 
@@ -811,57 +727,7 @@ left:150%;
 
 
 /* =========================
-PGA LEADER CHANGE
-========================= */
-
-
-.leader-change{
-
-
-border-left:
-
-5px solid #2ecc71;
-
-
-background:
-
-linear-gradient(
-135deg,
-#052b16,
-#111
-);
-
-
-box-shadow:
-
-0 0 20px rgba(46,204,113,.25);
-
-
-}
-
-
-
-.leader-title{
-
-
-font-size:18px;
-
-font-weight:900;
-
-color:#2ecc71;
-
-
-}
-
-
-
-
-
-
-
-
-/* =========================
-PGA LEADERBOARD CARD
+PGA
 ========================= */
 
 
@@ -870,12 +736,9 @@ PGA LEADERBOARD CARD
 
 width:360px;
 
-height:auto;
-
 min-height:120px;
 
 flex-shrink:0;
-
 
 background:
 
@@ -886,16 +749,11 @@ linear-gradient(
 );
 
 
-border-left:
-
-5px solid #2ecc71;
-
+border-left:5px solid #2ecc71;
 
 border-radius:14px;
 
-
 padding:12px 15px;
-
 
 color:white;
 
@@ -904,19 +762,17 @@ box-shadow:
 
 0 0 25px rgba(46,204,113,.25);
 
-
 }
+
 
 
 
 
 .pga-card .card-header{
 
-
 color:#2ecc71;
 
 font-weight:900;
-
 
 }
 
@@ -929,23 +785,18 @@ font-weight:900;
 
 display:flex;
 
-
 align-items:center;
-
 
 justify-content:space-between;
 
 
 font-size:13px;
 
-
 padding:3px 0;
-
 
 border-bottom:
 
 1px solid rgba(255,255,255,.08);
-
 
 }
 
@@ -955,9 +806,7 @@ border-bottom:
 
 .pga-player:last-child{
 
-
 border-bottom:none;
-
 
 }
 
@@ -966,53 +815,25 @@ border-bottom:none;
 
 .pga-player span{
 
-
 width:25px;
 
 font-weight:900;
 
 color:#2ecc71;
 
-
 }
+
 
 
 
 
 .pga-player strong{
 
-
 font-size:15px;
 
 color:white;
 
-
 }
-
-
-
-
-.pga-player:first-of-type{
-
-
-font-weight:900;
-
-
-background:
-
-rgba(46,204,113,.12);
-
-
-border-radius:6px;
-
-
-padding-left:5px;
-
-padding-right:5px;
-
-
-}
-
 
 
 
@@ -1027,27 +848,23 @@ BROADCAST STATES
 
 .breaking{
 
-
 border-color:#ff0000;
-
 
 animation:
 
 breakingPulse 1s infinite;
-
 
 }
 
 
 
 
-.clutch{
 
+.clutch{
 
 box-shadow:
 
 0 0 30px rgba(255,0,0,.45);
-
 
 }
 
@@ -1080,8 +897,6 @@ opacity:.65;
 
 
 
-
-
 /* =========================
 MOBILE
 ========================= */
@@ -1092,31 +907,24 @@ MOBILE
 
 .tls-logo{
 
-
 width:90px;
 
 font-size:40px;
-
 
 }
 
 
 .game-card{
 
-
 width:280px;
-
 
 }
 
 
 .pga-card{
 
-
 width:300px;
 
-
 }
-
 
 }
