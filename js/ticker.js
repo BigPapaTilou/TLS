@@ -837,21 +837,46 @@ createPGACard(pga);
 
 /*
 ==============================
- SPORTS EVENTS
+ SPORTS SECTIONS
 ==============================
 */
 
 
-games.forEach(game=>{
+const liveGames = games.filter(game =>
+game.state === "in"
+);
 
 
-content +=
+const finalGames = games.filter(game =>
+game.state === "post"
+);
 
-createCard(game);
+
+const upcomingGames = games.filter(game =>
+game.state === "pre" ||
+game.state === "scheduled"
+);
 
 
 
-});
+content += createSection(
+"🔴 LIVE",
+liveGames
+);
+
+
+
+content += createSection(
+"🏁 FINAL",
+finalGames
+);
+
+
+
+content += createSection(
+"📅 À VENIR",
+upcomingGames
+);
 
 
 
