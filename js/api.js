@@ -168,6 +168,18 @@ games.length
 );
 
 
+console.log(
+"ALL STATES RAW",
+games.map(game => ({
+sport: game.sport,
+state: game.state,
+status: game.status,
+team1: game.team1,
+team2: game.team2
+}))
+);
+
+
 
 console.table(
 
