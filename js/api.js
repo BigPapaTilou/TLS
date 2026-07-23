@@ -441,10 +441,9 @@ if(
 (game.state === "pre" ||
 game.state === "scheduled")
 &&
-hours >= 0
+hours >= -12
 &&
-hours <= 48
-){
+hours <= 48){
 
 return true;
 
