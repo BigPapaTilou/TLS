@@ -3,100 +3,128 @@ const ticker = document.getElementById("ticker-track");
 
 
 /*
-=================================
- CREATION DES CARTES
-=================================
+====================================
+ ICONES SPORTS
+====================================
 */
 
 
-function createCard(game){
+function getSportIcon(sport){
 
 
-    let statusClass = game.state;
+    const icons = {
+
+        NFL:"🏈",
+
+        NCAA:"🏈",
+
+        NBA:"🏀",
+
+        MLB:"⚾",
+
+        PGA:"⛳",
+
+        EPL:"⚽",
+
+        LIGUE1:"⚽"
+
+    };
 
 
-    let statusText = "";
+    return icons[sport] || "🏆";
+
+
+}
+
+
+
+
+
+
+/*
+====================================
+ DATE MATCH A VENIR
+====================================
+*/
+
+
+function formatUpcoming(date){
+
+
+    return new Date(date)
+    .toLocaleString(
+        "fr-FR",
+        {
+
+            weekday:"short",
+
+            day:"2-digit",
+
+            month:"short",
+
+            hour:"2-digit",
+
+            minute:"2-digit"
+
+        }
+
+    );
+
+
+}
+
+
+
+
+
+
+/*
+====================================
+ STATUS BADGE
+====================================
+*/
+
+
+function createStatus(game){
 
 
     if(game.state === "in"){
 
-        statusText = "🔴 LIVE";
+
+        return `
+
+        <span class="badge live">
+            🔴 LIVE
+        </span>
+
+        `;
+
 
     }
 
 
-    else if(game.state === "post"){
 
-        statusText = "FINAL";
+    if(game.state === "post"){
+
+
+        return `
+
+        <span class="badge final">
+            FINAL
+        </span>
+
+        `;
+
 
     }
-
-
-    else {
-
-        statusText =
-        formatUpcoming(game.date);
-
-    }
-
-
 
 
 
     return `
 
-
-    <div class="game-card ${statusClass}">
-
-
-        <div class="game-info">
-
-
-            <div class="team sport">
-
-                ${getSportIcon(game.sport)}
-                ${game.sport}
-
-            </div>
-
-
-
-            <div class="team">
-
-                ${game.team1}
-
-            </div>
-
-
-
-            <div class="team">
-
-                ${game.team2}
-
-            </div>
-
-
-        </div>
-
-
-
-        <div class="score">
-
-            ${game.score || "-"}
-
-        </div>
-
-
-
-        <div class="status">
-
-            ${statusText}
-
-        </div>
-
-
-    </div>
-
+    <span class="badge upcoming">
+        ${formatUpcoming(game.date)}
+    </span>
 
     `;
 
@@ -107,39 +135,143 @@ function createCard(game){
 
 
 
+
+
+
 /*
-=================================
- ICONES SPORTS
-=================================
+====================================
+ CREATION CARTE MATCH
+====================================
 */
 
 
-function getSportIcon(sport){
+function createCard(game){
 
 
-const icons={
 
-NFL:"🏈",
-
-NCAA:"🏈",
-
-NBA:"🏀",
-
-MLB:"⚾",
-
-PGA:"⛳",
-
-EPL:"⚽",
-
-LIGUE1:"⚽"
-
-};
+return `
 
 
-return icons[sport] || "🏆";
+<div class="game-card ${game.state}">
+
+
+
+    <div class="card-header">
+
+
+        <span>
+
+        ${getSportIcon(game.sport)}
+        ${game.sport}
+
+        </span>
+
+
+
+        ${createStatus(game)}
+
+
+    </div>
+
+
+
+
+
+    <div class="team-row">
+
+
+
+        <div class="team-name">
+
+
+            <img 
+            src="${game.logo1 || 'assets/fallback.svg'}"
+            onerror="this.src='assets/fallback.svg'"
+            >
+
+
+            ${game.team1}
+
+
+        </div>
+
+
+
+
+        <div class="score">
+
+            ${game.score1}
+
+        </div>
+
+
+
+    </div>
+
+
+
+
+
+
+    <div class="team-row">
+
+
+
+        <div class="team-name">
+
+
+            <img 
+            src="${game.logo2 || 'assets/fallback.svg'}"
+            onerror="this.src='assets/fallback.svg'"
+            >
+
+
+            ${game.team2}
+
+
+        </div>
+
+
+
+
+        <div class="score">
+
+            ${game.score2}
+
+        </div>
+
+
+
+    </div>
+
+
+
+
+
+
+
+    <div class="detail">
+
+
+        ${game.status || ""}
+
+
+    </div>
+
+
+
+
+</div>
+
+
+
+`;
+
 
 
 }
+
+
 
 
 
@@ -148,112 +280,143 @@ return icons[sport] || "🏆";
 
 
 /*
-=================================
- FORMAT DATE UPCOMING
-=================================
-*/
-
-
-function formatUpcoming(date){
-
-
-return new Date(date)
-.toLocaleString(
-"fr-FR",
-{
-
-day:"2-digit",
-
-month:"2-digit",
-
-hour:"2-digit",
-
-minute:"2-digit"
-
-}
-
-);
-
-
-}
-
-
-
-
-
-
-/*
-=================================
+====================================
  UPDATE DU TICKER
-=================================
+====================================
 */
 
 
 async function updateTicker(){
 
 
-try{
 
-
-const games =
-await fetchAllSports();
+    try{
 
 
 
+        const games =
+        await fetchAllSports();
 
 
-if(!games.length){
 
 
-ticker.innerHTML = `
+
+        if(!games.length){
 
 
-<div class="game-card upcoming">
+
+            ticker.innerHTML = `
 
 
-<div class="team">
-
-TLS Sports
-
-</div>
+            <div class="game-card upcoming">
 
 
-<div class="status">
+                <div class="card-header">
 
-Aucun événement en direct
+                    TLS SPORTS
 
-</div>
-
-
-</div>
+                </div>
 
 
-`;
+                <div class="detail">
+
+                    Aucun événement actuellement
+
+                </div>
 
 
-return;
+            </div>
+
+
+            `;
+
+
+
+            return;
+
+
+        }
+
+
+
+
+
+
+        let content = "";
+
+
+
+
+
+        games.forEach(game=>{
+
+
+            content +=
+            createCard(game);
+
+
+        });
+
+
+
+
+
+
+        /*
+        Duplication obligatoire
+        pour boucle infinie
+        */
+
+
+        ticker.innerHTML =
+        content + content;
+
+
+
+
+
+
+        ticker.style.animationDuration =
+        CONFIG.tickerSpeed + "s";
+
+
+
+
+
+        console.log(
+            "TLS ticker:",
+            games.length,
+            "événements"
+        );
+
+
+
+
+    }
+
+
+
+    catch(error){
+
+
+        console.error(
+
+            "Erreur ticker",
+
+            error
+
+        );
+
+
+    }
+
+
 
 
 }
 
 
 
-
-
-let html="";
-
-
-
-
-
-games.forEach(game=>{
-
-
-html +=
-createCard(game);
-
-
-});
 
 
 
@@ -261,63 +424,9 @@ createCard(game);
 
 
 /*
-
-Duplication obligatoire
-pour défilement infini
-
-*/
-
-
-ticker.innerHTML =
-html + html;
-
-
-
-
-
-ticker.style.animationDuration =
-CONFIG.tickerSpeed + "s";
-
-
-
-console.log(
-"Ticker updated",
-games.length,
-"events"
-);
-
-
-
-}
-
-catch(error){
-
-
-console.error(
-
-"Ticker update error",
-
-error
-
-);
-
-
-}
-
-
-}
-
-
-
-
-
-
-
-
-/*
-=================================
- DEMARRAGE
-=================================
+====================================
+ INITIALISATION
+====================================
 */
 
 
@@ -327,17 +436,19 @@ updateTicker();
 
 
 
+
+
 /*
-=================================
- AUTO REFRESH ESPN
-=================================
+====================================
+ RAFRAICHISSEMENT ESPN
+====================================
 */
 
 
 setInterval(
 
-updateTicker,
+    updateTicker,
 
-CONFIG.refreshRate
+    CONFIG.refreshRate
 
 );
