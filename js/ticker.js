@@ -698,13 +698,19 @@ games.forEach(game => {
     ){
 
         console.log(
-            "NFL SCORE CHANGE",
-            game.team1,
-            oldScore,
-            "→",
-            game.score1,
-            game.score2
-        );
+    "NFL SCORE CHANGE",
+    game.team1,
+    oldScore,
+    "→",
+    game.score1,
+    game.score2
+);
+
+
+console.log(
+    "NFL RAW",
+    game.raw
+);
 
     }
 
