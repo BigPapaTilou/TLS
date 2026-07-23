@@ -848,7 +848,13 @@ const pgaLeader =
 pga[0]?.competitions?.[0]?.competitors?.find(player =>
 player.position?.id === "1"
 );
-    liveGames.push({
+console.log("PGA POSITIONS",
+pga[0]?.competitions?.[0]?.competitors?.map(player => ({
+    name: player.athlete?.displayName,
+    position: player.position?.displayName
+})));
+ 
+ liveGames.push({
 
         sport:"PGA",
         state:"in",
