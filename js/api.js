@@ -1,3 +1,6 @@
+console.log("API JS CHARGE");
+
+
 const ESPN_ENDPOINTS = {
 
 
@@ -23,6 +26,7 @@ EPL:
 
 LIGUE1:
 "https://site.api.espn.com/apis/site/v2/sports/soccer/fra.1/scoreboard"
+
 
 };
 
@@ -50,20 +54,22 @@ return [];
 }
 
 
-const response =
-await fetch(
+
+const response = await fetch(
 ESPN_ENDPOINTS[sport]
 );
 
 
-const data =
-await response.json();
+
+const data = await response.json();
+
 
 
 return data.events || [];
 
 
 }
+
 
 catch(error){
 
@@ -76,6 +82,7 @@ error
 
 
 return [];
+
 
 }
 
@@ -104,7 +111,24 @@ let games=[];
 
 
 
+if(
+typeof CONFIG==="undefined" ||
+!CONFIG.sports
+){
+
+console.error(
+"CONFIG SPORTS MISSING"
+);
+
+return [];
+
+}
+
+
+
+
 for(const sport of CONFIG.sports){
+
 
 
 if(sport==="PGA"){
@@ -117,6 +141,7 @@ continue;
 
 const events =
 await fetchSport(sport);
+
 
 
 
@@ -140,6 +165,14 @@ sport
 
 
 }
+
+
+
+
+console.log(
+"ESPN RAW GAMES",
+games
+);
 
 
 
@@ -169,8 +202,7 @@ async function fetchPGA(){
 try{
 
 
-const response =
-await fetch(
+const response = await fetch(
 
 "https://site.api.espn.com/apis/site/v2/sports/golf/leaderboard"
 
@@ -178,16 +210,15 @@ await fetch(
 
 
 
-const data =
-await response.json();
+const data = await response.json();
 
 
 
 return data.events || null;
 
 
-
 }
+
 
 catch(error){
 
@@ -201,11 +232,11 @@ error
 );
 
 
+
 return null;
 
 
 }
-
 
 
 }
@@ -231,6 +262,7 @@ function normalizeEvent(event,sport){
 
 const competition =
 event.competitions?.[0];
+
 
 
 if(!competition){
@@ -386,7 +418,9 @@ return false;
 
 
 const hours =
-(game.date-now)/3600000;
+(game.date - now) / 3600000;
+
+
 
 
 
@@ -395,6 +429,8 @@ if(game.state==="in"){
 return true;
 
 }
+
+
 
 
 
@@ -412,6 +448,8 @@ return true;
 
 
 
+
+
 if(
 game.state==="post"
 &&
@@ -421,6 +459,8 @@ Math.abs(hours)<=12
 return true;
 
 }
+
+
 
 
 
@@ -439,7 +479,9 @@ const priority={
 
 in:0,
 
+
 pre:1,
+
 
 post:2
 
