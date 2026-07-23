@@ -889,5 +889,157 @@ width:280px;
 
 }
 
+  /* =========================
+PGA LEADERBOARD CARD
+========================= */
+
+
+.pga-card{
+
+
+width:360px;
+
+height:auto;
+
+min-height:120px;
+
+flex-shrink:0;
+
+
+background:
+
+linear-gradient(
+135deg,
+#062b16,
+#111
+);
+
+
+border-left:
+
+5px solid #2ecc71;
+
+
+border-radius:14px;
+
+
+padding:12px 15px;
+
+
+color:white;
+
+
+box-shadow:
+
+0 0 25px rgba(46,204,113,.25);
+
+
+}
+
+
+
+
+.pga-card .card-header{
+
+
+color:#2ecc71;
+
+font-weight:900;
+
+
+}
+
+
+
+
+
+.pga-player{
+
+
+display:flex;
+
+
+align-items:center;
+
+
+justify-content:space-between;
+
+
+font-size:13px;
+
+
+padding:3px 0;
+
+
+border-bottom:
+
+1px solid rgba(255,255,255,.08);
+
+
+}
+
+
+
+
+
+.pga-player:last-child{
+
+
+border-bottom:none;
+
+
+}
+
+
+
+
+.pga-player span{
+
+
+width:25px;
+
+font-weight:900;
+
+color:#2ecc71;
+
+
+}
+
+
+
+
+.pga-player strong{
+
+
+font-size:15px;
+
+color:white;
+
+
+}
+
+
+
+
+.pga-player:first-of-type{
+
+
+font-weight:900;
+
+
+background:
+
+rgba(46,204,113,.12);
+
+
+border-radius:6px;
+
+
+padding-left:5px;
+
+padding-right:5px;
+
+
+}
 
 }
