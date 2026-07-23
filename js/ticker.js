@@ -852,10 +852,17 @@ game.state === "post"
 );
 
 
-const upcomingGames = games.filter(game =>
-game.state === "pre" ||
-game.state === "scheduled"
-);
+const upcomingGames = games.filter(game => {
+
+const now = new Date();
+
+const hours =
+(game.date - now) / 3600000;
+
+
+return hours > 0 && hours <= 48;
+
+});
 
 
 
