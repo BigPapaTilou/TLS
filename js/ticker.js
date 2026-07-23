@@ -866,7 +866,13 @@ const hours =
 (game.date - now) / 3600000;
 
 
-return hours > 0 && hours <= 48;
+return (
+(game.state === "pre" || game.state === "scheduled")
+&&
+hours > 0
+&&
+hours <= 48
+);
 
 });
 
@@ -875,6 +881,10 @@ console.log(
 upcomingGames
 );
 
+ console.log(
+"FINAL DEBUG",
+finalGames
+);
  
 
 content += createSection(
