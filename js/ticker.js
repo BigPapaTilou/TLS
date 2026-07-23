@@ -1155,7 +1155,13 @@ function getMLBStatus(game){
         : "LIVE";
 
 
-    return inningLabel;
+    const outs =
+        status.outs !== undefined
+        ? `${status.outs} out${status.outs > 1 ? "s" : ""}`
+        : "";
+
+
+    return `${inningLabel}${outs ? " • " + outs : ""}`;
 
 }
 
