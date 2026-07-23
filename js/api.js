@@ -22,42 +22,50 @@ const ESPN_ENDPOINTS = {
 
 
 
+
+
 async function fetchSport(sport){
 
 
-try{
+    try{
 
 
-const response =
-await fetch(
-ESPN_ENDPOINTS[sport]
-);
+        const response =
+        await fetch(
+            ESPN_ENDPOINTS[sport]
+        );
 
 
-const data =
-await response.json();
+        const data =
+        await response.json();
 
 
-return data.events || [];
+        return data.events || [];
+
+
+    }
+
+
+    catch(error){
+
+
+        console.error(
+            "ESPN error :",
+            sport,
+            error
+        );
+
+
+        return [];
+
+
+    }
 
 
 }
 
-catch(error){
-
-console.error(
-"ESPN error",
-sport,
-error
-);
 
 
-return [];
-
-}
-
-
-}
 
 
 
@@ -65,36 +73,41 @@ return [];
 async function fetchAllSports(){
 
 
-let games=[];
-
-
-for(const sport of CONFIG.sports){
-
-
-const events =
-await fetchSport(sport);
+    let games = [];
 
 
 
-games.push(
-...
-events.map(
-event =>
-normalizeEvent(event,sport)
-)
+    for(const sport of CONFIG.sports){
 
-);
 
+        const events =
+        await fetchSport(sport);
+
+
+
+        const normalized =
+        events.map(
+            event =>
+            normalizeEvent(event,sport)
+        );
+
+
+
+        games.push(
+            ...normalized
+        );
+
+
+    }
+
+
+
+
+    return filterGames(games);
 
 
 }
 
-
-
-return filterGames(games);
-
-
-}
 
 
 
@@ -106,78 +119,119 @@ function normalizeEvent(event,sport){
 
 
 
-const competition =
-event.competitions[0];
+    const competition =
+    event.competitions[0];
 
 
 
-const competitors =
-competition.competitors;
+    const competitors =
+    competition.competitors;
 
 
 
-const home =
-competitors.find(
-c=>c.homeAway==="home"
-);
-
-
-const away =
-competitors.find(
-c=>c.homeAway==="away"
-);
+    const home =
+    competitors.find(
+        c =>
+        c.homeAway === "home"
+    );
 
 
 
-
-return {
-
-
-sport,
-
-
-id:event.id,
-
-
-team1:
-away?.team.displayName || "",
-
-
-team2:
-home?.team.displayName || "",
+    const away =
+    competitors.find(
+        c =>
+        c.homeAway === "away"
+    );
 
 
 
-score:
 
-away?.score +
-" - " +
-home?.score,
+    return {
 
 
+        id:event.id,
 
-status:
-event.status.type.description,
+
+        sport,
 
 
 
-state:
-event.status.type.state,
-
-
-date:
-new Date(event.date),
+        team1:
+        away?.team?.displayName
+        ||
+        "TBD",
 
 
 
-raw:event
+        team2:
+        home?.team?.displayName
+        ||
+        "TBD",
 
 
-};
+
+
+        logo1:
+        away?.team?.logo
+        ||
+        "",
+
+
+
+        logo2:
+        home?.team?.logo
+        ||
+        "",
+
+
+
+
+
+        score1:
+        away?.score
+        ||
+        "0",
+
+
+
+
+        score2:
+        home?.score
+        ||
+        "0",
+
+
+
+
+
+        state:
+        event.status.type.state,
+
+
+
+        status:
+        event.status.type.shortDetail
+        ||
+        event.status.type.description,
+
+
+
+        date:
+        new Date(event.date),
+
+
+
+
+        raw:event
+
+
+    };
 
 
 
 }
+
+
 
 
 
@@ -188,84 +242,98 @@ raw:event
 function filterGames(games){
 
 
-const now =
-new Date();
 
-
-return games
-
-.filter(game=>{
-
-
-const diff =
-(game.date-now)/3600000;
+    const now =
+    new Date();
 
 
 
-// live
 
-if(game.state==="in"){
+    return games
 
-return true;
-
-}
+    .filter(game=>{
 
 
-// final moins de 12h
-
-if(
-game.state==="post"
-&&
-Math.abs(diff)<12
-){
-
-return true;
-
-}
+        const hours =
+        (
+            game.date - now
+        )
+        /
+        3600000;
 
 
-// à venir 48h
 
-if(
-game.state==="pre"
-&&
-diff<48
-&&
-diff>-1
-){
+        // LIVE
 
-return true;
+        if(game.state === "in"){
 
-}
+            return true;
+
+        }
 
 
-return false;
+
+        // FINAL moins de 12h
+
+        if(
+            game.state === "post"
+            &&
+            Math.abs(hours) <= 12
+        ){
+
+            return true;
+
+        }
 
 
-})
+
+        // MATCHS A VENIR 48H
+
+        if(
+            game.state === "pre"
+            &&
+            hours <= 48
+            &&
+            hours >= -1
+        ){
+
+            return true;
+
+        }
 
 
-.sort((a,b)=>{
+
+        return false;
 
 
-const order={
-
-"in":0,
-
-"post":1,
-
-"pre":2
-
-};
+    })
 
 
-return (
-order[a.state]
--
-order[b.state]
-);
+
+    .sort((a,b)=>{
 
 
-});
+        const priority = {
+
+            in:0,
+
+            post:1,
+
+            pre:2
+
+        };
+
+
+
+        return (
+            priority[a.state]
+            -
+            priority[b.state]
+        );
+
+
+    });
+
+
 
 }
