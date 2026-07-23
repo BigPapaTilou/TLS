@@ -416,13 +416,9 @@ return true;
 
 
 
-// 🏁 MATCHS TERMINÉS DES 24 DERNIÈRES HEURES
+// 🏁 MATCHS TERMINÉS
 if(
 game.state === "post"
-&&
-hours <= 0
-&&
-hours >= -24
 ){
 
 return true;
