@@ -10,8 +10,7 @@ const ticker = document.getElementById("ticker-track");
 
 let activeAlerts = [];
 
-
-
+let activeCardEvents = {};
 
 
 
