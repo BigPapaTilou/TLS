@@ -1,28 +1,60 @@
+/*
+====================================
+ TLS ALERT ENGINE
+====================================
+
+Détecte les changements de score
+et prépare les Alert Cards.
+
+====================================
+*/
+
+
 let previousGames = {};
 
+
+
+
+
+/*
+====================================
+ DETECTION EVENEMENT
+====================================
+*/
 
 
 function detectEvent(game){
 
 
-    const oldGame =
+
+    const previous =
     previousGames[game.id];
 
 
 
-    previousGames[game.id] = {
 
-        score1:game.score1,
-
-        score2:game.score2
-
-    };
+    /*
+    Première apparition du match :
+    on mémorise seulement
+    */
 
 
+    if(!previous){
 
-    if(!oldGame){
+
+        previousGames[game.id] = {
+
+            score1:
+            Number(game.score1),
+
+            score2:
+            Number(game.score2)
+
+        };
+
 
         return null;
+
 
     }
 
@@ -30,12 +62,61 @@ function detectEvent(game){
 
 
 
+    const oldScore1 =
+    previous.score1;
+
+
+    const oldScore2 =
+    previous.score2;
+
+
+
+    const newScore1 =
+    Number(game.score1);
+
+
+    const newScore2 =
+    Number(game.score2);
+
+
+
+
+
+    /*
+    Mise à jour mémoire
+    */
+
+
+    previousGames[game.id] = {
+
+
+        score1:newScore1,
+
+
+        score2:newScore2
+
+
+    };
+
+
+
+
+
+
+    /*
+    Aucun changement
+    */
+
+
     if(
-        oldGame.score1 === game.score1 &&
-        oldGame.score2 === game.score2
+        oldScore1 === newScore1
+        &&
+        oldScore2 === newScore2
     ){
 
+
         return null;
+
 
     }
 
@@ -50,16 +131,25 @@ function detectEvent(game){
     */
 
 
-    if(game.sport==="NFL"){
+    if(game.sport === "NFL"){
+
 
         return {
 
+
             type:"TOUCHDOWN",
+
 
             icon:"🏈",
 
+
             team:
-            getScoringTeam(oldGame,game)
+            getScoringTeam(
+                game,
+                oldScore1,
+                oldScore2
+            )
+
 
         };
 
@@ -77,17 +167,25 @@ function detectEvent(game){
     */
 
 
-    if(game.sport==="MLB"){
+    if(game.sport === "MLB"){
 
 
         return {
 
+
             type:"HOME RUN",
+
 
             icon:"⚾",
 
+
             team:
-            getScoringTeam(oldGame,game)
+            getScoringTeam(
+                game,
+                oldScore1,
+                oldScore2
+            )
+
 
         };
 
@@ -100,15 +198,15 @@ function detectEvent(game){
 
     /*
     =========================
-    SOCCER
+    FOOTBALL
     =========================
     */
 
 
     if(
-        game.sport==="EPL"
+        game.sport === "EPL"
         ||
-        game.sport==="LIGUE1"
+        game.sport === "LIGUE1"
     ){
 
 
@@ -117,10 +215,16 @@ function detectEvent(game){
 
             type:"GOAL",
 
+
             icon:"⚽",
 
+
             team:
-            getScoringTeam(oldGame,game)
+            getScoringTeam(
+                game,
+                oldScore1,
+                oldScore2
+            )
 
 
         };
@@ -132,7 +236,26 @@ function detectEvent(game){
 
 
 
+    /*
+    NBA volontairement ignoré
+    */
+
+
+    if(game.sport === "NBA"){
+
+
+        return null;
+
+
+    }
+
+
+
+
+
+
     return null;
+
 
 
 }
@@ -143,34 +266,57 @@ function detectEvent(game){
 
 
 
-function getScoringTeam(oldGame,newGame){
+
+
+/*
+====================================
+ DETERMINE L'EQUIPE QUI A MARQUE
+====================================
+*/
+
+
+function getScoringTeam(
+    game,
+    oldScore1,
+    oldScore2
+){
+
 
 
     if(
-        Number(newGame.score1)
+        Number(game.score1)
         >
-        Number(oldGame.score1)
+        oldScore1
     ){
 
-        return newGame.team1;
+
+        return game.team1;
+
 
     }
 
 
 
+
+
     if(
-        Number(newGame.score2)
+        Number(game.score2)
         >
-        Number(oldGame.score2)
+        oldScore2
     ){
 
-        return newGame.team2;
+
+        return game.team2;
+
 
     }
+
 
 
     return "";
 
+
+
 }
 
 
@@ -178,6 +324,14 @@ function getScoringTeam(oldGame,newGame){
 
 
 
+
+
+
+/*
+====================================
+ CREATION ALERT CARD
+====================================
+*/
 
 
 function createAlertCard(alert){
@@ -187,41 +341,53 @@ function createAlertCard(alert){
 return `
 
 
+
 <div class="alert-card">
 
 
-<div class="alert-title">
+
+    <div class="alert-title">
 
 
-${alert.icon}
+        ${alert.icon}
 
-${alert.type}
+        ${alert.type}
+
+
+    </div>
+
+
+
+
+
+    <div class="alert-team">
+
+
+        ${alert.team}
+
+
+    </div>
+
+
+
+
+
+    <div class="alert-brand">
+
+
+        TLS ALERT
+
+
+    </div>
+
 
 
 </div>
 
-
-
-<div class="alert-team">
-
-${alert.team}
-
-
-</div>
-
-
-
-<div class="alert-tls">
-
-TLS ALERT
-
-</div>
-
-
-
-</div>
 
 
 `;
+
+
 
 }
