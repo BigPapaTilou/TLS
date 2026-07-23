@@ -343,31 +343,15 @@ function filterGames(games){
 const now = new Date();
 
 
-
 console.log("FILTER DEBUG START");
 
 
-
-return games.filter(game=>{
-
-
-if(
-!game ||
-!(game.date instanceof Date) ||
-isNaN(game.date)
-){
-
-return false;
-
-}
-
+games.forEach(game=>{
 
 
 const hours =
-
-(game.date.getTime()-now.getTime())
+(game.date.getTime() - now.getTime())
 /3600000;
-
 
 
 console.log(
@@ -383,13 +367,37 @@ game.team2
 );
 
 
+});
+
+
+console.log("FILTER DEBUG END");
 
 
 
-// LIVE toujours affiché
+const filtered = games.filter(game=>{
+
 
 if(
-game.state==="in"
+!game ||
+!(game.date instanceof Date) ||
+isNaN(game.date)
+){
+
+return false;
+
+}
+
+
+
+const hours =
+(game.date.getTime() - now.getTime())
+/3600000;
+
+
+
+// 🔴 LIVE
+if(
+game.state === "in"
 ){
 
 return true;
@@ -398,81 +406,85 @@ return true;
 
 
 
-
-
-// MATCHS A VENIR DANS LES 48H
-
+// 🏁 MATCHS TERMINÉS DES 24 DERNIÈRES HEURES
 if(
-game.state==="pre" ||
-game.state==="scheduled"
-){
-
-return (
-
-hours >= 0 &&
-hours <= 48
-
-);
-
-}
-
-
-
-
-
-// MATCHS TERMINES RECENTS
-
-if(
-game.state==="post"
-){
-
-return (
-
-hours >= -12 &&
+game.state === "post"
+&&
 hours <= 0
+&&
+hours >= -24
+){
 
-);
+return true;
 
 }
 
 
+
+// 📅 MATCHS À VENIR DANS LES 48H
+if(
+(game.state === "pre" ||
+game.state === "scheduled")
+&&
+hours >= 0
+&&
+hours <= 48
+){
+
+return true;
+
+}
 
 
 
 return false;
 
 
-
-})
-
+});
 
 
-.sort((a,b)=>{
 
 
-const priority={
+
+return filtered.sort((a,b)=>{
+
+
+const priority = {
+
 
 in:0,
 
-pre:1,
 
-scheduled:1,
+post:1,
 
-post:2
+
+pre:2,
+
+
+scheduled:2
+
 
 };
 
 
 
-return (
-
-(priority[a.state] ?? 3)
-
+const stateDiff =
+(priority[a.state] ?? 99)
 -
+(priority[b.state] ?? 99);
 
-(priority[b.state] ?? 3)
 
-);
+
+if(stateDiff !== 0){
+
+return stateDiff;
+
+}
+
+
+
+return a.date - b.date;
+
 
 
 });
