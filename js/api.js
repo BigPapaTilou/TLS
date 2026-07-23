@@ -1,19 +1,25 @@
 const ESPN_ENDPOINTS = {
 
+
 NFL:
 "https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard",
+
 
 NCAA:
 "https://site.api.espn.com/apis/site/v2/sports/football/college-football/scoreboard",
 
+
 NBA:
 "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard",
+
 
 MLB:
 "https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard",
 
+
 EPL:
 "https://site.api.espn.com/apis/site/v2/sports/soccer/eng.1/scoreboard",
+
 
 LIGUE1:
 "https://site.api.espn.com/apis/site/v2/sports/soccer/fra.1/scoreboard"
@@ -26,10 +32,27 @@ LIGUE1:
 
 
 
+
+
+/*
+====================================
+ FETCH SPORT
+====================================
+*/
+
+
 async function fetchSport(sport){
 
 
 try{
+
+
+if(!ESPN_ENDPOINTS[sport]){
+
+return [];
+
+}
+
 
 
 const response =
@@ -38,11 +61,14 @@ ESPN_ENDPOINTS[sport]
 );
 
 
+
 const data =
 await response.json();
 
 
+
 return data.events || [];
+
 
 
 }
@@ -51,25 +77,37 @@ catch(error){
 
 
 console.error(
+
 "ESPN ERROR",
+
 sport,
+
 error
+
 );
 
 
 return [];
 
-}
-
 
 }
 
 
+}
 
 
 
 
 
+
+
+
+
+/*
+====================================
+ FETCH ALL SPORTS
+====================================
+*/
 
 
 async function fetchAllSports(){
@@ -80,6 +118,14 @@ let games=[];
 
 
 for(const sport of CONFIG.sports){
+
+
+if(sport==="PGA"){
+
+continue;
+
+}
+
 
 
 const events =
@@ -121,17 +167,96 @@ return filterGames(games);
 
 
 
+/*
+====================================
+ PGA TOUR
+====================================
+*/
+
+
+async function fetchPGA(){
+
+
+try{
+
+
+const response =
+
+await fetch(
+
+"https://site.api.espn.com/apis/site/v2/sports/golf/leaderboard"
+
+);
+
+
+
+const data =
+
+await response.json();
+
+
+
+return data.events || null;
+
+
+
+}
+
+catch(error){
+
+
+console.error(
+
+"ESPN PGA ERROR",
+
+error
+
+);
+
+
+return null;
+
+
+}
+
+
+
+}
+
+
+
+
+
+
+
+
+
+/*
+====================================
+ NORMALIZE EVENT
+====================================
+*/
+
+
 function normalizeEvent(event,sport){
 
 
 
 const competition =
-event.competitions[0];
+event.competitions?.[0];
+
+
+
+if(!competition){
+
+return null;
+
+}
 
 
 
 const competitors =
-competition.competitors;
+competition.competitors || [];
 
 
 
@@ -209,14 +334,18 @@ home?.score
 
 
 state:
-event.status.type.state,
+event.status?.type?.state
+||
+"pre",
 
 
 
 status:
-event.status.type.shortDetail
+event.status?.type?.shortDetail
 ||
-event.status.type.description,
+event.status?.type?.description
+||
+"",
 
 
 
@@ -226,13 +355,8 @@ new Date(event.date),
 
 
 
-/*
-Nouveaux éléments ESPN
-*/
-
-
 plays:
-event.competitions[0].plays
+competition.plays
 ||
 [],
 
@@ -255,6 +379,13 @@ raw:event
 
 
 
+/*
+====================================
+ FILTER
+====================================
+*/
+
+
 function filterGames(games){
 
 
@@ -271,8 +402,17 @@ return games
 .filter(game=>{
 
 
+if(!game){
+
+return false;
+
+}
+
+
+
 const hours =
 (game.date-now)/3600000;
+
 
 
 
@@ -310,6 +450,7 @@ hours>=-1
 return true;
 
 }
+
 
 
 
