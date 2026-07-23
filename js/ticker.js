@@ -683,6 +683,30 @@ games.forEach(game => {
 
     if(game.state === "in"){
 
+        const oldScore = previousScores[game.id];
+
+
+        if(oldScore){
+
+            if(
+                oldScore.score1 !== game.score1 ||
+                oldScore.score2 !== game.score2
+            ){
+
+                console.log(
+                    "SCORE CHANGE",
+                    game.team1,
+                    oldScore,
+                    "→",
+                    game.score1,
+                    game.score2
+                );
+
+            }
+
+        }
+
+
         previousScores[game.id] = {
             score1: game.score1,
             score2: game.score2
