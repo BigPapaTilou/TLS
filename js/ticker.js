@@ -359,6 +359,19 @@ activeAlerts.push(id);
 
 
 
+if(
+typeof activateBroadcastAlert === "function"
+){
+
+activateBroadcastAlert();
+
+}
+
+
+
+
+
+
 setTimeout(()=>{
 
 
@@ -395,6 +408,64 @@ return createAlertCard(alert);
 
 /*
 ====================================
+ BROADCAST SORT
+====================================
+*/
+
+
+function sortBroadcast(events){
+
+
+
+return events.sort((a,b)=>{
+
+
+
+const priority = {
+
+
+alert:0,
+
+in:1,
+
+post:2,
+
+pre:3
+
+
+};
+
+
+
+
+
+return (
+
+priority[a.state]
+
+-
+
+priority[b.state]
+
+);
+
+
+
+});
+
+
+}
+
+
+
+
+
+
+
+
+
+/*
+====================================
  UPDATE TICKER
 ====================================
 */
@@ -408,7 +479,7 @@ try{
 
 
 
-const games =
+let games =
 
 await fetchAllSports();
 
@@ -423,7 +494,97 @@ await fetchPGA();
 
 
 
+
+
 let content="";
+
+
+
+
+
+
+/*
+==============================
+ DETECTION ALERTS
+==============================
+*/
+
+
+let alerts=[];
+
+
+
+
+
+games.forEach(game=>{
+
+
+const alert =
+
+detectEvent(game);
+
+
+
+
+if(
+alert
+&&
+CONFIG.enableAlerts
+){
+
+
+alerts.push(alert);
+
+
+}
+
+
+});
+
+
+
+
+
+
+
+
+
+/*
+==============================
+ TRI BROADCAST
+==============================
+*/
+
+
+games =
+
+sortBroadcast(games);
+
+
+
+
+
+
+
+
+
+/*
+==============================
+ ALERT CARDS
+==============================
+*/
+
+
+alerts.forEach(alert=>{
+
+
+content +=
+
+addAlert(alert);
+
+
+});
+
 
 
 
@@ -440,7 +601,6 @@ let content="";
 
 
 if(pga){
-
 
 
 content +=
@@ -469,45 +629,14 @@ games.forEach(game=>{
 
 
 
-
-
-const alert =
-
-detectEvent(game);
-
-
-
-
-
-
-if(
-alert
-&&
-CONFIG.enableAlerts
-){
-
-
-content +=
-
-addAlert(alert);
-
-
-}
-
-
-
-
-
-
 content +=
 
 createCard(game);
 
 
 
-
-
 });
+
 
 
 
@@ -550,6 +679,7 @@ Aucun événement
 }
 
 
+
  
 
 
@@ -568,9 +698,17 @@ content + content;
 
 
 
+if(
+typeof CONFIG !== "undefined"
+){
+
+
 ticker.style.animationDuration =
 
 CONFIG.tickerSpeed+"s";
+
+
+}
 
 
 
