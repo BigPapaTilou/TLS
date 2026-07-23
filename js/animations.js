@@ -1,10 +1,10 @@
 /*
 ====================================
- TLS ALERT ENGINE
+ TLS ALERT ENGINE v2
 ====================================
 
-Détecte les changements de score
-et prépare les Alert Cards.
+Analyse les événements sportifs
+et génère les TLS Alert Cards.
 
 ====================================
 */
@@ -17,9 +17,10 @@ let previousGames = {};
 
 
 
+
 /*
 ====================================
- DETECTION EVENEMENT
+ DETECTION PRINCIPALE
 ====================================
 */
 
@@ -28,37 +29,90 @@ function detectEvent(game){
 
 
 
-const previous =
-
-previousGames[game.id];
-
+    const previous =
+    previousGames[game.id];
 
 
 
 
-/*
-Première apparition :
-on mémorise seulement
-*/
+
+    /*
+    Première apparition
+    On initialise seulement
+    */
 
 
-if(!previous){
+    if(!previous){
+
+
+        previousGames[game.id]={
+
+
+            score1:
+            Number(game.score1),
+
+
+            score2:
+            Number(game.score2),
+
+
+            lastPlay:
+            getLastPlayId(game)
+
+
+        };
+
+
+        return null;
+
+
+    }
 
 
 
-previousGames[game.id] = {
-
-
-score1:Number(game.score1),
-
-score2:Number(game.score2)
-
-
-};
 
 
 
-return null;
+    const alert =
+    detectSportEvent(
+        game,
+        previous
+    );
+
+
+
+
+
+
+
+    /*
+    Mise à jour mémoire
+    */
+
+
+    previousGames[game.id]={
+
+
+        score1:
+        Number(game.score1),
+
+
+        score2:
+        Number(game.score2),
+
+
+        lastPlay:
+        getLastPlayId(game)
+
+
+    };
+
+
+
+
+
+    return alert;
+
 
 
 }
@@ -69,51 +123,20 @@ return null;
 
 
 
-const oldScore1 =
-
-previous.score1;
-
-
-const oldScore2 =
-
-previous.score2;
-
-
-
-
-
-const newScore1 =
-
-Number(game.score1);
-
-
-
-const newScore2 =
-
-Number(game.score2);
-
-
-
-
-
 
 
 
 /*
-Mise à jour mémoire
+====================================
+ ANALYSE PAR SPORT
+====================================
 */
 
 
-previousGames[game.id] = {
-
-
-score1:newScore1,
-
-score2:newScore2
-
-
-};
-
+function detectSportEvent(
+game,
+previous
+){
 
 
 
@@ -121,22 +144,96 @@ score2:newScore2
 
 
 /*
-Pas de changement
+=========================
+ NFL / NCAA
+=========================
 */
 
 
 if(
-
-oldScore1 === newScore1
-
-&&
-
-oldScore2 === newScore2
-
+game.sport==="NFL"
+||
+game.sport==="NCAA"
 ){
 
 
-return null;
+    const play =
+    getNewPlay(
+        game,
+        previous
+    );
+
+
+
+    if(play){
+
+
+        const text =
+        play.text
+        ||
+        "";
+
+
+
+        if(
+            text.includes("Touchdown")
+            ||
+            text.includes("TOUCHDOWN")
+        ){
+
+
+            return {
+
+                type:"TOUCHDOWN",
+
+                icon:"🏈",
+
+                team:
+                extractTeam(
+                    play,
+                    game
+                )
+
+            };
+
+
+        }
+
+
+
+
+
+        if(
+            text.includes("Field Goal")
+            ||
+            text.includes("FIELD GOAL")
+        ){
+
+
+            return {
+
+
+                type:"FIELD GOAL",
+
+                icon:"🦵",
+
+                team:
+                extractTeam(
+                    play,
+                    game
+                )
+
+
+            };
+
+
+        }
+
+
+
+
+    }
+
 
 
 }
@@ -151,46 +248,7 @@ return null;
 
 /*
 =========================
-NFL
-=========================
-*/
-
-
-if(game.sport==="NFL"){
-
-
-
-return {
-
-
-type:"TOUCHDOWN",
-
-icon:"🏈",
-
-team:getScoringTeam(
-game,
-oldScore1,
-oldScore2
-)
-
-
-};
-
-
-
-}
-
-
-
-
-
-
-
-
-
-/*
-=========================
-MLB
+ MLB
 =========================
 */
 
@@ -199,22 +257,35 @@ if(game.sport==="MLB"){
 
 
 
-return {
+    const changed =
+    scoreChanged(
+        game,
+        previous
+    );
 
 
-type:"HOME RUN",
 
-icon:"⚾",
-
-team:getScoringTeam(
-game,
-oldScore1,
-oldScore2
-)
+    if(changed){
 
 
-};
+        return {
 
+
+            type:"RUN SCORED",
+
+            icon:"⚾",
+
+            team:
+            getScoringTeam(
+                game,
+                previous
+            )
+
+
+        };
+
+
+    }
 
 
 }
@@ -229,20 +300,28 @@ oldScore2
 
 /*
 =========================
-SOCCER
+ SOCCER
 =========================
 */
 
 
 if(
-
 game.sport==="EPL"
-
 ||
-
 game.sport==="LIGUE1"
-
 ){
+
+
+
+const changed =
+scoreChanged(
+game,
+previous
+);
+
+
+
+if(changed){
 
 
 
@@ -253,15 +332,17 @@ type:"GOAL",
 
 icon:"⚽",
 
-team:getScoringTeam(
+team:
+getScoringTeam(
 game,
-oldScore1,
-oldScore2
+previous
 )
 
 
 };
 
+
+}
 
 
 }
@@ -275,7 +356,13 @@ oldScore2
 
 
 /*
-NBA volontairement sans alerte
+=========================
+ NBA
+=========================
+
+Pas d'alertes
+comme demandé
+
 */
 
 
@@ -308,31 +395,53 @@ return null;
 
 /*
 ====================================
- DETERMINE QUI A MARQUE
+ OUTILS
 ====================================
 */
 
 
-function getScoringTeam(
 
+function scoreChanged(
 game,
-
-oldScore1,
-
-oldScore2
-
+previous
 ){
 
 
-
-if(
+return (
 
 Number(game.score1)
-
 >
+previous.score1
 
-oldScore1
+||
 
+Number(game.score2)
+>
+previous.score2
+
+);
+
+
+}
+
+
+
+
+
+
+
+
+
+function getScoringTeam(
+game,
+previous
+){
+
+
+if(
+Number(game.score1)
+>
+previous.score1
 ){
 
 
@@ -343,17 +452,10 @@ return game.team1;
 
 
 
-
-
-
 if(
-
 Number(game.score2)
-
 >
-
-oldScore2
-
+previous.score2
 ){
 
 
@@ -364,9 +466,117 @@ return game.team2;
 
 
 
-
-
 return "";
+
+}
+
+
+
+
+
+
+
+
+
+function getLastPlayId(game){
+
+
+if(
+!game.plays
+||
+!game.plays.length
+){
+
+return null;
+
+}
+
+
+return game.plays[
+game.plays.length-1
+]
+.id;
+
+
+}
+
+
+
+
+
+
+
+
+
+function getNewPlay(
+game,
+previous
+){
+
+
+if(
+!game.plays
+||
+!game.plays.length
+){
+
+return null;
+
+}
+
+
+
+const last =
+game.plays[
+game.plays.length-1
+];
+
+
+
+if(
+last.id
+===
+previous.lastPlay
+){
+
+return null;
+
+}
+
+
+
+return last;
+
+
+
+}
+
+
+
+
+
+
+
+
+function extractTeam(
+play,
+game
+){
+
+
+
+if(play.team){
+
+return play.team.displayName;
+
+}
+
+
+
+return getScoringTeam(
+game,
+previousGames[game.id]
+);
 
 
 
@@ -394,8 +604,8 @@ function createAlertCard(alert){
 return `
 
 
-<div class="alert-card">
 
+<div class="alert-card">
 
 
 <div class="alert-title">
@@ -410,8 +620,6 @@ ${alert.type}
 
 
 
-
-
 <div class="alert-team">
 
 
@@ -419,8 +627,6 @@ ${alert.team}
 
 
 </div>
-
-
 
 
 
@@ -434,12 +640,11 @@ TLS ALERT
 
 
 
-
 </div>
 
 
-`;
 
+`;
 
 
 }
@@ -456,6 +661,11 @@ TLS ALERT
 ====================================
  TLS BROADCAST MODE
 ====================================
+
+Gestion de l'impact TV
+lors d'une alerte.
+
+====================================
 */
 
 
@@ -463,36 +673,34 @@ function activateBroadcastAlert(){
 
 
 
-const track =
+    const track =
 
-document.getElementById(
-"ticker-track"
-);
-
-
-
-
-
-if(!track){
-
-return;
-
-}
+    document.getElementById(
+        "ticker-track"
+    );
 
 
 
 
 
+    if(!track){
 
-/*
-Ralenti le ticker
-pendant une alerte
-*/
+        return;
+
+    }
 
 
-track.style.animationDuration =
 
-CONFIG.alertSpeed + "s";
+
+
+
+    if(
+        typeof CONFIG === "undefined"
+    ){
+
+        return;
+
+    }
 
 
 
@@ -500,23 +708,39 @@ CONFIG.alertSpeed + "s";
 
 
 
-/*
-Retour vitesse normale
-*/
+
+    /*
+    Ralentissement ticker
+    */
 
 
-setTimeout(()=>{
+    track.style.animationDuration =
 
-
-track.style.animationDuration =
-
-CONFIG.tickerSpeed + "s";
+    CONFIG.alertSpeed + "s";
 
 
 
-},
 
-CONFIG.alertDuration);
+
+
+
+    /*
+    Retour vitesse normale
+    */
+
+
+    setTimeout(()=>{
+
+
+        track.style.animationDuration =
+
+        CONFIG.tickerSpeed + "s";
+
+
+
+    },
+
+    CONFIG.alertDuration);
 
 
 
