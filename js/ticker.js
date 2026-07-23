@@ -14,6 +14,7 @@ function getSportIcon(sport){
 
     const icons = {
 
+
         NFL:"🏈",
 
         NCAA:"🏈",
@@ -27,6 +28,7 @@ function getSportIcon(sport){
         EPL:"⚽",
 
         LIGUE1:"⚽"
+
 
     };
 
@@ -43,7 +45,7 @@ function getSportIcon(sport){
 
 /*
 ====================================
- DATE MATCH A VENIR
+ FORMAT DATE MATCH A VENIR
 ====================================
 */
 
@@ -56,6 +58,7 @@ function formatUpcoming(date){
         "fr-FR",
         {
 
+
             weekday:"short",
 
             day:"2-digit",
@@ -65,6 +68,7 @@ function formatUpcoming(date){
             hour:"2-digit",
 
             minute:"2-digit"
+
 
         }
 
@@ -78,14 +82,16 @@ function formatUpcoming(date){
 
 
 
+
 /*
 ====================================
- STATUS BADGE
+ BADGE STATUS
 ====================================
 */
 
 
 function createStatus(game){
+
 
 
     if(game.state === "in"){
@@ -94,13 +100,16 @@ function createStatus(game){
         return `
 
         <span class="badge live">
-            🔴 LIVE
+
+        🔴 LIVE
+
         </span>
 
         `;
 
 
     }
+
 
 
 
@@ -110,7 +119,9 @@ function createStatus(game){
         return `
 
         <span class="badge final">
-            FINAL
+
+        FINAL
+
         </span>
 
         `;
@@ -120,11 +131,16 @@ function createStatus(game){
 
 
 
+
     return `
 
+
     <span class="badge upcoming">
-        ${formatUpcoming(game.date)}
+
+    ${formatUpcoming(game.date)}
+
     </span>
+
 
     `;
 
@@ -138,9 +154,10 @@ function createStatus(game){
 
 
 
+
 /*
 ====================================
- CREATION CARTE MATCH
+ CARTE MATCH
 ====================================
 */
 
@@ -156,107 +173,113 @@ return `
 
 
 
-    <div class="card-header">
+<div class="card-header">
 
 
-        <span>
+<span>
 
-        ${getSportIcon(game.sport)}
-        ${game.sport}
+${getSportIcon(game.sport)}
 
-        </span>
+${game.sport}
 
+</span>
 
 
-        ${createStatus(game)}
 
+${createStatus(game)}
 
-    </div>
 
 
+</div>
 
 
 
-    <div class="team-row">
 
 
 
-        <div class="team-name">
 
+<div class="team-row">
 
-            <img 
-            src="${game.logo1 || 'assets/fallback.svg'}"
-            onerror="this.src='assets/fallback.svg'"
-            >
 
 
-            ${game.team1}
+<div class="team-name">
 
 
-        </div>
+<img
+src="${game.logo1 || 'assets/fallback.svg'}"
+onerror="this.src='assets/fallback.svg'"
+>
 
 
+${game.team1}
 
 
-        <div class="score">
+</div>
 
-            ${game.score1}
 
-        </div>
 
+<div class="score">
 
 
-    </div>
+${game.score1}
 
 
+</div>
 
 
+</div>
 
 
-    <div class="team-row">
 
 
 
-        <div class="team-name">
 
 
-            <img 
-            src="${game.logo2 || 'assets/fallback.svg'}"
-            onerror="this.src='assets/fallback.svg'"
-            >
 
+<div class="team-row">
 
-            ${game.team2}
 
 
-        </div>
+<div class="team-name">
 
 
+<img
+src="${game.logo2 || 'assets/fallback.svg'}"
+onerror="this.src='assets/fallback.svg'"
+>
 
 
-        <div class="score">
+${game.team2}
 
-            ${game.score2}
 
-        </div>
+</div>
 
 
 
-    </div>
+<div class="score">
 
 
+${game.score2}
 
 
+</div>
 
 
+</div>
 
-    <div class="detail">
 
 
-        ${game.status || ""}
 
 
-    </div>
+
+
+<div class="detail">
+
+
+${game.status || ""}
+
+
+</div>
 
 
 
@@ -281,7 +304,7 @@ return `
 
 /*
 ====================================
- UPDATE DU TICKER
+ UPDATE TICKER
 ====================================
 */
 
@@ -290,130 +313,187 @@ async function updateTicker(){
 
 
 
-    try{
+try{
 
 
 
-        const games =
-        await fetchAllSports();
+const games =
+await fetchAllSports();
 
 
 
 
 
-        if(!games.length){
+if(!games.length){
 
 
+ticker.innerHTML = `
 
-            ticker.innerHTML = `
 
+<div class="game-card pre">
 
-            <div class="game-card upcoming">
 
+<div class="card-header">
 
-                <div class="card-header">
+TLS SPORTS
 
-                    TLS SPORTS
+</div>
 
-                </div>
 
 
-                <div class="detail">
+<div class="detail">
 
-                    Aucun événement actuellement
+Aucun événement actuellement
 
-                </div>
+</div>
 
 
-            </div>
 
+</div>
 
-            `;
 
+`;
 
 
-            return;
+return;
 
 
-        }
+}
 
 
 
 
 
 
-        let content = "";
 
+let content = "";
 
 
 
 
-        games.forEach(game=>{
 
 
-            content +=
-            createCard(game);
 
+games.forEach(game=>{
 
-        });
 
 
 
 
+/*
+Détection événement
+*/
 
+const alert =
+detectEvent(game);
 
-        /*
-        Duplication obligatoire
-        pour boucle infinie
-        */
 
 
-        ticker.innerHTML =
-        content + content;
 
 
+/*
+Ajout Alert Card
+*/
 
+if(
+alert
+&&
+CONFIG.enableAlerts
+){
 
 
+content +=
+createAlertCard(alert);
 
-        ticker.style.animationDuration =
-        CONFIG.tickerSpeed + "s";
 
+}
 
 
 
 
-        console.log(
-            "TLS ticker:",
-            games.length,
-            "événements"
-        );
 
 
 
+/*
+Ajout carte normale
+*/
 
-    }
 
+content +=
+createCard(game);
 
 
-    catch(error){
 
 
-        console.error(
 
-            "Erreur ticker",
+});
 
-            error
 
-        );
 
 
-    }
+
+
+
+
+
+/*
+Duplication pour boucle infinie
+*/
+
+
+ticker.innerHTML =
+content + content;
+
+
+
+
+
+
+
+ticker.style.animationDuration =
+CONFIG.tickerSpeed + "s";
+
+
+
+
+
+
+
+console.log(
+
+"TLS ticker",
+
+games.length,
+
+"événements"
+
+);
 
 
 
 
 }
+
+
+
+catch(error){
+
+
+console.error(
+
+"Erreur TLS ticker",
+
+error
+
+);
+
+
+}
+
+
+
+}
+
 
 
 
@@ -438,17 +518,19 @@ updateTicker();
 
 
 
+
+
 /*
 ====================================
- RAFRAICHISSEMENT ESPN
+ REFRESH AUTOMATIQUE
 ====================================
 */
 
 
 setInterval(
 
-    updateTicker,
+updateTicker,
 
-    CONFIG.refreshRate
+CONFIG.refreshRate
 
 );
