@@ -16,6 +16,7 @@ let activeAlerts = [];
 
 
 
+
 /*
 ====================================
  ICONES SPORTS
@@ -71,6 +72,7 @@ function formatUpcoming(date){
 
 
 return new Date(date)
+
 .toLocaleString(
 "fr-FR",
 {
@@ -216,8 +218,11 @@ ${createStatus(game)}
 
 
 <img
+
 src="${game.logo1 || 'assets/fallback.svg'}"
+
 onerror="this.src='assets/fallback.svg'"
+
 >
 
 
@@ -252,8 +257,11 @@ ${game.score1}
 
 
 <img
+
 src="${game.logo2 || 'assets/fallback.svg'}"
+
 onerror="this.src='assets/fallback.svg'"
+
 >
 
 
@@ -358,7 +366,7 @@ activeAlerts =
 
 activeAlerts.filter(
 
-item => item !== id
+item=>item!==id
 
 );
 
@@ -401,44 +409,15 @@ try{
 
 
 const games =
+
 await fetchAllSports();
 
 
 
 
+const pga =
 
-if(!games.length){
-
-
-ticker.innerHTML=`
-
-<div class="game-card pre">
-
-
-<div class="card-header">
-
-TLS SPORTS
-
-</div>
-
-
-<div class="detail">
-
-Aucun événement
-
-</div>
-
-
-</div>
-
-`;
-
-return;
-
-
-}
-
-
+await fetchPGA();
 
 
 
@@ -451,6 +430,41 @@ let content="";
 
 
 
+
+
+/*
+==============================
+ PGA LEADERBOARD
+==============================
+*/
+
+
+if(pga){
+
+
+
+content +=
+
+createPGACard(pga);
+
+
+}
+
+
+
+
+
+
+
+
+
+/*
+==============================
+ SPORTS EVENTS
+==============================
+*/
+
+
 games.forEach(game=>{
 
 
@@ -458,8 +472,8 @@ games.forEach(game=>{
 
 
 const alert =
-detectEvent(game);
 
+detectEvent(game);
 
 
 
@@ -485,7 +499,6 @@ addAlert(alert);
 
 
 
-
 content +=
 
 createCard(game);
@@ -503,6 +516,43 @@ createCard(game);
 
 
 
+if(content===""){
+
+
+content = `
+
+
+<div class="game-card pre">
+
+
+<div class="card-header">
+
+TLS SPORTS
+
+
+</div>
+
+
+
+<div class="detail">
+
+Aucun événement
+
+</div>
+
+
+
+</div>
+
+
+`;
+
+}
+
+
+ 
+
+
 
 /*
 Boucle infinie
@@ -518,10 +568,10 @@ content + content;
 
 
 
-
 ticker.style.animationDuration =
 
-CONFIG.tickerSpeed + "s";
+CONFIG.tickerSpeed+"s";
+
 
 
 
@@ -533,10 +583,11 @@ console.log(
 
 games.length,
 
-"events"
+"matches",
+
+pga ? "PGA OK" : "NO PGA"
 
 );
-
 
 
 
@@ -581,7 +632,6 @@ error
 
 
 updateTicker();
-
 
 
 
