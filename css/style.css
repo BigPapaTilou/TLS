@@ -382,6 +382,7 @@ border-color:#2463ff;
 
 /* MATCH IMPORTANT */
 
+
 .featured-card{
 
 
@@ -600,14 +601,6 @@ margin-top:3px;
 
 
 }
-
-
-
-
-
-
-
-
 /* =========================
 TLS ALERT CARD
 ========================= */
@@ -813,6 +806,7 @@ left:150%;
 
 
 
+
 /* =========================
 PGA LEADER CHANGE
 ========================= */
@@ -862,34 +856,8 @@ color:#2ecc71;
 
 
 
+
 /* =========================
-MOBILE
-========================= */
-
-
-@media(max-width:700px){
-
-
-.tls-logo{
-
-
-width:90px;
-
-font-size:40px;
-
-
-}
-
-
-.game-card{
-
-
-width:280px;
-
-
-}
-
-  /* =========================
 PGA LEADERBOARD CARD
 ========================= */
 
@@ -1041,5 +1009,113 @@ padding-right:5px;
 
 
 }
+
+
+
+
+
+
+
+
+/* =========================
+BROADCAST STATES
+========================= */
+
+
+.breaking{
+
+
+animation:
+
+breakingPulse 1s infinite;
+
+
+border-color:#ff0000;
+
+
+}
+
+
+
+
+.clutch{
+
+
+box-shadow:
+
+0 0 30px rgba(255,0,0,.45);
+
+
+}
+
+
+
+
+
+
+@keyframes breakingPulse{
+
+
+0%,100%{
+
+opacity:1;
+
+}
+
+
+50%{
+
+opacity:.65;
+
+}
+
+
+}
+
+
+
+
+
+
+
+
+
+/* =========================
+MOBILE
+========================= */
+
+
+@media(max-width:700px){
+
+
+.tls-logo{
+
+
+width:90px;
+
+font-size:40px;
+
+
+}
+
+
+.game-card{
+
+
+width:280px;
+
+
+}
+
+
+
+.pga-card{
+
+
+width:300px;
+
+
+}
+
 
 }
