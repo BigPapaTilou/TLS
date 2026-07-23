@@ -380,6 +380,43 @@ border-color:#2463ff;
 
 
 
+/* MATCH IMPORTANT */
+
+.featured-card{
+
+
+width:360px;
+
+border-left:5px solid #f5c542;
+
+box-shadow:
+
+0 0 20px rgba(245,197,66,.25);
+
+
+}
+
+
+
+
+
+.featured-label{
+
+
+font-size:10px;
+
+font-weight:900;
+
+color:#f5c542;
+
+letter-spacing:2px;
+
+}
+
+
+
+
+
 /* =========================
 CARD HEADER
 ========================= */
@@ -579,19 +616,20 @@ TLS ALERT CARD
 .alert-card{
 
 
-width:280px;
+width:290px;
 
-height:100px;
+height:105px;
 
 flex-shrink:0;
 
 border-radius:14px;
 
+
 background:
 
 linear-gradient(
 135deg,
-#3b0000,
+#450000,
 #111
 );
 
@@ -613,6 +651,11 @@ justify-content:center;
 color:white;
 
 
+position:relative;
+
+overflow:hidden;
+
+
 animation:
 
 alertImpact 1s infinite;
@@ -620,7 +663,51 @@ alertImpact 1s infinite;
 
 box-shadow:
 
-0 0 25px rgba(225,6,0,.35);
+0 0 30px rgba(225,6,0,.4);
+
+
+}
+
+
+
+
+
+.alert-card::before{
+
+
+content:"";
+
+
+position:absolute;
+
+top:0;
+
+left:-100%;
+
+
+width:50%;
+
+height:100%;
+
+
+background:
+
+linear-gradient(
+
+90deg,
+
+transparent,
+
+rgba(255,255,255,.25),
+
+transparent
+
+);
+
+
+animation:
+
+alertSweep 2s infinite;
 
 
 }
@@ -638,6 +725,8 @@ font-weight:900;
 
 letter-spacing:1px;
 
+z-index:2;
+
 
 }
 
@@ -652,6 +741,8 @@ font-size:18px;
 font-weight:800;
 
 margin-top:5px;
+
+z-index:2;
 
 
 }
@@ -669,6 +760,8 @@ color:#aaa;
 margin-top:5px;
 
 letter-spacing:2px;
+
+z-index:2;
 
 
 }
@@ -694,6 +787,71 @@ transform:scale(1);
 transform:scale(1.05);
 
 }
+
+
+}
+
+
+
+
+
+@keyframes alertSweep{
+
+
+100%{
+
+left:150%;
+
+}
+
+
+}
+
+
+
+
+
+
+
+/* =========================
+PGA LEADER CHANGE
+========================= */
+
+
+.leader-change{
+
+
+border-left:
+
+5px solid #2ecc71;
+
+
+background:
+
+linear-gradient(
+135deg,
+#052b16,
+#111
+);
+
+
+box-shadow:
+
+0 0 20px rgba(46,204,113,.25);
+
+
+}
+
+
+
+.leader-title{
+
+
+font-size:18px;
+
+font-weight:900;
+
+color:#2ecc71;
 
 
 }
