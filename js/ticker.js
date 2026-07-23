@@ -1094,11 +1094,37 @@ Connexion aux données...
 
 }
 
+function getLiveStatus(game){
+
+    if(!game){
+        return "";
+    }
 
 
+    if(game.sport === "MLB"){
+
+        return game.status || "LIVE";
+
+    }
 
 
+    if(game.sport === "NFL"){
 
+        return game.status || "LIVE";
+
+    }
+
+
+    if(game.sport === "NBA"){
+
+        return game.status || "LIVE";
+
+    }
+
+
+    return game.status || "";
+
+}
 
 
 
