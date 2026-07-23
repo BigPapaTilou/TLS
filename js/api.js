@@ -61,6 +61,20 @@ ESPN_ENDPOINTS[sport]
 
 
 
+if(!response.ok){
+
+console.error(
+"ESPN HTTP ERROR",
+sport,
+response.status
+);
+
+return [];
+
+}
+
+
+
 const data = await response.json();
 
 
@@ -82,7 +96,6 @@ error
 
 
 return [];
-
 
 }
 
@@ -127,6 +140,7 @@ return [];
 
 
 
+
 for(const sport of CONFIG.sports){
 
 
@@ -141,7 +155,6 @@ continue;
 
 const events =
 await fetchSport(sport);
-
 
 
 
@@ -169,14 +182,27 @@ sport
 
 
 
+
 console.log(
 "ESPN RAW GAMES",
-games
+games.length
 );
 
 
 
-return filterGames(games);
+const filtered =
+filterGames(games);
+
+
+
+console.log(
+"FILTER RESULT",
+filtered
+);
+
+
+
+return filtered;
 
 
 }
@@ -224,13 +250,9 @@ catch(error){
 
 
 console.error(
-
 "ESPN PGA ERROR",
-
 error
-
 );
-
 
 
 return null;
@@ -259,10 +281,8 @@ return null;
 function normalizeEvent(event,sport){
 
 
-
 const competition =
 event.competitions?.[0];
-
 
 
 if(!competition){
@@ -292,8 +312,6 @@ c=>c.homeAway==="away"
 
 
 
-
-
 return {
 
 
@@ -303,75 +321,46 @@ id:event.id,
 sport,
 
 
-
 team1:
-away?.team?.displayName
-||
-"TBD",
-
+away?.team?.displayName || "TBD",
 
 
 team2:
-home?.team?.displayName
-||
-"TBD",
-
+home?.team?.displayName || "TBD",
 
 
 logo1:
-away?.team?.logo
-||
-"",
-
+away?.team?.logo || "",
 
 
 logo2:
-home?.team?.logo
-||
-"",
-
+home?.team?.logo || "",
 
 
 score1:
-away?.score
-||
-"0",
-
+away?.score || "0",
 
 
 score2:
-home?.score
-||
-"0",
-
+home?.score || "0",
 
 
 state:
-event.status?.type?.state
-||
-"pre",
-
+event.status?.type?.state || "pre",
 
 
 status:
-event.status?.type?.shortDetail
-||
-event.status?.type?.description
-||
+event.status?.type?.shortDetail ||
+event.status?.type?.description ||
 "",
-
 
 
 date:
 new Date(event.date),
 
 
-
 plays:
-competition.plays
-||
-[],
-
+competition.plays || [],
 
 
 raw:event
@@ -409,7 +398,11 @@ return games
 .filter(game=>{
 
 
-if(!game || !game.date){
+if(
+!game ||
+!(game.date instanceof Date) ||
+isNaN(game.date)
+){
 
 return false;
 
@@ -417,29 +410,21 @@ return false;
 
 
 
+
+
 const hours =
-(game.date - now) / 3600000;
+(game.date.getTime() - now.getTime()) / 3600000;
 
 
 
 
 
-if(game.state==="in"){
-
-return true;
-
-}
-
-
-
-
+/*
+ MATCH EN COURS
+*/
 
 if(
-game.state==="pre"
-&&
-hours<=24
-&&
-hours>=-2
+game.state==="in"
 ){
 
 return true;
@@ -450,10 +435,36 @@ return true;
 
 
 
+/*
+ MATCH A VENIR
+ 24H
+*/
+
+if(
+(game.state==="pre" ||
+game.state==="scheduled")
+&&
+hours >= -1
+&&
+hours <= 24
+){
+
+return true;
+
+}
+
+
+
+
+
+/*
+ MATCH TERMINE RECENT
+*/
+
 if(
 game.state==="post"
 &&
-Math.abs(hours)<=12
+hours >= -12
 ){
 
 return true;
@@ -479,9 +490,9 @@ const priority={
 
 in:0,
 
-
 pre:1,
 
+scheduled:1,
 
 post:2
 
@@ -492,8 +503,11 @@ post:2
 
 return (
 
-priority[a.state] -
-priority[b.state]
+(priority[a.state] ?? 3)
+
+-
+
+(priority[b.state] ?? 3)
 
 );
 
