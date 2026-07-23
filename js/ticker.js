@@ -844,7 +844,10 @@ game.state === "in"
 );
 
 if(pga){
-
+const pgaLeader =
+pga[0]?.competitions?.[0]?.competitors?.find(player =>
+player.position?.id === "1"
+);
     liveGames.push({
 
         sport:"PGA",
@@ -856,7 +859,7 @@ if(pga){
         "PGA TOUR",
 
         team2:
-pga[0]?.competitions?.[0]?.competitors?.[0]?.athlete?.displayName ||
+pgaLeader?.athlete?.displayName ||
 "Leader",
 
         score1:"",
