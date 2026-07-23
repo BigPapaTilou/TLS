@@ -1,323 +1,481 @@
 *{
+
     box-sizing:border-box;
+
 }
+
 
 
 body{
 
+
     margin:0;
+
+    padding:0;
+
+    overflow:hidden;
 
     background:#050505;
 
     font-family:
+
     Arial,
+
     Helvetica,
+
     sans-serif;
 
-    overflow:hidden;
 
 }
 
 
-/* INTRO */
+
+
+
+/*
+=========================
+ INTRO TLS
+=========================
+*/
+
 
 #intro{
 
-position:fixed;
 
-inset:0;
+    position:fixed;
 
-background:#050505;
+    inset:0;
 
-display:flex;
 
-align-items:center;
+    background:#050505;
 
-justify-content:center;
 
-z-index:20;
+    display:flex;
 
-animation:
-introFade 2s forwards;
+    align-items:center;
+
+    justify-content:center;
+
+
+    z-index:100;
+
+
+    animation:
+
+    introFade 2.2s forwards;
+
 
 }
+
+
 
 
 .tls-intro{
 
-font-size:80px;
 
-font-weight:900;
+    font-size:90px;
 
-letter-spacing:8px;
 
-color:white;
+    font-weight:900;
 
-animation:
-tlsReveal 1.5s ease;
+
+    letter-spacing:12px;
+
+
+    color:white;
+
+
+    animation:
+
+    tlsReveal 1.5s ease;
+
 
 }
+
+
+
+
 
 
 @keyframes tlsReveal{
 
-0%{
 
-opacity:0;
+    from{
 
-transform:scale(.7);
+
+        opacity:0;
+
+        transform:scale(.7);
+
+
+    }
+
+
+    to{
+
+
+        opacity:1;
+
+        transform:scale(1);
+
+
+    }
+
 
 }
 
 
-100%{
 
-opacity:1;
-
-transform:scale(1);
-
-}
-
-}
 
 
 
 @keyframes introFade{
 
-0%,70%{
 
-opacity:1;
+    0%,70%{
+
+
+        opacity:1;
+
+
+    }
+
+
+    100%{
+
+
+        opacity:0;
+
+        visibility:hidden;
+
+
+    }
+
 
 }
 
 
-100%{
-
-opacity:0;
-
-visibility:hidden;
-
-}
-
-}
 
 
 
-/* TICKER */
+
+
+
+
+/*
+=========================
+ TICKER GLOBAL
+=========================
+*/
 
 
 .ticker-wrapper{
 
-height:110px;
 
-width:100%;
+    height:120px;
 
-background:#0b0b0b;
 
-display:flex;
+    width:100%;
 
-align-items:center;
 
-border-top:1px solid #222;
+    display:flex;
 
-border-bottom:1px solid #222;
+
+    align-items:center;
+
+
+    background:#080808;
+
+
+    border-top:
+
+    1px solid #202020;
+
+
+    border-bottom:
+
+    1px solid #202020;
+
 
 }
 
+
+
+
+
+/*
+=========================
+ LOGO TLS
+=========================
+*/
 
 
 .tls-logo{
 
-height:100%;
 
-width:150px;
-
-display:flex;
-
-align-items:center;
-
-justify-content:center;
+    height:100%;
 
 
-font-size:55px;
-
-font-weight:900;
-
-color:white;
-
-background:#090909;
+    width:150px;
 
 
-position:relative;
+    flex-shrink:0;
 
-z-index:5;
+
+    display:flex;
+
+
+    align-items:center;
+
+
+    justify-content:center;
+
+
+    font-size:60px;
+
+
+    font-weight:900;
+
+
+    color:white;
+
+
+    background:#060606;
+
+
+    position:relative;
+
+
+    z-index:10;
 
 
 }
+
+
 
 
 
 .tls-logo::after{
 
-content:"";
 
-position:absolute;
-
-width:10px;
-
-height:10px;
-
-background:#e10600;
-
-border-radius:50%;
-
-right:15px;
-
-bottom:20px;
+    content:"";
 
 
-animation:pulse 3s infinite;
-
-}
+    position:absolute;
 
 
-
-@keyframes pulse{
-
-
-0%{
-
-box-shadow:0 0 0 0 rgba(225,6,0,.7);
-
-}
+    width:10px;
 
 
-100%{
+    height:10px;
 
-box-shadow:0 0 0 20px rgba(225,6,0,0);
 
-}
+    right:18px;
+
+
+    bottom:22px;
+
+
+    background:#e10600;
+
+
+    border-radius:50%;
+
+
+    animation:
+
+    tlsPulse 3s infinite;
 
 
 }
 
 
 
+
+
+
+@keyframes tlsPulse{
+
+
+    0%{
+
+
+        box-shadow:
+
+        0 0 0 0 rgba(225,6,0,.8);
+
+
+    }
+
+
+
+    100%{
+
+
+        box-shadow:
+
+        0 0 0 25px rgba(225,6,0,0);
+
+
+    }
+
+
+}
+
+
+
+
+
+
+
+
+
+
+/*
+=========================
+ ZONE DEFILEMENT
+=========================
+*/
 
 
 .ticker-window{
 
-overflow:hidden;
 
-flex:1;
+    overflow:hidden;
+
+
+    flex:1;
+
 
 }
+
+
 
 
 
 #ticker-track{
 
 
-display:flex;
-
-gap:20px;
-
-width:max-content;
+    display:flex;
 
 
-animation:
-scrollTicker linear infinite;
+    align-items:center;
+
+
+    gap:18px;
+
+
+    width:max-content;
+
+
+    animation:
+
+    scrollTicker linear infinite;
 
 
 }
+
+
 
 
 
 @keyframes scrollTicker{
 
 
-from{
+    from{
 
-transform:translateX(0);
+
+        transform:
+
+        translateX(0);
+
+
+    }
+
+
+
+    to{
+
+
+        transform:
+
+        translateX(-50%);
+
+
+    }
+
 
 }
 
 
-to{
-
-transform:translateX(-50%);
-
-}
-
-
-}
 
 
 
-/* CARDS */
+
+
+
+
+/*
+=========================
+ CARTES MATCHS
+=========================
+*/
 
 
 .game-card{
 
 
-height:80px;
-
-min-width:280px;
+    width:330px;
 
 
-background:#151515;
-
-border-radius:12px;
+    height:100px;
 
 
-display:flex;
-
-align-items:center;
-
-padding:15px 20px;
+    flex-shrink:0;
 
 
-color:white;
+    background:#141414;
 
 
-border-left:5px solid #444;
+    border-radius:14px;
 
 
-transition:.3s;
+    padding:10px 15px;
+
+
+    color:white;
+
+
+    display:flex;
+
+
+    flex-direction:column;
+
+
+    justify-content:center;
+
+
+    border-left:
+
+    5px solid #555;
+
+
+    transition:.25s;
 
 
 }
+
+
 
 
 
 .game-card:hover{
 
-transform:scale(1.05);
 
-}
+    transform:
 
+    scale(1.04);
 
-
-/* ETATS */
-
-
-.live{
-
-border-color:#e10600;
-
-}
-
-
-.final{
-
-border-color:#777;
-
-}
-
-
-.upcoming{
-
-border-color:#287cff;
 
 }
 
@@ -325,31 +483,326 @@ border-color:#287cff;
 
 
 
-.status{
 
-font-size:12px;
+.game-card.in{
 
-font-weight:bold;
 
-margin-left:auto;
+    border-color:#e10600;
+
 
 }
+
+
+
+
+
+.game-card.post{
+
+
+    border-color:#666;
+
+
+}
+
+
+
+
+
+.game-card.pre{
+
+
+    border-color:#2463ff;
+
+
+}
+
+
+
+
+
+
+
+
+/*
+=========================
+ HEADER CARTE
+=========================
+*/
+
+
+.card-header{
+
+
+    display:flex;
+
+
+    align-items:center;
+
+
+    gap:8px;
+
+
+    font-size:12px;
+
+
+    color:#aaa;
+
+
+    margin-bottom:5px;
+
+
+}
+
+
+
+
+.badge{
+
+
+    margin-left:auto;
+
+
+    padding:
+
+    3px 8px;
+
+
+    border-radius:20px;
+
+
+    font-size:10px;
+
+
+    font-weight:900;
+
+
+    color:white;
+
+
+}
+
+
+
+
+.badge.live{
+
+
+    background:#e10600;
+
+
+    animation:
+
+    livePulse 2s infinite;
+
+
+}
+
+
+
+
+
+.badge.final{
+
+
+    background:#555;
+
+
+}
+
+
+
+
+.badge.upcoming{
+
+
+    background:#2463ff;
+
+
+}
+
+
+
+
+
+@keyframes livePulse{
+
+
+    0%,100%{
+
+
+        opacity:1;
+
+
+    }
+
+
+    50%{
+
+
+        opacity:.6;
+
+
+    }
+
+
+}
+
+
+
+
+
+
+
+
+/*
+=========================
+ EQUIPES
+=========================
+*/
+
+
+.team-row{
+
+
+    display:flex;
+
+
+    align-items:center;
+
+
+    justify-content:space-between;
+
+
+    height:25px;
+
+
+}
+
+
+
+
+
+.team-name{
+
+
+    display:flex;
+
+
+    align-items:center;
+
+
+    gap:8px;
+
+
+    font-size:14px;
+
+
+    font-weight:600;
+
+
+}
+
+
+
+
+
+.team-name img{
+
+
+    width:20px;
+
+
+    height:20px;
+
+
+    object-fit:contain;
+
+
+}
+
+
 
 
 
 
 .score{
 
-font-size:26px;
 
-font-weight:800;
+    font-size:24px;
+
+
+    font-weight:900;
+
+
+    min-width:30px;
+
+
+    text-align:right;
+
 
 }
 
 
 
-.team{
 
-font-size:15px;
+
+
+.detail{
+
+
+    font-size:11px;
+
+
+    color:#777;
+
+
+    margin-top:3px;
+
+
+}
+
+
+
+
+
+
+
+
+
+/*
+=========================
+ MOBILE
+=========================
+*/
+
+
+@media(max-width:700px){
+
+
+
+.tls-logo{
+
+
+    width:90px;
+
+
+    font-size:40px;
+
+
+}
+
+
+
+
+.game-card{
+
+
+    width:280px;
+
+
+}
+
+
+
 
 }
