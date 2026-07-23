@@ -789,6 +789,7 @@ sortBroadcast(games);
 */
 
 
+/*
 alerts.forEach(alert=>{
 
 
@@ -798,6 +799,7 @@ addAlert(alert);
 
 
 });
+*/
 
 
 
