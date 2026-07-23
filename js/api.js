@@ -427,11 +427,10 @@ return true;
 
 // 🏁 MATCHS TERMINÉS
 if(
-game.state === "post"
+game.state === "post" ||
+game.status?.toLowerCase().includes("final")
 ){
-
-return true;
-
+    return true;
 }
 
 
