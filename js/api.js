@@ -58,7 +58,7 @@ const startDate = yesterday.toISOString().split("T")[0];
 const endDate = tomorrow.toISOString().split("T")[0];
 
 const response = await fetch(
-`${ESPN_ENDPOINTS[sport]}?dates=${startDate}-${endDate}`
+ESPN_ENDPOINTS[sport]
 );
 
 
