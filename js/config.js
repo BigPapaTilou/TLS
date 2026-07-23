@@ -8,45 +8,98 @@
 const CONFIG = {
 
 
+
 /*
-API refresh
+====================================
+ SPORTS ACTIVE
+====================================
 */
+
+
+sports:[
+
+    "NFL",
+
+    "NCAA",
+
+    "MLB",
+
+    "NBA",
+
+    "PGA",
+
+    "EPL",
+
+    "LIGUE1"
+
+],
+
+
+
+
+
+/*
+====================================
+ API REFRESH
+====================================
+*/
+
 
 refreshRate:30000,
 
 
 
+
+
 /*
-Vitesse ticker normale
+====================================
+ VITESSE TICKER NORMALE
+====================================
 */
+
 
 tickerSpeed:45,
 
 
 
+
+
 /*
-Vitesse pendant alerte
+====================================
+ VITESSE PENDANT ALERTE
+====================================
 */
+
 
 alertSpeed:90,
 
 
 
-/*
-Activation alertes
 
+
+/*
+====================================
+ ALERTES TLS
+====================================
 */
+
 
 enableAlerts:true,
 
 
 
-/*
-Durée impact alerte
 
+
+/*
+====================================
+ DUREE IMPACT ALERTE
+====================================
 */
 
+
 alertDuration:6000
+
+
 
 
 
