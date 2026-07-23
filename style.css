@@ -243,6 +243,8 @@ height:auto;
 
 justify-content:center;
 
+animation:scrollTicker 35s linear infinite;
+
 }
 
 .broadcast-section{
