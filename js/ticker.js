@@ -864,6 +864,9 @@ Aucun événement
 */
 
 
+console.log("CONTENT PREVIEW", content.substring(0,1000));
+
+
 ticker.innerHTML =
 
 content + content;
