@@ -179,7 +179,7 @@ return "";
 
 let html = `
 
-<div class="broadcast-section ${games.length <= 2 ? "static-section" : ""}">
+<div class="broadcast-section ${games.length <= 3 ? "static-section" : ""}">
 
 <div class="section-title">
 
