@@ -680,10 +680,7 @@ let games =
 await fetchAllSports();
 
 
-console.log(
-"ALL GAMES BEFORE SPLIT",
-games
-);
+console.log("LIVE RAW DATA", games.find(game => game.state === "in"));
 
 
 
