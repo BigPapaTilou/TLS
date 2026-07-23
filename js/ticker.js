@@ -846,6 +846,28 @@ const liveGames = games.filter(game =>
 game.state === "in"
 );
 
+if(pga){
+    
+    liveGames.push({
+
+        sport:"PGA",
+        state:"in",
+
+        team1:"PGA TOUR",
+        team2:"Leaderboard",
+
+        score1:"",
+        score2:"",
+
+        logo1:"",
+        logo2:"",
+
+        status:"LIVE"
+
+    });
+
+}
+ 
 
 const finalGames = games.filter(game =>
 game.state === "post"
