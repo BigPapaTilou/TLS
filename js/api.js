@@ -357,9 +357,31 @@ category => category.name === "avg"
 .leaders;
 
 
+const qualifiedPlayers =
+avgLeaders.filter(player => {
+
+const battingStats =
+player.statistics.splits.categories
+.find(
+cat => cat.name === "batting"
+)
+.stats;
+
+
+const atBats =
+battingStats.find(
+stat => stat.name === "atBats"
+)?.value;
+
+
+return atBats >= 100;
+
+});
+
+
 console.log(
-"PLAYER STATS DETAIL",
-avgLeaders[36].statistics.splits.categories
+"MLB REAL AVG LEADERS",
+qualifiedPlayers.slice(0,5)
 );
 
 
