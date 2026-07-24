@@ -349,16 +349,19 @@ const response = await fetch(
 const data = await response.json();
 
 
-console.log(
-"MLB BATTING DATA",
-data
-);
+const avgLeaders =
+data.stats.categories
+.find(
+category => category.name === "avg"
+)
+.leaders;
 
 
 console.log(
-"AVG FIRST PLAYER",
-data.stats.categories[0].leaders[36]
+"MLB AVG LEADERS",
+avgLeaders.slice(36,41)
 );
+
 
 
 return data;
