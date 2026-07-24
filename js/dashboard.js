@@ -22,10 +22,6 @@ async function loadEPLTable(){
 
     }
 
-console.log(
-    "EPL TEAM STATS",
-    team
-);
  
     container.innerHTML = "";
 
