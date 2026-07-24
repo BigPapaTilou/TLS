@@ -193,12 +193,6 @@ let html = `
 
 <div class="broadcast-section ${shouldAnimate ? "scroll-section" : "static-section"}">
 
-<div class="section-title">
-
-${title}
-
-</div>
-
 `;
 
 
@@ -1025,24 +1019,11 @@ hours <= 48
 });
  
 
-content += createSection(
-"🔴 LIVE",
-liveGames
-);
+content += createSection(null, liveGames);
 
+content += createSection(null, finalGames);
 
-
-content += createSection(
-"🏁 FINAL",
-finalGames
-);
-
-
-
-content += createSection(
-"📅 À VENIR",
-upcomingGames
-);
+content += createSection(null, upcomingGames);
 
 
 
