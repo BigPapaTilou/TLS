@@ -356,6 +356,12 @@ data.stats.categories
 avgLeaders[36]
 );  
 
+console.log(
+"FIRST PLAYER STATS",
+avgLeaders[36].statistics
+);
+
+  
 const realAvgLeaders = avgLeaders.filter(player => {
 
 const categories = player.statistics?.splits?.categories;
@@ -389,9 +395,13 @@ console.log(
 "REAL MLB AVG LEADERS",
 realAvgLeaders.map(player => {
 
-const AB =
+const batting =
 player.statistics.splits.categories
-.find(stat => stat.name === "atBats");
+.find(cat => cat.name === "batting");
+
+
+const AB =
+batting?.stats.find(stat => stat.name === "atBats");
 
 
 return {
