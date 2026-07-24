@@ -983,7 +983,14 @@ pga[0]?.competitions?.[0]?.competitors?.map(player => ({
     name: player.athlete?.displayName,
     position: player.status?.position?.displayName
 })));
- 
+const pgaRoundLive =
+pga[0]?.competitions?.[0]?.status?.type?.state === "in";
+
+
+console.log(
+"PGA ROUND LIVE",
+pgaRoundLive
+); 
  liveGames.push({
 
         sport:"PGA",
