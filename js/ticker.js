@@ -175,11 +175,17 @@ return "";
 
 }
 
+const shouldAnimate = games.length >= 3;
+
 let displayGames = [...games];
+
+if(shouldAnimate){
 
 while(displayGames.length < 8){
 
 displayGames = [...displayGames, ...games];
+
+}
 
 }
 
