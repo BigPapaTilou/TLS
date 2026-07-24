@@ -171,46 +171,7 @@ function updateDashboard(){
 
 
 
-    if(!container){
-
-        return;
-
-    }
-
-
-
-
-    container.innerHTML = "";
-
-
-
-        nflFantasyPlayers.forEach(
-        (player,index)=>{
-
-
-            container.innerHTML +=
-
-            `
-            <div>
-            ${index+1}. ${player}
-            </div>
-            `;
-
-
-        }
-
-    );
-
-
-
-
-    const mlbContainer =
-document.getElementById(
-    "mlb-batting-list"
-);
-
-
-if(mlbContainer){
+    if(mlbContainer){
 
 
     const mlbBattingPlayers =
@@ -241,6 +202,12 @@ if(mlbContainer){
 }
 
 
+}
+
+
+
 updateDashboard();
+
 loadEPLTable();
+
 loadLigue1Table();
