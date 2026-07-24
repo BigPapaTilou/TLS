@@ -1013,16 +1013,6 @@ hours <= 48
 );
 
 });
-
-console.log(
-"UPCOMING DEBUG",
-upcomingGames
-);
-
- console.log(
-"FINAL DEBUG",
-finalGames
-);
  
 
 content += createSection(
@@ -1043,18 +1033,6 @@ content += createSection(
 "📅 À VENIR",
 upcomingGames
 );
-
-console.log(
-"UPCOMING HTML",
-createSection(
-"📅 À VENIR",
-upcomingGames
-)
-);
-
-
-
-
 
 
 
