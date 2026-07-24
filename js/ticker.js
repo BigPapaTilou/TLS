@@ -234,7 +234,7 @@ function createCard(game){
 return `
 
 
-<div class="game-card ${game.state}">
+<div class="game-card ${game.state} ${game.alert ? "event-active" : ""}">
 
 
 
