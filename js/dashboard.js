@@ -46,11 +46,24 @@ async function loadEPLTable(){
 
     container.innerHTML +=
 
-    `
-    <div>
-    ${index + 1}. ${team.team.name} - ${points} pts
-    </div>
-    `;
+`
+<div class="epl-team-row">
+
+    <img 
+    src="${team.team.logos[0].href}"
+    class="team-logo"
+    >
+
+    <span>
+    ${team.team.name}
+    </span>
+
+    <strong>
+    ${points}
+    </strong>
+
+</div>
+`;
 
 
 }
