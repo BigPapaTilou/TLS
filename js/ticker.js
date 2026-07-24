@@ -167,6 +167,26 @@ ${formatUpcoming(game.date)}
 ====================================
 */
 
+function prioritizeAlerts(games){
+
+return games.sort((a,b)=>{
+
+if(a.alert && !b.alert){
+return -1;
+}
+
+if(!a.alert && b.alert){
+return 1;
+}
+
+return 0;
+
+});
+
+}
+
+
+
 function createSection(title, games){
 
 if(!games || games.length === 0){
