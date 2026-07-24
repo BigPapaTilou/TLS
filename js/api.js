@@ -358,8 +358,13 @@ category => category.name === "avg"
 
 
 console.log(
-"MLB AVG LEADERS",
-avgLeaders.slice(36,41)
+"MLB AVG FIRST 5 FULL STATS",
+avgLeaders.slice(36,41).map(player => ({
+    name: player.athlete.displayName,
+    team: player.team.abbreviation,
+    avg: player.value,
+    stats: player.statistics
+}))
 );
 
 
