@@ -358,15 +358,26 @@ avgLeaders[36]
 
 const realAvgLeaders = avgLeaders.filter(player => {
 
-const battingStats =
-player.statistics?.splits?.categories;
+const categories = player.statistics?.splits?.categories;
+
+if(!categories) return false;
+
+console.log(
+"PLAYER CATEGORIES",
+player.athlete.displayName,
+categories
+);
+
+const batting = categories.find(
+cat => cat.name === "batting"
+);
+
+if(!batting) return false;
 
 
-if(!battingStats) return false;
-
-
-const AB =
-battingStats.find(stat => stat.name === "atBats");
+const AB = batting.stats.find(
+stat => stat.name === "atBats"
+);
 
 
 return AB && AB.value >= 50;
