@@ -720,7 +720,12 @@ try{
 let games =
 
 await fetchAllSports();
+let epl = await fetchEPLStandings();
 
+console.log(
+"EPL TEST",
+epl
+);
 
 
 games.forEach(game => {
