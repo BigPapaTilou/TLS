@@ -349,39 +349,43 @@ const response = await fetch(
 const data = await response.json();
 
 
-const avgLeaders =
-data.stats.categories
-.find(
-category => category.name === "avg"
-)
-.leaders;
+const avgLeaders = data.stats.categories[0].leaders;
 
 
-const qualifiedPlayers =
-avgLeaders.filter(player => {
+const realAvgLeaders = avgLeaders
+.map(player => {
 
 const battingStats =
-player.statistics.splits.categories
-.find(
-cat => cat.name === "batting"
-)
-.stats;
+player.statistics.splits.categories;
 
 
-const atBats =
+const AB =
 battingStats.find(
-stat => stat.name === "atBats"
-)?.value;
+s=>s.name==="atBats"
+)?.value || 0;
 
 
-return atBats >= 100;
+const AVG =
+battingStats.find(
+s=>s.name==="avg"
+)?.value || 0;
 
-});
+
+return {
+name: player.athlete.displayName,
+team: player.team.abbreviation,
+AB,
+AVG
+};
+
+})
+.filter(player=>player.AB>=100)
+.sort((a,b)=>b.AVG-a.AVG);
 
 
 console.log(
-"MLB REAL AVG LEADERS",
-qualifiedPlayers.slice(0,5)
+"REAL MLB AVG LEADERS",
+realAvgLeaders.slice(0,10)
 );
 
 
