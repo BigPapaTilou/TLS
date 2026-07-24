@@ -79,7 +79,17 @@ async function loadLigue1Table(){
         "LIGUE 1 DASHBOARD TEST",
         ligue1
     );
+const teams =
+ligue1.children[0]
+.standings
+.entries
+.slice(0,5);
 
+
+console.log(
+    "LIGUE 1 TEAMS",
+    teams
+);
 }
 
 function updateDashboard(){
