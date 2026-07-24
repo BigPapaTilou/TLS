@@ -321,7 +321,7 @@ return null;
 
 }
 
-async function testMLB(){
+async function testMLB(){ 
 
 const response = await fetch(
 "https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard"
@@ -335,8 +335,6 @@ data
 );
 
 }
-
-
 
 console.log("fetchEPLStandings CHARGÉ");
 
