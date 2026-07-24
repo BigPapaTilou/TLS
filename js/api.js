@@ -351,33 +351,43 @@ data.stats.categories
 .find(category => category.name === "avg")
 .leaders;
 
+  console.log(
+"FIRST PLAYER FULL",
+avgLeaders[36]
+);  
 
-// Filtrer uniquement les joueurs qualifiés
 const realAvgLeaders = avgLeaders.filter(player => {
 
-const battingStats =
-player.statistics.splits.categories
-.find(cat => cat.name === "batting");
+const batting =
+player.statistics?.splits?.categories?.find(cat => 
+cat.name === "batting"
+);
 
-const qualified =
-battingStats.stats.find(stat => stat.name === "isQualified");
 
-return qualified && qualified.value === true;
+if(!batting) return false;
+
+
+const AB =
+batting.stats.find(stat => stat.name === "atBats");
+
+
+return AB && AB.value >= 50;
 
 });
 
 
-
 console.log(
 "REAL MLB AVG LEADERS",
-realAvgLeaders.slice(0,10).map(player => ({
+realAvgLeaders.map(player => ({
 
 name: player.athlete.displayName,
 team: player.team.abbreviation,
 avg: player.value,
-stats: player.displayValue
+AB: player.statistics.splits.categories
+.find(c=>c.name==="batting")
+.stats.find(s=>s.name==="atBats").value
 
-}))
+})).slice(0,10)
 );
 
 
