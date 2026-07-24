@@ -791,18 +791,12 @@ console.log(
 
 let pga = null;
 
-
-
-
-
-if(
-typeof fetchPGA === "function"
-){
-
-pga = await fetchPGA();
-
-console.log("PGA RAW DATA", pga);
-
+if (typeof fetchPGA === "function") {
+  try {
+    pga = await fetchPGA();
+  } catch (err) {
+    console.error("PGA ERROR", err);
+  }
 }
 
 
