@@ -749,10 +749,21 @@ console.log(
         playText?.includes("homered")
     ){
 
-        console.log(
-            "🚨 MLB HOME RUN ALERT",
-            playText
-        );
+        const alert = {
+
+    type:"MLB_HR",
+
+    text:"HOME RUN",
+
+    gameId:game.id
+
+};
+
+
+console.log(
+    "🚨 MLB ALERT",
+    alert
+);
 
     }
 
