@@ -191,7 +191,7 @@ displayGames = [...displayGames, ...games];
 
 let html = `
 
-<div class="broadcast-section">
+<div class="broadcast-section ${shouldAnimate ? "scroll-section" : "static-section"}">
 
 <div class="section-title">
 
