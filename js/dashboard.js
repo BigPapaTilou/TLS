@@ -171,43 +171,90 @@ function updateDashboard(){
 
 
 
-    if(mlbContainer){
+    if(!container){
+
+        return;
+
+    }
 
 
-    const mlbBattingPlayers =
-    await getMLBAvgLeaders();
 
 
-    mlbContainer.innerHTML = "";
+    container.innerHTML = "";
 
 
-    mlbBattingPlayers
-    .slice(0,5)
-    .forEach((player,index)=>{
+
+        nflFantasyPlayers.forEach(
+        (player,index)=>{
 
 
-        mlbContainer.innerHTML +=
+            container.innerHTML +=
 
-        `
-        <div>
-            ${index+1}. ${player.name}
-            <span>${player.avg}</span>
-        </div>
-        `;
+            `
+            <div>
+            ${index+1}. ${player}
+            </div>
+            `;
 
 
-    });
+        }
+
+    );
+
+
+
+
+    const mlbBattingPlayers = [
+
+        "Aaron Judge",
+        "Shohei Ohtani",
+        "Juan Soto",
+        "Mookie Betts",
+        "Ronald Acuña Jr."
+
+    ];
+
+
+
+
+    const mlbContainer =
+    document.getElementById(
+        "mlb-batting-list"
+    );
+
+
+
+        if(mlbContainer){
+
+
+        mlbContainer.innerHTML = "";
+
+
+
+        mlbBattingPlayers.forEach(
+            (player,index)=>{
+
+
+                mlbContainer.innerHTML +=
+
+                `
+                <div>
+                ${index+1}. ${player}
+                </div>
+                `;
+
+
+            }
+
+        );
+
+
+    }
 
 
 }
-
-
-}
-
 
 
 updateDashboard();
-
 loadEPLTable();
-
 loadLigue1Table();
