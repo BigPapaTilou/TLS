@@ -1005,3 +1005,29 @@ transform:scale(1);
 }
 
 }
+
+
+/* ANIMATION CARTE EVENEMENT */
+
+.event-active{
+
+animation:eventPulse 1s ease infinite;
+
+}
+
+
+@keyframes eventPulse{
+
+0%{
+transform:scale(1);
+}
+
+50%{
+transform:scale(1.03);
+}
+
+100%{
+transform:scale(1);
+}
+
+}
