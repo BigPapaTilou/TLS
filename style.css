@@ -260,7 +260,9 @@ justify-content:center;
 .static-section{
     animation:none;
 }
-.broadcast-section:not(.static-section){
+
+
+.scroll-section{
     animation:scrollTicker 120s linear infinite;
 }
 
