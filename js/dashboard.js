@@ -9,7 +9,55 @@ function updateDashboard(){
 
 
     console.log("Dashboard update");
+async function loadEPLTable(){
 
+
+    const epl = await fetchEPLStandings();
+
+
+    const container =
+    document.getElementById(
+        "epl-table-list"
+    );
+
+
+    if(!container){
+
+        return;
+
+    }
+
+
+    container.innerHTML = "";
+
+
+    const teams =
+    epl.children[0]
+    .standings
+    .entries
+    .slice(0,5);
+
+
+
+    teams.forEach(
+        (team,index)=>{
+
+
+            container.innerHTML +=
+
+            `
+            <div>
+            ${index + 1}. ${team.team.name}
+            </div>
+            `;
+
+
+        }
+
+    );
+
+
+}
 
 
     const nflFantasyPlayers = [
@@ -117,3 +165,4 @@ function updateDashboard(){
 
 
 updateDashboard();
+loadEPLTable();
