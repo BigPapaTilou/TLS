@@ -467,21 +467,22 @@ if(mlbContainer){
 
 
     mlbBattingPlayers
-    .slice(0,5)
-    .forEach((player,index)=>{
+.slice(0,5)
+.forEach((player,index)=>{
 
+    const logo = `https://www.mlbstatic.com/team-logos/${player.teamId}.svg`;
 
-        mlbContainer.innerHTML +=
+    mlbContainer.innerHTML +=
 
-        `
-        <div>
-            ${index+1}. ${player.name}
-            <span>${player.avg}</span>
-        </div>
-        `;
+    `
+    <div class="mlb-player-row">
+        <img src="${logo}" class="team-logo">
+        <span>${index+1}. ${player.name}</span>
+        <span>${player.avg}</span>
+    </div>
+    `;
 
-
-    });
+});
 
 
 }
