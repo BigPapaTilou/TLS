@@ -220,7 +220,60 @@ return null;
 
 }
 
+async function fetchEPLStandings(){
 
+try{
+
+
+const response = await fetch(
+
+"https://site.api.espn.com/apis/site/v2/sports/soccer/eng.1/standings"
+
+);
+
+
+if(!response.ok){
+
+console.error(
+"EPL STANDINGS ERROR",
+response.status
+);
+
+return [];
+
+}
+
+
+
+const data = await response.json();
+
+
+console.log(
+"EPL STANDINGS",
+data
+);
+
+
+return data;
+
+
+}
+
+catch(error){
+
+
+console.error(
+"EPL STANDINGS ERROR",
+error
+);
+
+
+return [];
+
+
+}
+
+}
 
 
 
