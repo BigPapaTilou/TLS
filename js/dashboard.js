@@ -45,7 +45,7 @@ function updateDashboard(){
 
 
 
-    nflFantasyPlayers.forEach(
+        nflFantasyPlayers.forEach(
         (player,index)=>{
 
 
@@ -61,6 +61,56 @@ function updateDashboard(){
         }
 
     );
+
+
+
+
+    const mlbBattingPlayers = [
+
+        "Aaron Judge",
+        "Shohei Ohtani",
+        "Juan Soto",
+        "Mookie Betts",
+        "Ronald Acuña Jr."
+
+    ];
+
+
+
+
+    const mlbContainer =
+    document.getElementById(
+        "mlb-batting-list"
+    );
+
+
+
+        if(mlbContainer){
+
+
+        mlbContainer.innerHTML = "";
+
+
+
+        mlbBattingPlayers.forEach(
+            (player,index)=>{
+
+
+                mlbContainer.innerHTML +=
+
+                `
+                <div>
+                ${index+1}. ${player}
+                </div>
+                `;
+
+
+            }
+
+        );
+
+
+    }
 
 
 }
