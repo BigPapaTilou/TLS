@@ -1019,8 +1019,6 @@ liveGames.push({
     logo1:"",
     logo2:"",
 
-    status:"LIVE",
-
     raw:pga
 
 });
