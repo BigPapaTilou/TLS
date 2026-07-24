@@ -1,1 +1,12 @@
-console.log("TLS Dashboard chargé");
+/*
+==============================
+ TLS SPORTS DASHBOARD
+==============================
+*/
+
+
+function updateDashboard(){
+
+    console.log("Dashboard update");
+
+}
