@@ -340,54 +340,45 @@ async function fetchMLBBatting(){
 try{
 
 const response = await fetch(
-
 "https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/statistics"
-
 );
-
 
 const data = await response.json();
 
 
-const avgLeaders = data.stats.categories[0].leaders;
+const avgLeaders =
+data.stats.categories
+.find(category => category.name === "avg")
+.leaders;
 
 
-const realAvgLeaders = avgLeaders
-.map(player => {
+// Filtrer uniquement les joueurs qualifiés
+const realAvgLeaders = avgLeaders.filter(player => {
 
 const battingStats =
-player.statistics.splits.categories;
+player.statistics.splits.categories
+.find(cat => cat.name === "batting");
 
+const qualified =
+battingStats.stats.find(stat => stat.name === "isQualified");
 
-const AB =
-battingStats.find(
-s=>s.name==="atBats"
-)?.value || 0;
+return qualified && qualified.value === true;
 
+});
 
-const AVG =
-battingStats.find(
-s=>s.name==="avg"
-)?.value || 0;
-
-
-return {
-name: player.athlete.displayName,
-team: player.team.abbreviation,
-AB,
-AVG
-};
-
-})
-.filter(player=>player.AB>=100)
-.sort((a,b)=>b.AVG-a.AVG);
 
 
 console.log(
 "REAL MLB AVG LEADERS",
-realAvgLeaders.slice(0,10)
-);
+realAvgLeaders.slice(0,10).map(player => ({
 
+name: player.athlete.displayName,
+team: player.team.abbreviation,
+avg: player.value,
+stats: player.displayValue
+
+}))
+);
 
 
 return data;
