@@ -35,21 +35,26 @@ async function loadEPLTable(){
 
 
     teams.forEach(
-        (team,index)=>{
+(team,index)=>{
 
 
-            container.innerHTML +=
-
-            `
-            <div>
-            ${index + 1}. ${team.team.name}
-            </div>
-            `;
+    const points =
+    team.stats.find(
+        stat => stat.name === "points"
+    )?.value;
 
 
-        }
+    container.innerHTML +=
 
-    );
+    `
+    <div>
+    ${index + 1}. ${team.team.name} - ${points} pts
+    </div>
+    `;
+
+
+}
+);
 
 
 }
