@@ -204,52 +204,38 @@ function updateDashboard(){
 
 
 
-    const mlbBattingPlayers = [
-
-        "Aaron Judge",
-        "Shohei Ohtani",
-        "Juan Soto",
-        "Mookie Betts",
-        "Ronald Acuña Jr."
-
-    ];
-
-
-
-
     const mlbContainer =
-    document.getElementById(
-        "mlb-batting-list"
-    );
+document.getElementById(
+    "mlb-batting-list"
+);
 
 
-
-        if(mlbContainer){
-
-
-        mlbContainer.innerHTML = "";
+if(mlbContainer){
 
 
-
-        mlbBattingPlayers.forEach(
-            (player,index)=>{
-
-
-                mlbContainer.innerHTML +=
-
-                `
-                <div>
-                ${index+1}. ${player}
-                </div>
-                `;
+    const mlbBattingPlayers =
+    await getMLBAvgLeaders();
 
 
-            }
-
-        );
+    mlbContainer.innerHTML = "";
 
 
-    }
+    mlbBattingPlayers
+    .slice(0,5)
+    .forEach((player,index)=>{
+
+
+        mlbContainer.innerHTML +=
+
+        `
+        <div>
+            ${index+1}. ${player.name}
+            <span>${player.avg}</span>
+        </div>
+        `;
+
+
+    });
 
 
 }
