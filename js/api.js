@@ -276,7 +276,7 @@ return [];
 }
 
 
-
+console.log("fetchEPLStandings CHARGÉ");
 
 
 
