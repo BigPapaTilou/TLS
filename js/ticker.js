@@ -189,7 +189,16 @@ ${title}
 `;
 
 
-games.forEach(game=>{
+let displayGames = [...games];
+
+while(displayGames.length < 8){
+
+displayGames = [...displayGames, ...games];
+
+}
+
+
+displayGames.forEach(game=>{
 
 html += createCard(game);
 
