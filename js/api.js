@@ -397,6 +397,25 @@ return [];
 }
 
 }
+
+async function getMLBAvgLeaders(){
+
+const leaders = await fetchMLBBatting();
+
+
+return leaders.map(player => ({
+
+name: player.player.fullName,
+team: player.team.name,
+avg: player.stat.avg,
+hits: player.stat.hits,
+AB: player.stat.atBats
+
+}));
+
+}
+
+
 fetchMLBBatting();
 console.log("fetchEPLStandings CHARGÉ");
 
@@ -630,3 +649,12 @@ return a.date - b.date;
 
 
 }
+
+getMLBAvgLeaders().then(data=>{
+
+console.log(
+"MLB DISPLAY DATA",
+data
+);
+
+});
