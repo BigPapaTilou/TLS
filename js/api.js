@@ -335,74 +335,37 @@ data
 );
 
 }
-async function fetchMLBBatting(){
+async function fetchMLBBatting() {
 
-try{
+    try {
 
-const response = await fetch(
-"https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/statistics"
-);
+        const response = await fetch(
+            "https://statsapi.mlb.com/api/v1/stats/leaders?leaderCategories=battingAverage&season=2026&sportId=1"
+        );
 
-const data = await response.json();
+        const data = await response.json();
 
+        const leaders = data.leagueLeaders[0].leaders;
 
-const avgLeaders =
-data.stats.categories
-.find(category => category.name === "avg")
-.leaders;
+        console.log(
+            "MLB AVG LEADERS",
+            leaders
+        );
 
-  console.log(
-"FIRST PLAYER FULL",
-avgLeaders[36]
-);  
+        return leaders;
 
-console.log(
-"FIRST PLAYER STATS",
-avgLeaders[36].statistics
-);
+    }
 
-  
-const qualifiedPlayers = avgLeaders.filter(player => {
+    catch(error){
 
-const batting =
-player.statistics?.splits?.categories
-?.find(cat => cat.name === "batting");
+        console.error(
+            "MLB AVG ERROR",
+            error
+        );
 
-const qual =
-batting?.stats.find(
-stat => stat.name === "isQualified"
-);
+        return [];
 
-return qual?.value === 1;
-
-});
-
-
-console.log(
-"QUALIFIED PLAYERS",
-qualifiedPlayers.map(p=>({
-name:p.athlete.displayName,
-team:p.team.abbreviation,
-avg:p.value
-}))
-);
-
-
-return data;
-
-
-}
-
-catch(error){
-
-console.error(
-"MLB BATTING ERROR",
-error
-);
-
-return null;
-
-}
+    }
 
 }
 fetchMLBBatting();
