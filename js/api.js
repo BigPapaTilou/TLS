@@ -257,7 +257,10 @@ console.log("EPL STATUS", response.status);
 console.log("EPL HEADERS", response.headers);
 console.log("EPL DATA TYPE", typeof data);
 console.log("EPL RAW DATA", data);
-
+console.log(
+"EPL TABLE",
+data.children[0].standings
+);
 
 return data;
 
