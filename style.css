@@ -1031,3 +1031,26 @@ transform:scale(1);
 }
 
 }
+/* =========================
+SPORTS DASHBOARD
+========================= */
+
+#stats-dashboard{
+
+height:45vh;
+
+width:100%;
+
+display:flex;
+
+flex-direction:column;
+
+gap:12px;
+
+padding:12px;
+
+box-sizing:border-box;
+
+overflow:hidden;
+
+}
