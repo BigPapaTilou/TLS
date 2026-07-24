@@ -386,8 +386,6 @@ function filterGames(games){
 const now = new Date();
 
 
-console.log("FILTER DEBUG START");
-
 
 games.forEach(game=>{
 
@@ -397,23 +395,12 @@ const hours =
 /3600000;
 
 
-console.log(
-game.sport,
-"|",
-game.state,
-"|",
-hours.toFixed(2),
-"|",
-game.team1,
-"-",
-game.team2
-);
+
 
 
 });
 
 
-console.log("FILTER DEBUG END");
 
 
 
