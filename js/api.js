@@ -335,7 +335,43 @@ data
 );
 
 }
+async function fetchMLBBatting(){
 
+try{
+
+const response = await fetch(
+
+"https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/statistics"
+
+);
+
+
+const data = await response.json();
+
+
+console.log(
+"MLB BATTING DATA",
+data
+);
+
+
+return data;
+
+
+}
+
+catch(error){
+
+console.error(
+"MLB BATTING ERROR",
+error
+);
+
+return null;
+
+}
+
+}
 
 console.log("fetchEPLStandings CHARGÉ");
 
