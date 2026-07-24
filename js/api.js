@@ -358,17 +358,15 @@ avgLeaders[36]
 
 const realAvgLeaders = avgLeaders.filter(player => {
 
-const batting =
-player.statistics?.splits?.categories?.find(cat => 
-cat.name === "batting"
-);
+const battingStats =
+player.statistics?.splits?.categories;
 
 
-if(!batting) return false;
+if(!battingStats) return false;
 
 
 const AB =
-batting.stats.find(stat => stat.name === "atBats");
+battingStats.find(stat => stat.name === "atBats");
 
 
 return AB && AB.value >= 50;
@@ -378,16 +376,21 @@ return AB && AB.value >= 50;
 
 console.log(
 "REAL MLB AVG LEADERS",
-realAvgLeaders.map(player => ({
+realAvgLeaders.map(player => {
 
+const AB =
+player.statistics.splits.categories
+.find(stat => stat.name === "atBats");
+
+
+return {
 name: player.athlete.displayName,
 team: player.team.abbreviation,
 avg: player.value,
-AB: player.statistics.splits.categories
-.find(c=>c.name==="batting")
-.stats.find(s=>s.name==="atBats").value
+AB: AB.value
+};
 
-})).slice(0,10)
+}).slice(0,10)
 );
 
 
