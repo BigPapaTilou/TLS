@@ -253,10 +253,10 @@ console.log(
 Object.keys(data)
 );
 
-console.log(
-"EPL FULL JSON",
-JSON.stringify(data, null, 2)
-);
+console.log("EPL STATUS", response.status);
+console.log("EPL HEADERS", response.headers);
+console.log("EPL DATA TYPE", typeof data);
+console.log("EPL RAW DATA", data);
 
 
 return data;
