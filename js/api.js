@@ -355,6 +355,12 @@ data
 );
 
 
+console.log(
+"AVG FIRST PLAYER",
+data.stats.categories[0].leaders[36]
+);
+
+
 return data;
 
 
