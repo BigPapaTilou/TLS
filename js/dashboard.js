@@ -79,17 +79,72 @@ async function loadLigue1Table(){
         "LIGUE 1 DASHBOARD TEST",
         ligue1
     );
-const teams =
-ligue1.children[0]
-.standings
-.entries
-.slice(0,5);
 
 
-console.log(
-    "LIGUE 1 TEAMS",
-    teams
-);
+    const teams =
+    ligue1.children[0]
+    .standings
+    .entries
+    .slice(0,5);
+
+
+    console.log(
+        "LIGUE 1 TEAMS",
+        teams
+    );
+
+
+    const container =
+    document.getElementById(
+        "ligue1-table-list"
+    );
+
+
+    if(!container){
+
+        return;
+
+    }
+
+
+    container.innerHTML = "";
+
+
+    teams.forEach(
+    (team,index)=>{
+
+
+        const points =
+        team.stats.find(
+            stat => stat.name === "points"
+        )?.value;
+
+
+        container.innerHTML +=
+
+        `
+        <div class="epl-team-row">
+
+            <img
+            src="${team.team.logos[0].href}"
+            class="team-logo"
+            >
+
+            <span>
+            ${team.team.name}
+            </span>
+
+            <strong>
+            ${points}
+            </strong>
+
+        </div>
+        `;
+
+
+    });
+
+
 }
 
 function updateDashboard(){
