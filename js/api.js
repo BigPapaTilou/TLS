@@ -335,37 +335,61 @@ data
 );
 
 }
-async function fetchMLBBatting() {
+async function fetchMLBBatting(){
 
-    try {
+try{
 
-        const response = await fetch(
-            "https://statsapi.mlb.com/api/v1/stats/leaders?leaderCategories=battingAverage&season=2026&sportId=1"
-        );
+const response = await fetch(
+"https://statsapi.mlb.com/api/v1/stats?stats=season&group=hitting&playerPool=QUALIFIED&season=2026&sportIds=1"
+);
 
-        const data = await response.json();
 
-        const leaders = data.leagueLeaders[0].leaders;
+const data = await response.json();
 
-        console.log(
-            "MLB AVG LEADERS",
-            leaders
-        );
 
-        return leaders;
+const players = data.stats;
 
-    }
 
-    catch(error){
+const leaders = players
+.sort(
+(a,b)=>b.stats.avg-a.stats.avg
+)
+.slice(0,10);
 
-        console.error(
-            "MLB AVG ERROR",
-            error
-        );
 
-        return [];
 
-    }
+console.log(
+"MLB REAL AVG LEADERS",
+leaders.map(player=>({
+
+name: player.player.fullName,
+
+avg: player.stats.avg,
+
+hits: player.stats.hits,
+
+atBats: player.stats.atBats
+
+}))
+);
+
+
+
+return leaders;
+
+
+}
+
+catch(error){
+
+console.error(
+"MLB BATTING ERROR",
+error
+);
+
+return [];
+
+}
 
 }
 fetchMLBBatting();
