@@ -722,7 +722,7 @@ let games =
 await fetchAllSports();
 
 
-console.log("LIVE RAW DATA", games.find(game => game.state === "in"));
+
 games.forEach(game => {
 
     if(game.state === "in"){
