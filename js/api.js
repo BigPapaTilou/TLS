@@ -227,7 +227,7 @@ try{
 
 const response = await fetch(
 
-"https://site.api.espn.com/apis/site/v2/sports/soccer/eng.1/standings"
+"https://site.api.espn.com/apis/v2/sports/soccer/eng.1/standings"
 
 );
 
