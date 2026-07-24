@@ -378,7 +378,7 @@ return null;
 }
 
 }
-
+fetchMLBBatting();
 console.log("fetchEPLStandings CHARGÉ");
 
 
