@@ -411,6 +411,7 @@ return leaders.map(player => ({
 
 name: player.player.fullName,
 team: player.team.name,
+logo: `https://www.mlbstatic.com/team-logos/${player.team.id}.svg`,
 avg: player.stat.avg,
 hits: player.stat.hits,
 AB: player.stat.atBats
