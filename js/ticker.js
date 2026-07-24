@@ -820,8 +820,8 @@ if (typeof fetchPGA === "function") {
     pga = await fetchPGA();
 
     console.log(
-"PGA STATUS DETAIL",
-pga[0]?.competitions?.[0]?.status
+"PGA BROADCASTS",
+pga[0]?.competitions?.[0]?.broadcasts
 );
 
   } catch (err) {
