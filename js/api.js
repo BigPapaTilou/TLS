@@ -283,7 +283,43 @@ return [];
 
 }
 
+async function fetchLigue1Standings(){
 
+try{
+
+const response = await fetch(
+
+"https://site.api.espn.com/apis/v2/sports/soccer/fra.1/standings"
+
+);
+
+
+const data = await response.json();
+
+
+console.log(
+"LIGUE 1 RAW DATA",
+data
+);
+
+
+return data;
+
+
+}
+
+catch(error){
+
+console.error(
+"LIGUE 1 ERROR",
+error
+);
+
+return null;
+
+}
+
+}
 console.log("fetchEPLStandings CHARGÉ");
 
 
