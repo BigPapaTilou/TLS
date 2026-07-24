@@ -1070,7 +1070,7 @@ hours <= 48
 });
  
 
-content += createSection(null, liveGames);
+content += createSection(null, prioritizeAlerts(liveGames));
 
 content += createSection(null, finalGames);
 
