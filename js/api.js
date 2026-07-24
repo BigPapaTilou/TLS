@@ -162,68 +162,10 @@ sport
 
 
 
-console.log(
-"ESPN RAW GAMES",
-games.length
-);
-
-
-console.log(
-"ALL STATES RAW",
-games.map(game => ({
-sport: game.sport,
-state: game.state,
-status: game.status,
-team1: game.team1,
-team2: game.team2
-}))
-);
-
-
-
-console.table(
-
-games.map(game=>({
-
-sport:game.sport,
-
-state:game.state,
-
-date:game.date,
-
-hours:
-(game.date.getTime()-new Date().getTime())/3600000,
-
-team1:game.team1,
-
-team2:game.team2
-
-}))
-
-);
-
-
 
 const filtered =
 filterGames(games);
 
-
-
-console.log(
-"FILTER RESULT",
-filtered
-);
-
-
-console.log(
-"STATES AFTER FILTER",
-filtered.map(game => ({
-sport: game.sport,
-state: game.state,
-team1: game.team1,
-team2: game.team2
-}))
-);
 
 
 
