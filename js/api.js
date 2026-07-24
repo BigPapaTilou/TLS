@@ -402,6 +402,10 @@ async function getMLBAvgLeaders(){
 
 const leaders = await fetchMLBBatting();
 
+ console.log(
+"FIRST MLB PLAYER",
+leaders[0]
+);   
 
 return leaders.map(player => ({
 
