@@ -760,10 +760,7 @@ console.log(
 };
 
 
-console.log(
-    "🚨 MLB ALERT",
-    alert
-);
+activeAlerts.push(alert);
 
     }
 
