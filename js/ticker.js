@@ -818,6 +818,12 @@ let pga = null;
 if (typeof fetchPGA === "function") {
   try {
     pga = await fetchPGA();
+
+    console.log(
+    "PGA EVENT STATUS",
+    pga[0]
+    );
+
   } catch (err) {
     console.error("PGA ERROR", err);
   }
