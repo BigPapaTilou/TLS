@@ -992,7 +992,12 @@ pga[0]?.competitions?.[0]?.status?.type?.state === "in";
 
         sport:"PGA",
         state: pgaRoundLive ? "in" : "pre",
-
+date:
+pga[0]?.date
+?
+new Date(pga[0].date)
+:
+new Date(),
         team1:
         pga[0]?.eventName ||
         pga[0]?.name ||
