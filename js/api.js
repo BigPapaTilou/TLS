@@ -197,7 +197,12 @@ const response = await fetch(
 
 const data = await response.json();
 
-console.log("PGA PLAYER", data.events[0].competitions[0].competitors[0]);    
+    console.log(
+"MLB API RAW",
+data
+);
+
+    console.log("PGA PLAYER", data.events[0].competitions[0].competitors[0]);    
 
 return data.events || null;
 
