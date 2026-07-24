@@ -71,7 +71,16 @@ async function loadEPLTable(){
 
 
 }
+async function loadLigue1Table(){
 
+    const ligue1 = await fetchLigue1Standings();
+
+    console.log(
+        "LIGUE 1 DASHBOARD TEST",
+        ligue1
+    );
+
+}
 
 function updateDashboard(){
   console.log("Dashboard update");  
@@ -183,4 +192,4 @@ function updateDashboard(){
 
 updateDashboard();
 loadEPLTable();
-fetchLigue1Standings();
+loadLigue1Table();
