@@ -762,6 +762,12 @@ console.log(
 
 activeAlerts.push(alert);
 
+
+console.log(
+    "ACTIVE ALERTS",
+    activeAlerts
+);
+
     }
 
 }
