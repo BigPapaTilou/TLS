@@ -362,40 +362,28 @@ avgLeaders[36].statistics
 );
 
   
-const realAvgLeaders = avgLeaders.filter(player => {
+const qualifiedPlayers = avgLeaders.filter(player => {
 
 const batting =
 player.statistics?.splits?.categories
 ?.find(cat => cat.name === "batting");
 
-
-if(!batting) return false;
-
-
-const qualified =
-batting.stats.find(
+const qual =
+batting?.stats.find(
 stat => stat.name === "isQualified"
 );
 
-
-console.log(
-"QUALIFIED CHECK",
-player.athlete.displayName,
-qualified
-);
-
-
-return qualified?.value === true || qualified?.value === 1;
+return qual?.value === 1;
 
 });
 
 
 console.log(
-"REAL MLB AVG LEADERS",
-realAvgLeaders.map(player => ({
-name: player.athlete.displayName,
-team: player.team.abbreviation,
-avg: player.value
+"QUALIFIED PLAYERS",
+qualifiedPlayers.map(p=>({
+name:p.athlete.displayName,
+team:p.team.abbreviation,
+avg:p.value
 }))
 );
 
