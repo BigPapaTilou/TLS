@@ -352,12 +352,12 @@ const response = await fetch(
 const data = await response.json();
 
 
-const players = data.stats;
+const players = data.stats[0].splits;
 
 
 const leaders = players
 .sort(
-(a,b)=>b.stats.avg-a.stats.avg
+(a,b)=>b.stat.avg-a.stat.avg
 )
 .slice(0,10);
 
@@ -369,11 +369,11 @@ leaders.map(player=>({
 
 name: player.player.fullName,
 
-avg: player.stats.avg,
+avg: player.stat.avg,
 
-hits: player.stats.hits,
+hits: player.stat.hits,
 
-atBats: player.stats.atBats
+atBats: player.stat.atBats
 
 }))
 );
