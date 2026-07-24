@@ -320,6 +320,24 @@ return null;
 }
 
 }
+
+async function testMLB(){
+
+const response = await fetch(
+"https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard"
+);
+
+const data = await response.json();
+
+console.log(
+"MLB RAW DATA",
+data
+);
+
+}
+
+
+
 console.log("fetchEPLStandings CHARGÉ");
 
 
