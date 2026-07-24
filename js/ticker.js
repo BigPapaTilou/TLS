@@ -175,10 +175,17 @@ return "";
 
 }
 
+let displayGames = [...games];
+
+while(displayGames.length < 8){
+
+displayGames = [...displayGames, ...games];
+
+}
 
 let html = `
 
-<div class="broadcast-section ${games.length <= 3 ? "static-section" : ""}">
+<div class="broadcast-section">
 
 <div class="section-title">
 
@@ -189,13 +196,7 @@ ${title}
 `;
 
 
-let displayGames = [...games];
 
-while(displayGames.length < 8){
-
-displayGames = [...displayGames, ...games];
-
-}
 
 
 displayGames.forEach(game=>{
