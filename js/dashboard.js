@@ -4,11 +4,6 @@
 ==============================
 */
 
-
-function updateDashboard(){
-
-
-    console.log("Dashboard update");
 async function loadEPLTable(){
 
 
@@ -60,7 +55,11 @@ async function loadEPLTable(){
 }
 
 
-    const nflFantasyPlayers = [
+function updateDashboard(){
+  console.log("Dashboard update");  
+ 
+ 
+ const nflFantasyPlayers = [
 
         "Josh Allen",
         "Saquon Barkley",
