@@ -987,14 +987,11 @@ const pgaRoundLive =
 pga[0]?.competitions?.[0]?.status?.type?.state === "in";
 
 
-console.log(
-"PGA ROUND LIVE",
-pgaRoundLive
-); 
+
  liveGames.push({
 
         sport:"PGA",
-        state:"in",
+        state: pgaRoundLive ? "in" : "pre",
 
         team1:
         pga[0]?.eventName ||
