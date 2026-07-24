@@ -723,8 +723,8 @@ await fetchAllSports();
 let epl = await fetchEPLStandings();
 
 console.log(
-"EPL TEST",
-epl
+"EPL ENTRIES",
+epl.children[0].standings.entries
 );
 
 
