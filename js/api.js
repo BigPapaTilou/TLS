@@ -249,8 +249,13 @@ const data = await response.json();
 
 
 console.log(
-"EPL STANDINGS",
-data
+"EPL STANDINGS KEYS",
+Object.keys(data)
+);
+
+console.log(
+"EPL FULL JSON",
+JSON.stringify(data, null, 2)
 );
 
 
