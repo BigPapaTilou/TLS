@@ -10,3 +10,6 @@ function updateDashboard(){
     console.log("Dashboard update");
 
 }
+
+
+updateDashboard();
