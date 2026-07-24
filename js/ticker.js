@@ -326,7 +326,7 @@ ${game.score2}
 
 
 
-
+<div class="event-alert"></div>
 
 <div class="detail">
 
