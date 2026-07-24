@@ -265,18 +265,25 @@ ${createStatus(game)}
 
 <div class="team-name">
 
+${
+game.sport === "PGA"
 
+?
+
+""
+
+:
+
+`
 <img
-
 src="${game.logo1 || 'assets/fallback.svg'}"
-
 onerror="this.src='assets/fallback.svg'"
-
 >
+`
 
+}
 
 ${game.team1}
-
 
 </div>
 
@@ -304,18 +311,25 @@ ${game.score1}
 
 <div class="team-name">
 
+${
+game.sport === "PGA"
 
+?
+
+""
+
+:
+
+`
 <img
-
 src="${game.logo2 || 'assets/fallback.svg'}"
-
 onerror="this.src='assets/fallback.svg'"
-
 >
+`
 
+}
 
 ${game.team2}
-
 
 </div>
 
