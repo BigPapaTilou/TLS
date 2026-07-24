@@ -183,3 +183,4 @@ function updateDashboard(){
 
 updateDashboard();
 loadEPLTable();
+fetchLigue1Standings();
