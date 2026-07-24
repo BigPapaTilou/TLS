@@ -1120,8 +1120,8 @@ min-height:120px;
 
 .team-logo{
 
-    width:30px;
-    height:30px;
+    width:18px;
+    height:18px;
     object-fit:contain;
     flex-shrink:0;
 
@@ -1132,6 +1132,7 @@ min-height:120px;
 
     display:flex;
     align-items:center;
-    gap:10px;
+    gap:8px;
+    height:24px;
 
 }
