@@ -1118,21 +1118,29 @@ min-height:120px;
 }
 
 
+.epl-team-row{
+
+    display:flex;
+    align-items:center;
+    gap:6px;
+    height:22px;
+
+}
+
+
 .team-logo{
 
-    width:18px;
-    height:18px;
+    width:16px;
+    height:16px;
     object-fit:contain;
     flex-shrink:0;
 
 }
 
 
-.epl-team-row{
+.epl-points{
 
-    display:flex;
-    align-items:center;
-    gap:8px;
-    height:24px;
+    margin-left:auto;
+    font-weight:800;
 
 }
