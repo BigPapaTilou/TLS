@@ -988,41 +988,45 @@ pga[0]?.competitions?.[0]?.status?.type?.state === "in";
 
 
 
- liveGames.push({
+ if(pgaRoundLive){
 
-        sport:"PGA",
-        state: pgaRoundLive ? "in" : "pre",
-date:
-pga[0]?.date
-?
-new Date(pga[0].date)
-:
-new Date(),
-        team1:
-        pga[0]?.eventName ||
-        pga[0]?.name ||
-        "PGA TOUR",
+liveGames.push({
 
-        team2:
-pgaLeader?.athlete?.displayName ||
-"Leader",
+    sport:"PGA",
+    state:"in",
 
-        score1:"",
-        score2:
-        pga[0]?.score ||
-        "",
+    date:
+    pga[0]?.date
+    ?
+    new Date(pga[0].date)
+    :
+    new Date(),
 
-        logo1:"",
-        logo2:"",
+    team1:
+    pga[0]?.eventName ||
+    pga[0]?.name ||
+    "PGA TOUR",
 
-        status:"LIVE",
+    team2:
+    pgaLeader?.athlete?.displayName ||
+    "Leader",
 
-        raw:pga
+    score1:"",
+    score2:
+    pga[0]?.score ||
+    "",
 
-    });
+    logo1:"",
+    logo2:"",
+
+    status:"LIVE",
+
+    raw:pga
+
+});
 
 }
- 
+}
 
 const finalGames = games.filter(game =>
 game.state === "post"
