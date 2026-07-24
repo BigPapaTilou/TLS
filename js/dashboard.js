@@ -221,21 +221,33 @@ if(mlbContainer){
 
 
     mlbBattingPlayers
-    .slice(0,5)
-    .forEach((player,index)=>{
+.slice(0,5)
+.forEach((player,index)=>{
 
 
-        mlbContainer.innerHTML +=
+    mlbContainer.innerHTML +=
 
-        `
-        <div>
-            ${index+1}. ${player.name}
-            <span>${player.avg}</span>
-        </div>
-        `;
+    `
+    <div class="mlb-player-row">
+
+        <img 
+        src="${player.logo}"
+        class="team-logo"
+        >
+
+        <span>
+        ${index+1}. ${player.name}
+        </span>
+
+        <strong>
+        ${player.avg}
+        </strong>
+
+    </div>
+    `;
 
 
-    });
+});
 
 
 }
