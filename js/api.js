@@ -1,4 +1,4 @@
-&éconsole.log("API JS CHARGE");
+console.log("API JS CHARGE");
 
 
 const ESPN_ENDPOINTS = {
@@ -397,19 +397,7 @@ return [];
 }
 
 }
-async function fetchMLBTeams(){
 
-const response = await fetch(
-"https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/teams"
-);
-
-const data = await response.json();
-
-return data.sports[0]
-.leagues[0]
-.teams;
-
-}
 async function getMLBAvgLeaders(){
 
 const leaders = await fetchMLBBatting();
@@ -423,7 +411,7 @@ return leaders.map(player => ({
 
 name: player.player.fullName,
 team: player.team.name,
-logo: player.team.id,
+logo: `https://www.mlbstatic.com/team-logos/${player.team.id}.png`,
 avg: player.stat.avg,
 hits: player.stat.hits,
 AB: player.stat.atBats
