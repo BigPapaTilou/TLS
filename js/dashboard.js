@@ -224,7 +224,11 @@ if(mlbContainer){
 .slice(0,5)
 .forEach((player,index)=>{
 
-
+console.log(
+"PLAYER DASHBOARD",
+player
+);
+ 
     mlbContainer.innerHTML +=
 
     `
