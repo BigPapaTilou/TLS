@@ -355,7 +355,7 @@ const data = await response.json();
 const players = data.stats[0].splits;
 
 
-const leaders = players
+const leaders = [...players]
 .sort(
 (a,b)=>b.stat.avg-a.stat.avg
 )
