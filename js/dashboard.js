@@ -4,11 +4,10 @@
 ==============================
 */
 
+
 async function loadEPLTable(){
 
-
     const epl = await fetchEPLStandings();
-
 
     const container =
     document.getElementById(
@@ -17,12 +16,10 @@ async function loadEPLTable(){
 
 
     if(!container){
-
         return;
-
     }
 
- 
+
     container.innerHTML = "";
 
 
@@ -34,17 +31,16 @@ async function loadEPLTable(){
 
 
 
-    teams.forEach(
-(team,index)=>{
+    teams.forEach((team,index)=>{
 
 
-    const points =
-    team.stats.find(
-        stat => stat.name === "points"
-    )?.value;
+        const points =
+        team.stats.find(
+            stat => stat.name === "points"
+        )?.value;
 
 
-    container.innerHTML +=
+        container.innerHTML +=
 
 `
 <div class="epl-team-row">
@@ -65,33 +61,15 @@ async function loadEPLTable(){
 </div>
 `;
 
+    });
 
 }
-);
 
 
-}
+
 async function loadLigue1Table(){
 
     const ligue1 = await fetchLigue1Standings();
-
-    console.log(
-        "LIGUE 1 DASHBOARD TEST",
-        ligue1
-    );
-
-
-    const teams =
-    ligue1.children[0]
-    .standings
-    .entries
-    .slice(0,5);
-
-
-    console.log(
-        "LIGUE 1 TEAMS",
-        teams
-    );
 
 
     const container =
@@ -101,17 +79,22 @@ async function loadLigue1Table(){
 
 
     if(!container){
-
         return;
-
     }
 
 
     container.innerHTML = "";
 
 
-    teams.forEach(
-    (team,index)=>{
+    const teams =
+    ligue1.children[0]
+    .standings
+    .entries
+    .slice(0,5);
+
+
+
+    teams.forEach((team,index)=>{
 
 
         const points =
@@ -120,198 +103,14 @@ async function loadLigue1Table(){
         )?.value;
 
 
+
         container.innerHTML +=
 
-        `
-        <div class="epl-team-row">
-
-            <img
-            src="${team.team.logos[0].href}"
-            class="team-logo"
-            >
-
-            <span>
-            ${team.team.name}
-            </span>
-
-            <strong>
-            ${points}
-            </strong>
-
-        </div>
-        `;
-
-
-    });
-
-
-}
-
-async function updateDashboard(){
-  console.log("Dashboard update");  
- 
- 
- const nflFantasyPlayers = [
-
-        "Josh Allen",
-        "Saquon Barkley",
-        "Ja'Marr Chase",
-        "Lamar Jackson",
-        "Christian McCaffrey"
-
-    ];
-
-
-
-
-    const container = 
-    document.getElementById(
-        "nfl-fantasy-list"
-    );
-
-
-
-    if(!container){
-
-        return;
-
-    }
-
-
-
-
-    container.innerHTML = "";
-
-
-
-        nflFantasyPlayers.forEach(
-        (player,index)=>{
-
-
-            container.innerHTML +=
-
-            `
-            <div>
-            ${index+1}. ${player}
-            </div>
-            `;
-
-
-        }
-
-    );
-
-
-
-
-    const mlbContainer =
-document.getElementById(
-    "mlb-batting-list"
-);
-
-
-if(mlbContainer){
-
-
-    const mlbBattingPlayers =
-    await getMLBAvgLeaders();
-
-
-    mlbContainer.innerHTML = "";
-
-
-    mlbBattingPlayers
-.slice(0,5)
-.forEach((player,index)=>{
-
-console.log(
-"PLAYER DASHBOARD",
-player
-);
- 
-    mlbContainer.innerHTML +=
-
-    `
-    <div class="mlb-player-row">
-
-        <img 
-        src="${player.logo}"
-        class="team-logo"
-        >
-
-        <span>
-        ${index+1}. ${player.name}
-        </span>
-
-        <strong>
-        ${player.avg}
-        </strong>
-
-    </div>
-    `;
-
-
-});
-
-
-}
-
-
-}
-
-
-/*
-==============================
- TLS SPORTS DASHBOARD
-==============================
-*/
-
-async function loadEPLTable(){
-
-
-    const epl = await fetchEPLStandings();
-
-
-    const container =
-    document.getElementById(
-        "epl-table-list"
-    );
-
-
-    if(!container){
-
-        return;
-
-    }
-
- 
-    container.innerHTML = "";
-
-
-    const teams =
-    epl.children[0]
-    .standings
-    .entries
-    .slice(0,5);
-
-
-
-    teams.forEach(
-(team,index)=>{
-
-
-    const points =
-    team.stats.find(
-        stat => stat.name === "points"
-    )?.value;
-
-
-    container.innerHTML +=
 
 `
 <div class="epl-team-row">
 
-    <img 
+    <img
     src="${team.team.logos[0].href}"
     class="team-logo"
     >
@@ -327,176 +126,114 @@ async function loadEPLTable(){
 </div>
 `;
 
+    });
 
 }
+
+
+
+
+async function updateDashboard(){
+
+console.log("Dashboard update");
+
+
+
+const nflFantasyPlayers = [
+
+"Josh Allen",
+"Saquon Barkley",
+"Ja'Marr Chase",
+"Lamar Jackson",
+"Christian McCaffrey"
+
+];
+
+
+
+const container =
+document.getElementById(
+    "nfl-fantasy-list"
 );
 
 
-}
-async function loadLigue1Table(){
 
-    const ligue1 = await fetchLigue1Standings();
-
-    console.log(
-        "LIGUE 1 DASHBOARD TEST",
-        ligue1
-    );
+if(container){
 
 
-    const teams =
-    ligue1.children[0]
-    .standings
-    .entries
-    .slice(0,5);
+container.innerHTML = "";
 
 
-    console.log(
-        "LIGUE 1 TEAMS",
-        teams
-    );
+nflFantasyPlayers.forEach(
+(player,index)=>{
 
 
-    const container =
-    document.getElementById(
-        "ligue1-table-list"
-    );
+container.innerHTML +=
 
+`
+<div>
+${index+1}. ${player}
+</div>
+`;
 
-    if(!container){
-
-        return;
-
-    }
-
-
-    container.innerHTML = "";
-
-
-    teams.forEach(
-    (team,index)=>{
-
-
-        const points =
-        team.stats.find(
-            stat => stat.name === "points"
-        )?.value;
-
-
-        container.innerHTML +=
-
-        `
-        <div class="epl-team-row">
-
-            <img
-            src="${team.team.logos[0].href}"
-            class="team-logo"
-            >
-
-            <span>
-            ${team.team.name}
-            </span>
-
-            <strong>
-            ${points}
-            </strong>
-
-        </div>
-        `;
-
-
-    });
-
+});
 
 }
 
-async function updateDashboard(){
-  console.log("Dashboard update");  
- 
- 
- const nflFantasyPlayers = [
-
-        "Josh Allen",
-        "Saquon Barkley",
-        "Ja'Marr Chase",
-        "Lamar Jackson",
-        "Christian McCaffrey"
-
-    ];
 
 
 
 
-    const container = 
-    document.getElementById(
-        "nfl-fantasy-list"
-    );
-
-
-
-    if(!container){
-
-        return;
-
-    }
-
-
-
-
-    container.innerHTML = "";
-
-
-
-        nflFantasyPlayers.forEach(
-        (player,index)=>{
-
-
-            container.innerHTML +=
-
-            `
-            <div>
-            ${index+1}. ${player}
-            </div>
-            `;
-
-
-        }
-
-    );
-
-
-
-
-    const mlbContainer =
+const mlbContainer =
 document.getElementById(
     "mlb-batting-list"
 );
 
 
+
 if(mlbContainer){
 
 
-    const mlbBattingPlayers =
-    await getMLBAvgLeaders();
+const mlbBattingPlayers =
+await getMLBAvgLeaders();
 
 
-    mlbContainer.innerHTML = "";
+
+mlbContainer.innerHTML = "";
 
 
-    mlbBattingPlayers
+
+mlbBattingPlayers
 .slice(0,5)
 .forEach((player,index)=>{
 
-    const logo = `https://www.mlbstatic.com/team-logos/${player.teamId}.svg`;
 
-    mlbContainer.innerHTML +=
 
-    `
-    <div class="mlb-player-row">
-        <img src="${logo}" class="team-logo">
-        <span>${index+1}. ${player.name}</span>
-        <span>${player.avg}</span>
-    </div>
-    `;
+mlbContainer.innerHTML +=
+
+
+`
+<div class="mlb-player-row">
+
+
+    <img
+    src="${player.logo}"
+    class="team-logo"
+    >
+
+
+    <span>
+    ${index+1}. ${player.name}
+    </span>
+
+
+    <strong>
+    ${player.avg}
+    </strong>
+
+
+</div>
+`;
 
 });
 
@@ -505,18 +242,26 @@ if(mlbContainer){
 
 
 }
+
+
+
 
 
 async function initDashboard(){
 
-    await updateDashboard();
 
-    await loadEPLTable();
+await updateDashboard();
 
-    await loadLigue1Table();
+
+await loadEPLTable();
+
+
+await loadLigue1Table();
+
 
 }
 
 
-initDashboard();
 
+
+initDashboard();
