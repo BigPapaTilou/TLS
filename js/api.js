@@ -680,3 +680,12 @@ data
 );
 
 });
+
+fetchMLBTeams().then(data=>{
+
+console.log(
+"ESPN MLB TEAMS",
+data
+);
+
+});
