@@ -108,7 +108,7 @@ return [];
 async function fetchAllSports(){
 
 let games=[];
-
+window.MLB_LOGO_CACHE = {};
 
 if(
 typeof CONFIG==="undefined" ||
@@ -157,10 +157,35 @@ sport
 
 );
 
+if(sport==="MLB"){
+
+events.forEach(event=>{
+
+event.competitions?.[0]?.competitors?.forEach(team=>{
+
+if(
+team.team?.displayName &&
+team.team?.logo
+){
+
+window.MLB_LOGO_CACHE[
+team.team.displayName
+] = team.team.logo;
 
 }
 
+});
 
+});
+
+}
+
+}
+
+console.log(
+"MLB LOGO CACHE",
+window.MLB_LOGO_CACHE
+);
 
 
 const filtered =
