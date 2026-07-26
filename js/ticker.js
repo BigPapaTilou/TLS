@@ -1134,7 +1134,7 @@ Aucun événement
 console.log("FINAL CONTENT CHECK", content);
  
 ticker.innerHTML =
-content + content;
+content;
 
 
 
