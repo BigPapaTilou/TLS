@@ -13,6 +13,7 @@ async function loadEPLTable(){
     document.getElementById(
         "epl-table-list"
     );
+ 
 
 
     if(!container){
