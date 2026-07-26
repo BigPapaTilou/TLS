@@ -399,6 +399,8 @@ return [];
 }
 async function fetchMLBTeams(){
 
+console.log("FETCH MLB TEAMS START");    
+    
     const response = await fetch(
     "https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/teams"
     );
