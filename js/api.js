@@ -714,11 +714,15 @@ return a.date - b.date;
 
 }
 
+fetchAllSports().then(()=>{
+
 getMLBAvgLeaders().then(data=>{
 
 console.log(
 "MLB DISPLAY DATA",
 data
 );
+
+});
 
 });
