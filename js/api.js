@@ -432,18 +432,53 @@ const leaders = await fetchMLBBatting();
 leaders[0]
 );   
 
-return leaders.map(player => ({
+return leaders.map(player => {
 
-name: player.player.fullName,
-team: player.team.name,
-avg: player.stat.avg,
-hits: player.stat.hits,
-AB: player.stat.atBats
+const teamName = player.team.name;
 
-}));
+
+return {
+
+name:
+player.player.fullName,
+
+
+team:
+teamName,
+
+
+logo:
+window.MLB_LOGO_CACHE?.[teamName]
+||
+"assets/fallback.svg",
+
+
+avg:
+player.stat.avg,
+
+
+hits:
+player.stat.hits,
+
+
+AB:
+player.stat.atBats
+
+
+};
+
+
+});
 
 }
+getMLBAvgLeaders().then(data=>{
 
+console.log(
+"MLB DISPLAY DATA",
+data
+);
+
+});
 
 fetchMLBBatting();
 console.log("fetchEPLStandings CHARGÉ");
