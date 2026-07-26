@@ -400,25 +400,30 @@ return [];
 
 async function getMLBAvgLeaders(){
 
-const leaders = await fetchMLBBatting();
+    const leaders = await fetchMLBBatting();
+    const teams = await fetchMLBTeams();
 
- console.log(
-"FIRST MLB PLAYER",
-leaders[0]
-);   
+    return leaders.map(player => {
 
-return leaders.map(player => ({
+        const espnTeam = teams.find(
+            t => t.team.id == player.team.id
+        );
 
-    name: player.player.fullName,
-    team: player.team.name,
+        return {
 
-    teamId: player.team.id,
+            name: player.player.fullName,
+            team: player.team.name,
 
-    avg: player.stat.avg,
-    hits: player.stat.hits,
-    AB: player.stat.atBats
+            logo:
+            espnTeam?.team?.logos?.[0]?.href || "",
 
-}));
+            avg: player.stat.avg,
+            hits: player.stat.hits,
+            AB: player.stat.atBats
+
+        };
+
+    });
 
 }
 
