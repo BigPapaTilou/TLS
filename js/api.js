@@ -397,26 +397,7 @@ return [];
 }
 
 }
-async function fetchMLBTeams(){
 
-console.log("FETCH MLB TEAMS START");    
-    
-    const response = await fetch(
-    "https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/teams"
-    );
-
-    const data = await response.json();
-
-    console.log(
-        "ESPN MLB TEAMS",
-        data
-    );
-
-    return data.sports[0]
-    .leagues[0]
-    .teams;
-
-}
 async function getMLBAvgLeaders(){
 
 const leaders = await fetchMLBBatting();
@@ -430,7 +411,6 @@ return leaders.map(player => ({
 
 name: player.player.fullName,
 team: player.team.name,
-logo: `https://a.espncdn.com/i/teamlogos/mlb/500/${player.team.id}.png`,
 avg: player.stat.avg,
 hits: player.stat.hits,
 AB: player.stat.atBats
@@ -678,15 +658,6 @@ getMLBAvgLeaders().then(data=>{
 
 console.log(
 "MLB DISPLAY DATA",
-data
-);
-
-});
-
-fetchMLBTeams().then(data=>{
-
-console.log(
-"ESPN MLB TEAMS",
 data
 );
 
