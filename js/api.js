@@ -409,12 +409,14 @@ leaders[0]
 
 return leaders.map(player => ({
 
-name: player.player.fullName,
-team: player.team.name,
-logo: `https://a.espncdn.com/i/teamlogos/mlb/500/${player.team.id}.png`,
-avg: player.stat.avg,
-hits: player.stat.hits,
-AB: player.stat.atBats
+    name: player.player.fullName,
+    team: player.team.name,
+
+    teamId: player.team.id,
+
+    avg: player.stat.avg,
+    hits: player.stat.hits,
+    AB: player.stat.atBats
 
 }));
 
