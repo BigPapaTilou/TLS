@@ -397,7 +397,24 @@ return [];
 }
 
 }
+async function fetchMLBTeams(){
 
+    const response = await fetch(
+    "https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/teams"
+    );
+
+    const data = await response.json();
+
+    console.log(
+        "ESPN MLB TEAMS",
+        data
+    );
+
+    return data.sports[0]
+    .leagues[0]
+    .teams;
+
+}
 async function getMLBAvgLeaders(){
 
 const leaders = await fetchMLBBatting();
